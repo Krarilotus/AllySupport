@@ -21,6 +21,41 @@ options:
     contents:
       type: boolean
       value: true
+  - url: ally-support.goods.no_pingpong
+    name: ally-support-goods-no-pingpong
+    text: '{{goods_no_pingpong}}'
+    tooltip: '{{goods_no_pingpong_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: ally-support.goods.useful
+    name: ally-support-goods-useful
+    text: '{{goods_useful}}'
+    tooltip: '{{goods_useful_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: ally-support.goods.protect
+    name: ally-support-goods-protect
+    text: '{{goods_protect}}'
+    tooltip: '{{goods_protect_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: ally-support.goods.give_share
+    name: ally-support-goods-give-share
+    text: '{{goods_give_share}}'
+    tooltip: '{{goods_give_share_tooltip}}'
+    display: Number
+    contents:
+      type: integer
+      value: 30
+      min: 5
+      max: 100
+      step: 5
 
 - display: GroupBox
   category: [Ally Support]
@@ -44,6 +79,38 @@ options:
     contents:
       type: boolean
       value: true
+  - url: ally-support.gold.line
+    name: ally-support-gold-line
+    text: '{{gold_line}}'
+    tooltip: '{{gold_line_tooltip}}'
+    display: Choice
+    contents:
+      type: string
+      value: recruit
+      choices:
+      - name: recruit
+        text: '{{gold_line_recruit}}'
+      - name: rich
+        text: '{{gold_line_rich}}'
+  - url: ally-support.gold.recruit
+    name: ally-support-gold-recruit
+    text: '{{gold_recruit}}'
+    tooltip: '{{gold_recruit_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: ally-support.gold.recruit_buffer
+    name: ally-support-gold-recruit-buffer
+    text: '{{gold_recruit_buffer}}'
+    tooltip: '{{gold_recruit_buffer_tooltip}}'
+    display: Number
+    contents:
+      type: integer
+      value: 300
+      min: 0
+      max: 2000
+      step: 50
   - url: ally-support.gold.factor
     name: ally-support-gold-factor
     text: '{{gold_factor}}'

@@ -27,13 +27,28 @@
      Statistics (goods sent / received by value) are added as the game adds them. A weak ally
      (aiStrengthFeeling 1) gets up to half of what it asked for if the giver can spare that by
      going down to half its trade minimum.
-  2. Gold: a lord asked for goods that holds at least 100 x its MinimumGoodsRequiredAfterTrade in
-     gold also sends the asker a share of the gold above that line.
+  2. Gold: a lord asked for goods that holds more than its gold line also sends the asker a
+     share of the gold above that line. The line is twice its recruit line (AIC
+     RecruitGoldThreshold + a buffer) by default, or 100 x its MinimumGoodsRequiredAfterTrade.
   2b. Asking: the game's requestGoods only reaches human allies, so a lord that wants goods it
      cannot afford offers the request to its AI allies directly (by the game's request rules),
      and asks for the gold it is still short - AI allies directly (they send it if they stay
      above their gold line, see 2; a weak ally up to half, going down to half the line), human
      allies through requestGoods with resource 15, which their ally screen shows and answers.
+  2c. Sharing that helps (each a setting; a game log showed allies passing the same 90 stone
+     back and forth every second or two):
+     - No ping-pong: a filled request clears the asker's resourcesToAcquire entry (as a purchase
+       does), a lord never gives a good it wants itself, nor one it got from an ally in the last
+       REGIFT_MONTHS.
+     - Only what helps: just what the asker wants (the game asks double), never more than it
+       can store (AIC Max* + MaxResourceVariance, else sellExcessGoods sells it at a loss),
+       weapons and food first, building materials only while the asker is not threatened.
+     - Givers protected: a threatened or weak lord gives nothing, a giver must have a higher
+       aiStrengthState than the asker (best off asked first), and gives at most a share of each
+       good per month.
+     - Gold for recruits: a weak or threatened lord short of its recruit line gets the gold from
+       a better-off ally's surplus above its gold line.
+     - Diagnostics: a monthly summary of what each AI lord gave and got and how it stands.
   3. Help: an idle AI that is not nervous and has its AIC's support threshold of attack troops
      answers a nervous AI ally the way it answers the player: requestStateUnk = 2,
      playerID_askerUnk = the ally. The AI's own state machine then sends the attack troops to
@@ -68,8 +83,10 @@
 local MODULE_NAME = "ally-support"
 
 local DEFAULTS = {
-  goods = { enabled = true, weak = true },
-  gold = { enabled = true, factor = 100, share = 25, ask = true },
+  goods = { enabled = true, weak = true, no_pingpong = true, useful = true, protect = true,
+    give_share = 30 },
+  gold = { enabled = true, factor = 100, share = 25, ask = true, line = "recruit", recruit = true,
+    recruit_buffer = 300 },
   help = { enabled = true, months = 6, recall = "strong" },
   army = { enabled = true, share = 75 },
   gates = { enabled = true, keep = true },
@@ -168,12 +185,19 @@ local P = {
   AI_TYPE = 0x2300, AI_STATE = 0x2BA4, ATTACK_TROOPS = 0x30F0, TRIBE_IDS = 0x310C,
   TRIBE_UIDS = 0x329C, NERVOUS = 0x3820, REQUESTED = 0x3824, REQUESTED_AMOUNT = 0x3838,
   REQUEST_STATE = 0x384C, ASKER = 0x38E4, TO_ACQUIRE = 0x2A70, TOTAL_FOOD = 0x209C,
-  REQUEST_DELAY = 0x3898, STRENGTH_FEELING = 0x30F4, ATTACK_ENGINEERS = 0x2BA8,
+  REQUEST_DELAY = 0x3898, STRENGTH_FEELING = 0x30F4, ATTACK_ENGINEERS = 0x2BA8, STRENGTH_STATE = 0x2B74,
   WAVE_EXTRA = 0x38A0,
 }
 local T = { UID = 0x34, STATE = 0x40 }
 -- AIC fields live in the AI state object: (character - 1) * 0x2A4 + field.
-local AIC = { STRIDE = 0x2A4, REQUEST_DELAY = 0xA0, MIN_GOODS = 0xA4, ATTACK_FORCE = 0x1F4, SUPPORT_THRESHOLD = 0x1FC }
+local AIC = { STRIDE = 0x2A4, REQUEST_DELAY = 0xA0, MIN_GOODS = 0xA4, VARIANCE = 0xC0, RECRUIT_GOLD = 0xC4,
+  ATTACK_FORCE = 0x1F4, SUPPORT_THRESHOLD = 0x1FC }
+-- The AIC storage limit sellExcessGoods holds each good to (the game's AIResourceTradeAICMapping,
+-- the same in both executables): MaxWood 0xAC, MaxStone 0xB0, MaxFood 0x80, MaxBeer 0xBC,
+-- MaxEquipment 0xB8, MaxResourceOther 0xB4 for the rest.
+local CAP_FIELD = { [2] = 0xAC, [3] = 0xB4, [4] = 0xB0, [6] = 0xB4, [7] = 0xB4, [9] = 0x80, [10] = 0x80,
+  [11] = 0x80, [12] = 0x80, [13] = 0x80, [14] = 0xBC, [16] = 0xB4 }
+for resource = 17, 24 do CAP_FIELD[resource] = 0xB8 end
 
 local GOLD = 15
 local LORD_TYPE = 55
@@ -183,6 +207,7 @@ local HELP_PAUSE_MONTHS = 3     -- after its help ends, a lord waits this long (
                                 -- attack) before it helps again
 local GOLD_MIN_FLOOR = 10       -- a trade minimum below this counts as this for the gold line
 local RETRY_WEEKS = 4           -- after a refused request a lord waits this many AI cycles
+local REGIFT_MONTHS = 3         -- a good got from an ally is not given away for this long
 local GOLD_ASK_MAX = 30000      -- the request slot is a short
 local LOAD_GAP = 4000           -- a jump in the tick counter this big is a load
 
@@ -266,6 +291,10 @@ local helpSince = {}    -- per AI player helping an AI: { asker, month } the hel
 local pause = {}        -- per AI player: month its last help ended
 local retry = {}        -- per AI player: AI cycles left before it asks again after a refusal
 local wasHelping = {}   -- per AI player: it was helping someone at its last cycle
+local gifts = {}        -- per AI player: { month, [good] = amount } given away this month
+local received = {}     -- per AI player: { [good] = month } it last got that good from an ally
+local tally = {}        -- per AI player: this month's goods value and gold given and got
+local lastMonth = nil
 local lastTick = nil
 local broken = false
 
@@ -294,6 +323,7 @@ local function team(p) return rd32(G.teams + p * 4) end
 local function isAI(p) return rd32(player(p) + P.AI_TYPE) ~= 0 end
 local function nervous(p) return rd32(player(p) + P.NERVOUS) ~= 0 end
 local function gold(p) return rd32(player(p) + P.RESOURCES + GOLD * 4) end
+local function months() return rd32(G.year) * 12 + rd32(G.month) end
 
 -- Same non-zero team: team 0 means allied with nobody.
 local function allies(a, b)
@@ -321,18 +351,44 @@ local function clearRequest(p, from)
   wr16(player(p) + P.REQUESTED_AMOUNT + from * 2, 0)
 end
 
--- The gold a lord always keeps: the "rich" line, a multiple of its AIC trade minimum.
-local function goldLine(h) return O.goldFactor * math.max(aic(h, AIC.MIN_GOODS), GOLD_MIN_FLOOR) end
+local function stock(p, resource) return rd32(player(p) + P.RESOURCES + resource * 4) end
+local function wishes(p, resource) return rd32(player(p) + P.TO_ACQUIRE + resource * 4) end
+local function weak(p) return rd32(player(p) + P.STRENGTH_FEELING) == WEAK end
+local function strength(p) return rd32(player(p) + P.STRENGTH_STATE) end
 
-local function shareGold(h, r)
-  local line = goldLine(h)
-  local have = gold(h)
-  if have < line or have <= gold(r) then return end
-  local gift = (have - line) * O.goldShare // 100
-  if gift <= 0 then return end
-  wr32(player(h) + P.RESOURCES + GOLD * 4, have - gift)
-  wr32(player(r) + P.RESOURCES + GOLD * 4, gold(r) + gift)
-  diag("player %d sends player %d %d gold (had %d, keeps at least %d)", h, r, gift, have, line)
+-- What a lord stores before sellExcessGoods sells the rest: its AIC limit for the kind of good
+-- (the game's AIResourceTradeAICMapping) plus MaxResourceVariance. nil = no limit.
+local function storageLimit(p, resource)
+  local field = CAP_FIELD[resource]
+  if field == nil then return nil end
+  return aic(p, field) + aic(p, AIC.VARIANCE)
+end
+
+-- The gold a lord always keeps. "recruit": twice what it needs to recruit (its AIC
+-- RecruitGoldThreshold plus the recruiting buffer). "rich": a multiple of its trade minimum.
+local function recruitLine(p) return math.max(0, aic(p, AIC.RECRUIT_GOLD)) + O.recruitBuffer end
+local function goldLine(h)
+  if O.goldLine == "recruit" then return 2 * recruitLine(h) end
+  return O.goldFactor * math.max(aic(h, AIC.MIN_GOODS), GOLD_MIN_FLOOR)
+end
+
+-- Book-keeping: what each lord gave away this month (the monthly allowance), when it last got
+-- each good from an ally (no passing it on), and the month's totals for the log summary.
+local function givenThisMonth(h)
+  local g = gifts[h]
+  local m = months()
+  if g == nil or g.month ~= m then
+    g = { month = m }
+    gifts[h] = g
+  end
+  return g
+end
+
+local function count(h, r, key, value)
+  tally[h] = tally[h] or { gave = 0, got = 0, gaveGold = 0, gotGold = 0 }
+  tally[r] = tally[r] or { gave = 0, got = 0, gaveGold = 0, gotGold = 0 }
+  tally[h]["gave" .. key] = tally[h]["gave" .. key] + value
+  tally[r]["got" .. key] = tally[r]["got" .. key] + value
 end
 
 -- Moves goods the way the game does when an AI ally sends the player what they asked for,
@@ -343,16 +399,14 @@ local function sendGoods(h, r, resource, amount)
   local value = F.sellPrice(G.gameState, h, resource, amount)
   wr32(G.goodsReceived + r * 4, rd32(G.goodsReceived + r * 4) + value)
   wr32(G.goodsSent + h * 4, rd32(G.goodsSent + h * 4) + value)
-end
-
--- How much h sends of a request: all of it if it keeps its AIC trade minimum afterwards (the
--- game's own test). A weak ally gets up to half of it if h can spare that by going down to half
--- its trade minimum.
-local function shipment(h, r, resource, amount)
-  if F.enough(G.aiState, h, resource, amount) ~= 0 then return amount end
-  if not O.goodsWeak or rd32(player(r) + P.STRENGTH_FEELING) ~= WEAK then return 0 end
-  local spare = rd32(player(h) + P.RESOURCES + resource * 4) - (aic(h, AIC.MIN_GOODS) + 1) // 2
-  return math.max(0, math.min(amount // 2, spare))
+  local g = givenThisMonth(h)
+  g[resource] = (g[resource] or 0) + amount
+  received[r] = received[r] or {}
+  received[r][resource] = months()
+  count(h, r, "", value)
+  -- The asker's wish is met, as a purchase would meet it (buyRequiredGoods zeroes the entry);
+  -- left standing it asks again as soon as its request delay is over.
+  if O.noPingPong then wr32(player(r) + P.TO_ACQUIRE + resource * 4, 0) end
 end
 
 -- Gold moves as the game moves it when the player sends gold (straight between treasuries,
@@ -362,17 +416,91 @@ local function sendGold(h, r, amount)
   wr32(player(r) + P.RESOURCES + GOLD * 4, gold(r) + amount)
   wr32(G.goodsReceived + r * 4, rd32(G.goodsReceived + r * 4) + amount)
   wr32(G.goodsSent + h * 4, rd32(G.goodsSent + h * 4) + amount)
+  local g = givenThisMonth(h)
+  g[GOLD] = (g[GOLD] or 0) + amount
+  count(h, r, "Gold", amount)
+end
+
+-- May h give anything to r? An AI ally, and - with givers protected - not threatened or weak
+-- itself and better off than r (its monthly aiStrengthState, the score its strong / normal /
+-- weak feeling comes from, is higher).
+local function mayGive(h, r)
+  if h == r or not isAI(h) or not lordAlive(h) or not allies(h, r) then return false end
+  if O.protect and (nervous(h) or weak(h) or strength(h) <= strength(r)) then return false end
+  return true
+end
+
+-- What h may still give away of a good this month: the share of its stock (counting what it
+-- already gave this month).
+local function allowance(h, resource, have)
+  if not O.protect then return have end
+  local done = givenThisMonth(h)[resource] or 0
+  return math.max(0, (have + done) * O.giveShare // 100 - done)
+end
+
+-- How much h sends of a request for goods: all of it if it keeps its AIC trade minimum
+-- afterwards (the game's own test); a weak ally gets up to half of it if h can spare that by
+-- going down to half its trade minimum. Then the new limits: never a good h wants itself or got
+-- from an ally lately, never more than r can store, never more than h's monthly allowance.
+local function goodsAmount(h, r, resource, amount)
+  if O.noPingPong then
+    if wishes(h, resource) > 0 then return 0 end
+    local got = received[h] and received[h][resource]
+    if got ~= nil and got <= months() and months() - got < REGIFT_MONTHS then return 0 end
+  end
+  local send = 0
+  if F.enough(G.aiState, h, resource, amount) ~= 0 then
+    send = amount
+  elseif O.goodsWeak and weak(r) then
+    send = math.min(amount // 2, stock(h, resource) - (aic(h, AIC.MIN_GOODS) + 1) // 2)
+  end
+  if send > 0 and O.useful then
+    local limit = storageLimit(r, resource)
+    if limit ~= nil then send = math.min(send, limit - stock(r, resource)) end
+  end
+  if send > 0 then send = math.min(send, allowance(h, resource, stock(h, resource))) end
+  return math.max(0, send)
 end
 
 -- Gold asked for: all of it if h stays above its gold line, a weak ally up to half of it if h
--- can spare that by going down to half its line.
-local function goldShipment(h, r, amount)
+-- can spare that by going down to half its line; within h's monthly allowance.
+local function goldAmount(h, r, amount)
   local line = goldLine(h)
-  if gold(h) - amount >= line then return amount end
-  if not O.goodsWeak or rd32(player(r) + P.STRENGTH_FEELING) ~= WEAK then return 0 end
-  return math.max(0, math.min(amount // 2, gold(h) - (line + 1) // 2))
+  local send = 0
+  if gold(h) - amount >= line then
+    send = amount
+  elseif O.goodsWeak and weak(r) then
+    send = math.min(amount // 2, gold(h) - (line + 1) // 2)
+  end
+  if send > 0 then send = math.min(send, allowance(h, GOLD, gold(h))) end
+  return math.max(0, send)
 end
 
+-- The allies that may give to r, best off first (highest aiStrengthState, then most gold).
+local function givers(r)
+  local list = {}
+  for h = 1, 8 do
+    if mayGive(h, r) then list[#list + 1] = h end
+  end
+  table.sort(list, function(a, b)
+    if strength(a) ~= strength(b) then return strength(a) > strength(b) end
+    if gold(a) ~= gold(b) then return gold(a) > gold(b) end
+    return a < b
+  end)
+  return list
+end
+
+local function shareGold(h, r)
+  local line = goldLine(h)
+  local have = gold(h)
+  if have < line or have <= gold(r) then return end
+  local gift = math.min((have - line) * O.goldShare // 100, allowance(h, GOLD, have))
+  if gift <= 0 then return end
+  sendGold(h, r, gift)
+  diag("player %d sends player %d %d gold (had %d, keeps at least %d)", h, r, gift, have, line)
+end
+
+-- Requests in AI slots (the player's own ones never land there, but other modules' might).
 local function answerRequests(h)
   local base = player(h)
   for r = 1, 8 do
@@ -380,12 +508,12 @@ local function answerRequests(h)
     if r ~= h and resource > 0 then
       local amount = rd16(base + P.REQUESTED_AMOUNT + r * 2)
       clearRequest(h, r)
-      if allies(h, r) and isAI(r) and lordAlive(r) and amount > 0 then
+      if isAI(r) and lordAlive(r) and amount > 0 and mayGive(h, r) then
         local send = 0
         if resource == GOLD then
-          if O.goldAsk then send = goldShipment(h, r, amount) end
+          if O.goldAsk then send = goldAmount(h, r, amount) end
         elseif O.goods then
-          send = shipment(h, r, resource, amount)
+          send = goodsAmount(h, r, resource, amount)
         end
         if send > 0 then
           if resource == GOLD then sendGold(h, r, send) else sendGoods(h, r, resource, send) end
@@ -395,15 +523,163 @@ local function answerRequests(h)
               clearRequest(o, r)
             end
           end
+          if O.gold and resource ~= GOLD then shareGold(h, r) end
         else
-          -- Denied: the slot is already empty, as the player's deny button leaves it, so the
-          -- ally can ask again.
           diag("player %d can't spare %d of resource %d for player %d", h, amount, resource, r)
         end
-        if O.gold and resource ~= GOLD then shareGold(h, r) end
       end
     end
   end
+end
+
+---------------------------------------------------------------------------------------
+-- 2b: AI lords ask their AI allies directly
+---------------------------------------------------------------------------------------
+
+-- The game's requestGoods only writes into the slots of human teammates (it skips every player
+-- whose CurrentPlayerFullIDArray entry is -1, i.e. every AI), so an AI ally never hears of a
+-- request. When a lord wants goods (resourcesToAcquireArray, what buyRequiredGoods buys) it
+-- cannot afford, it offers the request to its AI allies here, by the game's request rules: never
+-- hops, wheat or ale, food only when it has less than 5 left; the game asks twice what it wants,
+-- with "only what helps" just what it wants. Weapons and food come first, and building materials
+-- only while the asker is not in danger. What it still can't afford it asks gold for - from AI
+-- allies here, from human allies with the game's own requestGoods (they see it on their ally
+-- screen). The AIC's AIRequestDelay applies as in the game.
+local NEVER_ASKED = { [3] = true, [9] = true, [14] = true }
+local FOOD_FIRST, FOOD_LAST, STARVING = 10, 13, 5
+local WEAPONS_FIRST, WEAPONS_LAST = 17, 24
+
+local function priority(resource)
+  if resource >= WEAPONS_FIRST and resource <= WEAPONS_LAST then return 1 end
+  if resource >= FOOD_FIRST and resource <= FOOD_LAST then return 2 end
+  return 3
+end
+
+local function askAllies(r)
+  local base = player(r)
+  -- The AIC request delay, kept the game's way: requestGoods asks only while PlayerData
+  -- aiRequestDelay is 0, an accepted request sets it to the AIC's AIRequestDelay (as
+  -- playThanksBikFromPlayerToPlayer does when the player sends goods), and updateAIBehaviour
+  -- counts it down by one each AI cycle (a week). After a refusal the lord waits RETRY_WEEKS.
+  if rd32(base + P.REQUEST_DELAY) > 0 then return end
+  if (retry[r] or 0) > 0 then
+    retry[r] = retry[r] - 1
+    return
+  end
+  local wants, total, cheapest = {}, 0, nil
+  for resource = 0, 24 do
+    local want = wishes(r, resource)
+    if want > 0 and resource ~= GOLD then
+      local price = F.buyPrice(G.gameState, r, resource, want)
+      total = total + price
+      if cheapest == nil or price < cheapest then cheapest = price end
+      if gold(r) < price then
+        wants[#wants + 1] = { resource = resource, amount = O.useful and want or want * 2 }
+      end
+    end
+  end
+  if #wants == 0 then return end
+  if O.useful then
+    table.sort(wants, function(a, b)
+      if priority(a.resource) ~= priority(b.resource) then
+        return priority(a.resource) < priority(b.resource)
+      end
+      return a.resource < b.resource
+    end)
+  end
+  local accepted = false
+  local list = givers(r)
+
+  if O.goods then
+    local starving = rd32(base + P.TOTAL_FOOD) < STARVING
+    local danger = nervous(r)
+    for _, w in ipairs(wants) do
+      local food = w.resource >= FOOD_FIRST and w.resource <= FOOD_LAST
+      local material = priority(w.resource) == 3
+      if not NEVER_ASKED[w.resource] and (starving or not food)
+          and not (O.useful and material and danger) then
+        local given = false
+        for _, h in ipairs(list) do
+          if not given then
+            local send = goodsAmount(h, r, w.resource, w.amount)
+            if send > 0 then
+              sendGoods(h, r, w.resource, send)
+              given = true
+              accepted = true
+              diag("player %d sends player %d %d of %d asked of resource %d", h, r, send, w.amount,
+                w.resource)
+              if O.gold then shareGold(h, r) end
+            end
+          end
+        end
+        if not given then
+          diag("no AI ally of player %d can spare %d of resource %d", r, w.amount, w.resource)
+        end
+      end
+    end
+  end
+
+  if O.goldAsk and cheapest ~= nil and gold(r) < cheapest then
+    local amount = math.min(total - gold(r), GOLD_ASK_MAX)
+    if amount > 0 then
+      local given = false
+      for _, h in ipairs(list) do
+        if not given then
+          local send = goldAmount(h, r, amount)
+          if send > 0 then
+            sendGold(h, r, send)
+            given = true
+            accepted = true
+            diag("player %d sends player %d %d of %d gold asked", h, r, send, amount)
+          end
+        end
+      end
+      if not given then
+        diag("no AI ally of player %d can spare %d gold", r, amount)
+        F.requestGoods(G.aiState, r, GOLD, amount)       -- human allies see it on their ally screen
+      end
+    end
+  end
+  if accepted then
+    wr32(base + P.REQUEST_DELAY, math.max(0, aic(r, AIC.REQUEST_DELAY)))
+  else
+    retry[r] = RETRY_WEEKS
+  end
+end
+
+-- A weak or threatened lord that can't pay for recruits gets the gold from a better-off ally:
+-- up to its recruit line (AIC RecruitGoldThreshold plus the recruiting buffer), from what the
+-- giver has above its own gold line. Also bound by the request delay and the monthly allowance.
+local function recruitGold(r)
+  if rd32(player(r) + P.REQUEST_DELAY) > 0 then return end
+  if not (weak(r) or nervous(r)) then return end
+  local need = recruitLine(r) - gold(r)
+  if need <= 0 then return end
+  for _, h in ipairs(givers(r)) do
+    local send = math.min(need, gold(h) - goldLine(h), allowance(h, GOLD, gold(h)))
+    if send > 0 then
+      sendGold(h, r, send)
+      wr32(player(r) + P.REQUEST_DELAY, math.max(0, aic(r, AIC.REQUEST_DELAY)))
+      diag("player %d pays player %d %d gold for recruits (it had %d, needs %d)", h, r, send,
+        gold(r) - send, recruitLine(r))
+      return
+    end
+  end
+end
+
+-- Once a month, with diagnostics on: what each AI lord gave and got and how it stands.
+local function monthlySummary()
+  for p = 1, 8 do
+    if isAI(p) and lordAlive(p) and team(p) ~= 0 then
+      local t = tally[p] or { gave = 0, got = 0, gaveGold = 0, gotGold = 0 }
+      local feeling = ({ [0] = "normal", [1] = "weak", [2] = "strong" })[rd32(player(p) + P.STRENGTH_FEELING)]
+        or "?"
+      diag("month summary, player %d: gave goods worth %d and %d gold, got goods worth %d and %d gold; "
+        .. "%s (strength %d)%s, %d gold, %d attack troops", p, t.gave, t.gaveGold, t.got, t.gotGold,
+        feeling, strength(p), nervous(p) and ", threatened" or "", gold(p), rd32(player(p) + P.ATTACK_TROOPS))
+    end
+  end
+  tally = {}
 end
 
 ---------------------------------------------------------------------------------------
@@ -416,7 +692,6 @@ end
 
 local function needsHelp(r, h) return canBeHelped(r, h) and nervous(r) end
 
-local function months() return rd32(G.year) * 12 + rd32(G.month) end
 local function strong(r) return rd32(player(r) + P.STRENGTH_FEELING) == STRONG end
 
 -- The game's own "ready to attack" test (aiShouldAttackOrWaitForTeamCoordination): attack troops
@@ -468,99 +743,6 @@ local function answerHelp(h)
       diag("player %d comes to help player %d", h, r)
       return
     end
-  end
-end
-
----------------------------------------------------------------------------------------
--- 2b: AI lords ask their AI allies directly
----------------------------------------------------------------------------------------
-
--- The game's requestGoods only writes into the slots of human teammates (it skips every player
--- whose CurrentPlayerFullIDArray entry is -1, i.e. every AI), so an AI ally never hears of a
--- request. When a lord wants goods (resourcesToAcquireArray, what buyRequiredGoods buys) it
--- cannot afford, it offers the request to its AI allies here, by the game's request rules:
--- twice the amount, never hops, wheat or ale, food only when it has less than 5 left. What it
--- still can't afford it asks gold for - from AI allies here, from human allies with the game's
--- own requestGoods (they see it on their ally screen). The AIC's AIRequestDelay applies as in
--- the game.
-local NEVER_ASKED = { [3] = true, [9] = true, [14] = true }
-local FOOD_FIRST, FOOD_LAST, STARVING = 10, 13, 5
-
-local function askAllies(r)
-  local base = player(r)
-  -- The AIC request delay, kept the game's way: requestGoods asks only while PlayerData
-  -- aiRequestDelay is 0, an accepted request sets it to the AIC's AIRequestDelay (as
-  -- playThanksBikFromPlayerToPlayer does when the player sends goods), and updateAIBehaviour
-  -- counts it down by one each AI cycle (a week). After a refusal the lord waits RETRY_WEEKS.
-  if rd32(base + P.REQUEST_DELAY) > 0 then return end
-  if (retry[r] or 0) > 0 then
-    retry[r] = retry[r] - 1
-    return
-  end
-  local wants, total, cheapest = {}, 0, nil
-  for resource = 0, 24 do
-    local want = rd32(base + P.TO_ACQUIRE + resource * 4)
-    if want > 0 and resource ~= GOLD then
-      local price = F.buyPrice(G.gameState, r, resource, want)
-      total = total + price
-      if cheapest == nil or price < cheapest then cheapest = price end
-      if gold(r) < price then wants[#wants + 1] = { resource = resource, amount = want * 2 } end
-    end
-  end
-  if #wants == 0 then return end
-  local accepted = false
-
-  if O.goods then
-    local starving = rd32(base + P.TOTAL_FOOD) < STARVING
-    for _, w in ipairs(wants) do
-      local food = w.resource >= FOOD_FIRST and w.resource <= FOOD_LAST
-      if not NEVER_ASKED[w.resource] and (starving or not food) then
-        local given = false
-        for h = 1, 8 do
-          if not given and h ~= r and isAI(h) and lordAlive(h) and allies(h, r) then
-            local send = shipment(h, r, w.resource, w.amount)
-            if send > 0 then
-              sendGoods(h, r, w.resource, send)
-              given = true
-              accepted = true
-              diag("player %d sends player %d %d of %d asked of resource %d", h, r, send, w.amount,
-                w.resource)
-              if O.gold then shareGold(h, r) end
-            end
-          end
-        end
-        if not given then
-          diag("no AI ally of player %d can spare %d of resource %d", r, w.amount, w.resource)
-        end
-      end
-    end
-  end
-
-  if O.goldAsk and cheapest ~= nil and gold(r) < cheapest then
-    local amount = math.min(total - gold(r), GOLD_ASK_MAX)
-    if amount > 0 then
-      local given = false
-      for h = 1, 8 do
-        if not given and h ~= r and isAI(h) and lordAlive(h) and allies(h, r) then
-          local send = goldShipment(h, r, amount)
-          if send > 0 then
-            sendGold(h, r, send)
-            given = true
-            accepted = true
-            diag("player %d sends player %d %d of %d gold asked", h, r, send, amount)
-          end
-        end
-      end
-      if not given then
-        diag("no AI ally of player %d can spare %d gold", r, amount)
-        F.requestGoods(G.aiState, r, GOLD, amount)       -- human allies see it on their ally screen
-      end
-    end
-  end
-  if accepted then
-    wr32(base + P.REQUEST_DELAY, math.max(0, aic(r, AIC.REQUEST_DELAY)))
-  else
-    retry[r] = RETRY_WEEKS
   end
 end
 
@@ -855,7 +1037,8 @@ local function checkLoad()
   local tick = rd32(G.ticks)
   if lastTick == nil or tick < lastTick or tick - lastTick > LOAD_GAP then
     kept, swept, visitors, visitorUnits, gates, ordered, helpSince = {}, {}, {}, {}, {}, {}, {}
-    pause, wasHelping, retry = {}, {}, {}
+    pause, wasHelping, retry, gifts, received, tally = {}, {}, {}, {}, {}, {}
+    lastMonth = nil
     if G.gateFlags ~= nil then
       for id = 0, B.MAX - 1 do wr8(G.gateFlags + id, 0) end
     end
@@ -878,6 +1061,13 @@ local function update(h)
     end
   end
   if O.goods or O.goldAsk then askAllies(h) end
+  if O.goldRecruit then recruitGold(h) end
+  local month = months()
+  if lastMonth ~= nil and month ~= lastMonth and O.log then monthlySummary() end
+  if month ~= lastMonth then
+    if not O.log then tally = {} end
+    lastMonth = month
+  end
   if O.help then answerHelp(h) end
   if O.army then keepHome(h) end
   if O.gates then watchGates(h) end
@@ -1006,10 +1196,17 @@ local function enable(self, config)
   config = config or {}
   O.goods = setting(config, "goods", "enabled") == true
   O.goodsWeak = setting(config, "goods", "weak") == true
+  O.noPingPong = setting(config, "goods", "no_pingpong") == true
+  O.useful = setting(config, "goods", "useful") == true
+  O.protect = setting(config, "goods", "protect") == true
+  O.giveShare = number(setting(config, "goods", "give_share"), 1, 100)
   O.gold = setting(config, "gold", "enabled") == true
   O.goldFactor = number(setting(config, "gold", "factor"), 1, 10000)
   O.goldShare = number(setting(config, "gold", "share"), 0, 100)
   O.goldAsk = setting(config, "gold", "ask") == true
+  O.goldLine = setting(config, "gold", "line") == "rich" and "rich" or "recruit"
+  O.goldRecruit = setting(config, "gold", "recruit") == true
+  O.recruitBuffer = number(setting(config, "gold", "recruit_buffer"), 0, 5000)
   if O.goldShare == 0 then O.gold = false end
   O.help = setting(config, "help", "enabled") == true
   O.stayMonths = number(setting(config, "help", "months"), 0, 120)
@@ -1020,7 +1217,7 @@ local function enable(self, config)
   O.gates = setting(config, "gates", "enabled") == true
   O.onKeep = setting(config, "gates", "keep") == true
   O.log = setting(config, "diagnostics", "log") == true
-  if not (O.goods or O.gold or O.goldAsk or O.help or O.army or O.gates) then
+  if not (O.goods or O.gold or O.goldAsk or O.goldRecruit or O.help or O.army or O.gates) then
     log(INFO, MODULE_NAME .. ": every part is off")
     return
   end

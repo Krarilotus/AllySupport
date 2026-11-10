@@ -1,7 +1,7 @@
 # Ally Support
 
 **Author**: Monsterfish
-**Version**: 1.0.10
+**Version**: 1.0.11
 
 AI allies help each other the way they already help you. Every part can be switched off in the
 settings.
@@ -24,10 +24,27 @@ all the time. What they send shows in the goods sent / received statistics at th
 If the asking ally is in a weak state and the giver can't spare the full amount, it still
 sends up to half of what was asked for, going down to half of its own minimum if it must.
 
+## Sharing that actually helps
+
+Each of these is a setting, all on by default:
+
+- **No passing back and forth.** A filled request is crossed off the asker's shopping list, a
+  lord never gives away something it wants itself, and goods it got from an ally aren't passed
+  on for 3 months. (Before, two allies could bounce the same stone between them every second.)
+- **Only what helps.** An ally sends what was actually wanted, never more than the asker can
+  store (the rest would be sold at a loss). Weapons and food come first; wood, stone and other
+  building materials only while the asker isn't under threat.
+- **Only better-off allies give.** A lord that is under threat or weak gives nothing away, and
+  only an ally doing better than the asker gives - the best-off one is asked first. Each lord
+  gives away at most 30% of any good, gold included, per month.
+- **Gold for recruits.** A weak or threatened lord that can't afford to recruit gets the gold
+  from a better-off ally. A lord now keeps twice what it needs for its own recruiting rather
+  than a flat 1000 gold (the old rule is still a choice).
+
 ## Gold
 
-A rich AI ally that is asked for goods also sends gold. Rich means it has at least 100 times
-its trade minimum in gold. It sends a quarter of what it has above that line, and only to an
+A rich AI ally that is asked for goods also sends gold. Rich means it has more than the gold it
+always keeps (see above). It sends a quarter of what it has above that line, and only to an
 ally poorer than itself.
 
 ## Asking for gold

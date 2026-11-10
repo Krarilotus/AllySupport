@@ -17,6 +17,26 @@ goods_weak_tooltip: |
   When the asking ally is in a weak state and the giver can't spare the full amount, it sends
   up to half of what was asked for. To do that it may go down to half of its own minimum.
 
+goods_no_pingpong: Never pass goods back and forth
+goods_no_pingpong_tooltip: |
+  Without this, two allies can bounce the same goods between them for ever. With it, a request
+  that was filled is crossed off the asker's shopping list, a lord never gives away a good it
+  wants itself, and a good it got from an ally isn't passed on for 3 months.
+goods_useful: Send only what helps
+goods_useful_tooltip: |
+  Sends what the asker actually wants (the game asks for double), and never more than it can
+  store - anything above an AI's storage limit is sold at a loss. Weapons and food go first;
+  wood, stone and other building materials only while the asker isn't under threat.
+goods_protect: Only better-off allies give
+goods_protect_tooltip: |
+  A lord that is under threat or weak gives nothing away, and only an ally that is doing better
+  than the asker gives - the best-off ally is asked first. Each lord gives away at most the share
+  below of each good per month.
+goods_give_share: Most of a good a lord gives away per month (%)
+goods_give_share_tooltip: |
+  With 30, a lord holding 100 stone gives away at most 30 stone a month, all requests together.
+  The same goes for gold.
+
 gold_group: Gold between AI allies
 gold_group_descr: |
   Rich AI lords help out allies that ask them for goods with gold as well.
@@ -30,7 +50,22 @@ gold_ask_tooltip: |
   short (no more often than its AI request delay allows). You see the request on your ally screen like any other and can
   send the gold from there. An AI ally sends it if it still has its "rich" line left afterwards
   (see below); to a weak ally it sends up to half, going down to half that line if it must.
-gold_factor: Rich means this many times the trade minimum
+gold_line: Gold a lord always keeps
+gold_line_tooltip: |
+  An AI lord only gives gold it has above this line. "Enough to recruit" is twice what it needs
+  to recruit (its AI character's recruiting gold plus the buffer below). "Rich line" is the
+  older rule: a multiple of its trade minimum (see below).
+gold_line_recruit: Enough to recruit
+gold_line_rich: Rich line
+gold_recruit: Pay a weak ally's recruiting
+gold_recruit_tooltip: |
+  When an AI lord is weak or under threat and doesn't have the gold to recruit, a better-off ally
+  sends it what it is short - from gold it has above its own line, within its monthly share.
+gold_recruit_buffer: Recruiting gold on top of the AI character's own (gold)
+gold_recruit_buffer_tooltip: |
+  What a lord needs to recruit: its AI character's recruiting gold plus this. Roughly what a
+  handful of troops cost.
+gold_factor: Rich line - this many times the trade minimum
 gold_factor_tooltip: |
   A lord counts as rich when its gold is at least this many times its "minimum goods kept after
   trade". A minimum below 10 counts as 10, so with 100 a lord always keeps at least 1000 gold.
@@ -92,4 +127,5 @@ diagnostics_group_descr: |
 diagnostics_log: Write what the allies send to the log
 diagnostics_log_tooltip: |
   Writes a line to ucp3.log whenever an AI sends goods or gold, starts or stops helping an
-  ally, keeps troops home, or opens a gate for allied troops.
+  ally, keeps troops home, or opens a gate for allied troops - and once a month a summary of
+  what each AI lord gave and got, and how it stands.
