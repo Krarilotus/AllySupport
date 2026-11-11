@@ -1,7 +1,7 @@
 # Ally Support
 
 **Author**: Monsterfish
-**Version**: 1.0.11
+**Version**: 1.0.12
 
 AI allies help each other the way they already help you. Every part can be switched off in the
 settings.
@@ -37,6 +37,9 @@ Each of these is a setting, all on by default:
 - **Only better-off allies give.** A lord that is under threat or weak gives nothing away, and
   only an ally doing better than the asker gives - the best-off one is asked first. Each lord
   gives away at most 30% of any good, gold included, per month.
+- **Help rebuilding.** A lord that has lost its mercenary post, barracks, armoury, granary or
+  market gets wood and stone first until it has rebuilt it - even while it's under threat,
+  since without those it can't mount a defence at all.
 - **Gold for recruits.** A weak or threatened lord that can't afford to recruit gets the gold
   from a better-off ally. A lord now keeps twice what it needs for its own recruiting rather
   than a flat 1000 gold (the old rule is still a choice).

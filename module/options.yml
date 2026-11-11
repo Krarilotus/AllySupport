@@ -45,6 +45,14 @@ options:
     contents:
       type: boolean
       value: true
+  - url: ally-support.goods.rebuild
+    name: ally-support-goods-rebuild
+    text: '{{goods_rebuild}}'
+    tooltip: '{{goods_rebuild_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
   - url: ally-support.goods.give_share
     name: ally-support-goods-give-share
     text: '{{goods_give_share}}'

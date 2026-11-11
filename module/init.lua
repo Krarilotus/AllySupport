@@ -49,6 +49,9 @@
      - Gold for recruits: a weak or threatened lord short of its recruit line gets the gold from
        a better-off ally's surplus above its gold line.
      - Diagnostics: a monthly summary of what each AI lord gave and got and how it stands.
+     - Rebuilding: a lord with fewer of a key building (mercenary post, barracks, armoury,
+       granary, market - logicalState 2, counted every 100 ticks) than it has had this game gets
+       wood and stone first, even while threatened.
   3. Help: an idle AI that is not nervous and has its AIC's support threshold of attack troops
      answers a nervous AI ally the way it answers the player: requestStateUnk = 2,
      playerID_askerUnk = the ally. The AI's own state machine then sends the attack troops to
@@ -84,7 +87,7 @@ local MODULE_NAME = "ally-support"
 
 local DEFAULTS = {
   goods = { enabled = true, weak = true, no_pingpong = true, useful = true, protect = true,
-    give_share = 30 },
+    give_share = 30, rebuild = true },
   gold = { enabled = true, factor = 100, share = 25, ask = true, line = "recruit", recruit = true,
     recruit_buffer = 300 },
   help = { enabled = true, months = 6, recall = "strong" },
@@ -175,7 +178,7 @@ local TILE_FLAGS_OPERAND = 0x03
 
 local U = { STRIDE = 0x490, STATE = 0x8C, TYPE = 0x8E, OWNER = 0x96, UID = 0x98, X = 0xC4, Y = 0xC6,
   TILE = 0xD4, DYING = 0x2A0, TRIBE = 0x2D8, BEHAVIOUR = 0x42A, STATE_OFFSET = 0x614 }
-local B = { STRIDE = 0x32C, TYPE = 0xD2, OWNER = 0xD6, X = 0xEE, Y = 0xF0, SIZE = 0xF8, LINK = 0x2A2,
+local B = { STRIDE = 0x32C, LOGIC = 0xD0, TYPE = 0xD2, OWNER = 0xD6, X = 0xEE, Y = 0xF0, SIZE = 0xF8, LINK = 0x2A2,
   STATE = 0x2A3, TIMER = 0x2C0, ARRAY = 0x14, MAX = 2000 }
 local MAP = { FLAGS = 0x165160, Y_OF_TILE = 0x742B90, ROWS = 0x8A40F8, AREA = 0x363ED0 }
 local P = {
@@ -208,6 +211,7 @@ local HELP_PAUSE_MONTHS = 3     -- after its help ends, a lord waits this long (
 local GOLD_MIN_FLOOR = 10       -- a trade minimum below this counts as this for the gold line
 local RETRY_WEEKS = 4           -- after a refused request a lord waits this many AI cycles
 local REGIFT_MONTHS = 3         -- a good got from an ally is not given away for this long
+local KEY_COUNT_TICKS = 100     -- key buildings are counted at most this often
 local GOLD_ASK_MAX = 30000      -- the request slot is a short
 local LOAD_GAP = 4000           -- a jump in the tick counter this big is a load
 
@@ -295,6 +299,9 @@ local gifts = {}        -- per AI player: { month, [good] = amount } given away 
 local received = {}     -- per AI player: { [good] = month } it last got that good from an ally
 local tally = {}        -- per AI player: this month's goods value and gold given and got
 local lastMonth = nil
+local keySeen = {}      -- per player: { [building type] = most of that key building it has had }
+local keyNow = {}       -- per player: { [building type] = standing now }, counted every KEY_COUNT_TICKS
+local keyTick = nil
 local lastTick = nil
 local broken = false
 
@@ -549,7 +556,47 @@ local NEVER_ASKED = { [3] = true, [9] = true, [14] = true }
 local FOOD_FIRST, FOOD_LAST, STARVING = 10, 13, 5
 local WEAPONS_FIRST, WEAPONS_LAST = 17, 24
 
-local function priority(resource)
+-- Key buildings a lord must have back to defend itself: mercenary post, barracks, armoury,
+-- granary, market. A lord with fewer of one than it has had this game is rebuilding it, and then
+-- wood and stone reach it first, threatened or not.
+local KEY_BUILDINGS = { 8, 9, 11, 19, 26 }
+local REBUILD_GOODS = { [2] = true, [4] = true }
+
+-- Once per AI cycle: every lord's standing key buildings, and the most it has had of each.
+local function countKeyBuildings()
+  local key = {}
+  for _, kind in ipairs(KEY_BUILDINGS) do key[kind] = true end
+  local now = {}
+  for p = 1, 8 do now[p] = {} end
+  local count = math.min(rd32(G.buildings), B.MAX)
+  for id = 1, count - 1 do
+    local b = building(id)
+    local kind = rd16(b + B.TYPE)
+    if key[kind] and rd16(b + B.LOGIC) == 2 then
+      local owner = rd16(b + B.OWNER)
+      if owner >= 1 and owner <= 8 then now[owner][kind] = (now[owner][kind] or 0) + 1 end
+    end
+  end
+  for p = 1, 8 do
+    keySeen[p] = keySeen[p] or {}
+    for _, kind in ipairs(KEY_BUILDINGS) do
+      keySeen[p][kind] = math.max(keySeen[p][kind] or 0, now[p][kind] or 0)
+    end
+  end
+  keyNow = now
+end
+
+-- The first key building p has lost and not rebuilt yet, or nil.
+local function rebuilding(p)
+  if not O.rebuild or keyNow[p] == nil or keySeen[p] == nil then return nil end
+  for _, kind in ipairs(KEY_BUILDINGS) do
+    if (keySeen[p][kind] or 0) > (keyNow[p][kind] or 0) then return kind end
+  end
+  return nil
+end
+
+local function priority(resource, rebuild)
+  if rebuild and REBUILD_GOODS[resource] then return 0 end
   if resource >= WEAPONS_FIRST and resource <= WEAPONS_LAST then return 1 end
   if resource >= FOOD_FIRST and resource <= FOOD_LAST then return 2 end
   return 3
@@ -579,11 +626,11 @@ local function askAllies(r)
     end
   end
   if #wants == 0 then return end
+  local rebuild = rebuilding(r)
   if O.useful then
     table.sort(wants, function(a, b)
-      if priority(a.resource) ~= priority(b.resource) then
-        return priority(a.resource) < priority(b.resource)
-      end
+      local pa, pb = priority(a.resource, rebuild), priority(b.resource, rebuild)
+      if pa ~= pb then return pa < pb end
       return a.resource < b.resource
     end)
   end
@@ -596,8 +643,9 @@ local function askAllies(r)
     for _, w in ipairs(wants) do
       local food = w.resource >= FOOD_FIRST and w.resource <= FOOD_LAST
       local material = priority(w.resource) == 3
+      local forRebuild = rebuild ~= nil and REBUILD_GOODS[w.resource]
       if not NEVER_ASKED[w.resource] and (starving or not food)
-          and not (O.useful and material and danger) then
+          and not (O.useful and material and danger and not forRebuild) then
         local given = false
         for _, h in ipairs(list) do
           if not given then
@@ -606,8 +654,8 @@ local function askAllies(r)
               sendGoods(h, r, w.resource, send)
               given = true
               accepted = true
-              diag("player %d sends player %d %d of %d asked of resource %d", h, r, send, w.amount,
-                w.resource)
+              diag("player %d sends player %d %d of %d asked of resource %d%s", h, r, send, w.amount,
+                w.resource, forRebuild and string.format(" (rebuilding building type %d)", rebuild) or "")
               if O.gold then shareGold(h, r) end
             end
           end
@@ -1039,6 +1087,7 @@ local function checkLoad()
     kept, swept, visitors, visitorUnits, gates, ordered, helpSince = {}, {}, {}, {}, {}, {}, {}
     pause, wasHelping, retry, gifts, received, tally = {}, {}, {}, {}, {}, {}
     lastMonth = nil
+    keySeen, keyNow, keyTick = {}, {}, nil
     if G.gateFlags ~= nil then
       for id = 0, B.MAX - 1 do wr8(G.gateFlags + id, 0) end
     end
@@ -1058,6 +1107,13 @@ local function update(h)
   if O.goods or O.gold or O.goldAsk then
     for p = 1, 8 do
       if isAI(p) and lordAlive(p) then answerRequests(p) end
+    end
+  end
+  if O.rebuild and O.goods then
+    local tick = rd32(G.ticks)
+    if keyTick == nil or tick < keyTick or tick - keyTick >= KEY_COUNT_TICKS then
+      keyTick = tick
+      countKeyBuildings()
     end
   end
   if O.goods or O.goldAsk then askAllies(h) end
@@ -1200,6 +1256,7 @@ local function enable(self, config)
   O.useful = setting(config, "goods", "useful") == true
   O.protect = setting(config, "goods", "protect") == true
   O.giveShare = number(setting(config, "goods", "give_share"), 1, 100)
+  O.rebuild = setting(config, "goods", "rebuild") == true
   O.gold = setting(config, "gold", "enabled") == true
   O.goldFactor = number(setting(config, "gold", "factor"), 1, 10000)
   O.goldShare = number(setting(config, "gold", "share"), 0, 100)

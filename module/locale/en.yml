@@ -32,6 +32,11 @@ goods_protect_tooltip: |
   A lord that is under threat or weak gives nothing away, and only an ally that is doing better
   than the asker gives - the best-off ally is asked first. Each lord gives away at most the share
   below of each good per month.
+goods_rebuild: Help rebuild key buildings even under attack
+goods_rebuild_tooltip: |
+  A lord that has lost its mercenary post, barracks, armoury, granary or market needs it back to
+  defend itself at all. While it has fewer of one of these than it had before, wood and stone
+  reach it first - even while it is under threat.
 goods_give_share: Most of a good a lord gives away per month (%)
 goods_give_share_tooltip: |
   With 30, a lord holding 100 stone gives away at most 30 stone a month, all requests together.
@@ -52,9 +57,8 @@ gold_ask_tooltip: |
   (see below); to a weak ally it sends up to half, going down to half that line if it must.
 gold_line: Gold a lord always keeps
 gold_line_tooltip: |
-  An AI lord only gives gold it has above this line. "Enough to recruit" is twice what it needs
-  to recruit (its AI character's recruiting gold plus the buffer below). "Rich line" is the
-  older rule: a multiple of its trade minimum (see below).
+  An AI lord only gives gold it has above this line. "Enough to recruit" is twice its recruiting
+  gold (see below). "Rich line" is the older rule: a multiple of its trade minimum.
 gold_line_recruit: Enough to recruit
 gold_line_rich: Rich line
 gold_recruit: Pay a weak ally's recruiting
@@ -63,8 +67,9 @@ gold_recruit_tooltip: |
   sends it what it is short - from gold it has above its own line, within its monthly share.
 gold_recruit_buffer: Recruiting gold on top of the AI character's own (gold)
 gold_recruit_buffer_tooltip: |
-  What a lord needs to recruit: its AI character's recruiting gold plus this. Roughly what a
-  handful of troops cost.
+  A lord's recruiting gold is its AI character's "recruit gold threshold" plus this. That
+  threshold is what the game makes an AI hold before it starts spending each month (often only
+  0-100); this amount adds roughly the price of a handful of troops on top.
 gold_factor: Rich line - this many times the trade minimum
 gold_factor_tooltip: |
   A lord counts as rich when its gold is at least this many times its "minimum goods kept after
