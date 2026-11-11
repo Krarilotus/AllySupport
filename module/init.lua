@@ -28,8 +28,8 @@
      (aiStrengthFeeling 1) gets up to half of what it asked for if the giver can spare that by
      going down to half its trade minimum.
   2. Gold: a lord asked for goods that holds more than its gold line also sends the asker a
-     share of the gold above that line. The line is twice its recruit line (AIC
-     RecruitGoldThreshold + a buffer) by default, or 100 x its MinimumGoodsRequiredAfterTrade.
+     share of the gold above that line. The line is a flat setting (1000 by default): the gold a
+     giver keeps to go on recruiting for its own next attack.
   2b. Asking: the game's requestGoods only reaches human allies, so a lord that wants goods it
      cannot afford offers the request to its AI allies directly (by the game's request rules),
      and asks for the gold it is still short - AI allies directly (they send it if they stay
@@ -88,7 +88,7 @@ local MODULE_NAME = "ally-support"
 local DEFAULTS = {
   goods = { enabled = true, weak = true, no_pingpong = true, useful = true, protect = true,
     give_share = 30, rebuild = true },
-  gold = { enabled = true, factor = 100, share = 25, ask = true, line = "recruit", recruit = true,
+  gold = { enabled = true, keep = 1000, share = 25, ask = true, recruit = true,
     recruit_buffer = 300 },
   help = { enabled = true, months = 6, recall = "strong" },
   army = { enabled = true, share = 75 },
@@ -208,7 +208,6 @@ local REQUEST_HELP = 2
 local WEAK, STRONG = 1, 2       -- aiStrengthFeeling: 0 normal, 1 weak, 2 strong
 local HELP_PAUSE_MONTHS = 3     -- after its help ends, a lord waits this long (or for its own
                                 -- attack) before it helps again
-local GOLD_MIN_FLOOR = 10       -- a trade minimum below this counts as this for the gold line
 local RETRY_WEEKS = 4           -- after a refused request a lord waits this many AI cycles
 local REGIFT_MONTHS = 3         -- a good got from an ally is not given away for this long
 local KEY_COUNT_TICKS = 100     -- key buildings are counted at most this often
@@ -371,13 +370,11 @@ local function storageLimit(p, resource)
   return aic(p, field) + aic(p, AIC.VARIANCE)
 end
 
--- The gold a lord always keeps. "recruit": twice what it needs to recruit (its AIC
--- RecruitGoldThreshold plus the recruiting buffer). "rich": a multiple of its trade minimum.
+-- What a weak lord is helped up to so it can recruit: its AIC RecruitGoldThreshold (what the
+-- game makes it hold before it starts spending each month) plus the recruiting buffer.
 local function recruitLine(p) return math.max(0, aic(p, AIC.RECRUIT_GOLD)) + O.recruitBuffer end
-local function goldLine(h)
-  if O.goldLine == "recruit" then return 2 * recruitLine(h) end
-  return O.goldFactor * math.max(aic(h, AIC.MIN_GOODS), GOLD_MIN_FLOOR)
-end
+-- The gold a giver always keeps for its own recruiting (a flat setting, 1000 by default).
+local function goldLine(h) return O.goldKeep end
 
 -- Book-keeping: what each lord gave away this month (the monthly allowance), when it last got
 -- each good from an ally (no passing it on), and the month's totals for the log summary.
@@ -1258,10 +1255,9 @@ local function enable(self, config)
   O.giveShare = number(setting(config, "goods", "give_share"), 1, 100)
   O.rebuild = setting(config, "goods", "rebuild") == true
   O.gold = setting(config, "gold", "enabled") == true
-  O.goldFactor = number(setting(config, "gold", "factor"), 1, 10000)
+  O.goldKeep = number(setting(config, "gold", "keep"), 0, 100000)
   O.goldShare = number(setting(config, "gold", "share"), 0, 100)
   O.goldAsk = setting(config, "gold", "ask") == true
-  O.goldLine = setting(config, "gold", "line") == "rich" and "rich" or "recruit"
   O.goldRecruit = setting(config, "gold", "recruit") == true
   O.recruitBuffer = number(setting(config, "gold", "recruit_buffer"), 0, 5000)
   if O.goldShare == 0 then O.gold = false end

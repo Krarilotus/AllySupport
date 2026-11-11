@@ -87,19 +87,6 @@ options:
     contents:
       type: boolean
       value: true
-  - url: ally-support.gold.line
-    name: ally-support-gold-line
-    text: '{{gold_line}}'
-    tooltip: '{{gold_line_tooltip}}'
-    display: Choice
-    contents:
-      type: string
-      value: recruit
-      choices:
-      - name: recruit
-        text: '{{gold_line_recruit}}'
-      - name: rich
-        text: '{{gold_line_rich}}'
   - url: ally-support.gold.recruit
     name: ally-support-gold-recruit
     text: '{{gold_recruit}}'
@@ -119,17 +106,17 @@ options:
       min: 0
       max: 2000
       step: 50
-  - url: ally-support.gold.factor
-    name: ally-support-gold-factor
-    text: '{{gold_factor}}'
-    tooltip: '{{gold_factor_tooltip}}'
+  - url: ally-support.gold.keep
+    name: ally-support-gold-keep
+    text: '{{gold_keep}}'
+    tooltip: '{{gold_keep_tooltip}}'
     display: Number
     contents:
       type: integer
-      value: 100
-      min: 1
-      max: 1000
-      step: 10
+      value: 1000
+      min: 0
+      max: 10000
+      step: 100
   - url: ally-support.gold.share
     name: ally-support-gold-share
     text: '{{gold_share}}'

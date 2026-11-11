@@ -1,7 +1,7 @@
 # Ally Support
 
 **Author**: Monsterfish
-**Version**: 1.0.12
+**Version**: 1.0.13
 
 AI allies help each other the way they already help you. Every part can be switched off in the
 settings.
@@ -41,20 +41,20 @@ Each of these is a setting, all on by default:
   market gets wood and stone first until it has rebuilt it - even while it's under threat,
   since without those it can't mount a defence at all.
 - **Gold for recruits.** A weak or threatened lord that can't afford to recruit gets the gold
-  from a better-off ally. A lord now keeps twice what it needs for its own recruiting rather
-  than a flat 1000 gold (the old rule is still a choice).
+  from a better-off ally, up to what it needs to recruit (its AI character's own recruiting gold
+  plus 300).
 
 ## Gold
 
-A rich AI ally that is asked for goods also sends gold. Rich means it has more than the gold it
-always keeps (see above). It sends a quarter of what it has above that line, and only to an
+A rich AI ally that is asked for goods also sends gold. Every lord keeps 1000 gold for its own
+recruiting (a setting) and only shares what it has above that. It sends a quarter of what it has above that line, and only to an
 ally poorer than itself.
 
 ## Asking for gold
 
 When an AI lord wants goods it can't afford, it now asks its allies - you and the AIs - for the
 gold it is short (no more often than its AI request delay allows). You see it on your ally screen like any other request.
-An AI ally sends the gold if it still keeps its "rich" line afterwards; to a weak ally it sends
+An AI ally sends the gold if it still keeps its 1000 gold afterwards; to a weak ally it sends
 up to half, going down to half that line if it must.
 
 ## Troops
