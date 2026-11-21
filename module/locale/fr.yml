@@ -1,74 +1,132 @@
 ai: IA
-army_enabled: Garder des troupes en réserve
-army_enabled_details: Activé par défaut.
-army_share: Part des troupes envoyées (%)
+army_enabled: N'envoyer qu'une partie de l'armée d'attaque
+army_enabled_details: |-
+  Normalement, un allié IA envoie toute son armée d'attaque lorsqu'il porte secours. Avec cette option activée, il n'envoie que la part définie ci-dessous et garde le reste dans son camp. Les défenseurs du château, patrouilles et pillards ne partent jamais. Les ingénieurs, écheliers, tunneliers et engins de siège restent en priorité au château. Une fois l'aide terminée, les troupes gardées rejoignent l'armée.
+
+  Activé par défaut.
+army_share: Part de l'armée d'attaque envoyée (%)
 diagnostics_group: Diagnostic
-diagnostics_group_descr: Pour le dépannage dans ucp3.log.
-diagnostics_log: Journaliser les décisions
-diagnostics_log_details: Désactivé par défaut.
-gates_enabled: Ouvrir les portes aux alliés
-gates_enabled_details: Activé par défaut.
-gates_keep: Autoriser l’accès au donjon
-gates_keep_details: Activé par défaut.
-gold_after_castle: Donner de l’or après la construction du château
-gold_after_castle_details: Activé par défaut.
-gold_ask: Autoriser les demandes d’or de l’IA
-gold_ask_details: Activé par défaut.
-gold_enabled: Offrir l’or excédentaire
-gold_enabled_details: Activé par défaut.
-gold_group: Aide en or
-gold_group_details: 'L’IA peut demander et partager de l’or tout en gardant une réserve pour le recrutement.
+diagnostics_group_descr: Pour les tests et le dépannage.
+diagnostics_log: Journaliser ce que les alliés envoient
+diagnostics_log_details: |-
+  Écrit une ligne dans ucp3.log chaque fois qu'une IA envoie des ressources ou de l'or, commence ou cesse d'aider un allié, garde des troupes chez elle ou ouvre une porte aux alliés — ainsi qu'un résumé mensuel de ce que chaque seigneur IA a donné, reçu et de sa situation.
 
+  Désactivé par défaut.
+gates_enabled: Ouvrir la porte aux renforts alliés
+gates_enabled_details: |-
+  Un château attaqué garde ses portes fermées, si bien que les renforts restent coincés dehors. Avec cette option, lorsque les troupes alliées se trouvent devant une porte du château qu'elles aident, celle-ci s'ouvre et les laisse entrer (sur le donjon, voir ci-dessous). Dès que plus personne n'attend devant la porte, elle se referme d'elle-même comme d'habitude. À la fin de l'aide, elle s'ouvre de la même manière pour les laisser sortir. Cela fonctionne aussi pour vos propres portes lorsqu'un allié IA vient vous aider.
 
-  Réserve supplémentaire de recrutement — Valeur par défaut: 300. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.
+  Activé par défaut.
+gates_keep: Les renforts se placent sur le donjon de l'allié
+gates_keep_details: |-
+  Une fois à l'intérieur, les troupes de renfort montent sur le donjon du seigneur qu'elles aident — le même ordre qu'une IA donne à ses propres archers quand elle s'inquiète — afin que les archers et arbalétriers puissent tirer d'en haut. Ceux qui n'y trouvent pas de place se postent autour du donjon. Désactivé : ils se rassemblent au camp du seigneur.
 
+  Activé par défaut.
+gold_after_castle: Les alliés IA ne donnent de l'or qu'une fois leur château bâti
+gold_after_castle_details: |-
+  Un allié IA garde tout son or tant qu'il n'a pas bâti son château autant que le terrain le permet — chaque élément de son plan étant posé ou reconnu bloqué. Ce n'est qu'ensuite qu'il donne de l'or à vous ou à d'autres alliés, afin que son or de départ serve à construire son château sans pouvoir lui être soutiré. Les ressources ne sont pas concernées.
 
-  Réserve d’or du donateur — Valeur par défaut: 1000. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.
+  Activé par défaut.
+gold_ask: Les seigneurs IA demandent de l'or à leurs alliés
+gold_ask_details: |-
+  Lorsqu'un seigneur IA veut acheter des ressources qu'il ne peut pas payer, il vous demande ainsi qu'à ses alliés IA l'or qui lui manque (pas plus souvent que son délai de requête IA ne le permet). Vous voyez la demande sur votre écran des alliés comme toute autre requête et pouvez envoyer l'or depuis là. Un allié IA envoie la somme s'il conserve sa réserve d'or minimale (voir ci-dessous) ; à un allié affaibli, il envoie jusqu'à la moitié en descendant au besoin jusqu'à la moitié de cette réserve.
 
+  Activé par défaut.
+gold_enabled: Les alliés IA riches envoient de l'or
+gold_enabled_details: |-
+  Lorsqu'un allié IA demande des ressources, un seigneur disposant de beaucoup d'or lui envoie aussi de l'or — mais uniquement si le demandeur a moins d'or que le donneur.
 
-  Part offerte de l’or excédentaire (%) — Valeur par défaut: 25. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.'
-gold_keep: Réserve d’or du donateur
-gold_player: Répondre aux demandes d’or des joueurs
-gold_player_details: Activé par défaut.
-gold_recruit: Donner de l’or pour recruter
-gold_recruit_buffer: Réserve supplémentaire de recrutement
-gold_recruit_details: Activé par défaut.
-gold_share: Part offerte de l’or excédentaire (%)
-goods_enabled: Partager les marchandises
-goods_enabled_details: Activé par défaut.
-goods_give_share: Plafond de don mensuel (%)
-goods_group: Aide en marchandises
-goods_group_details: 'Les alliés de l’IA partagent les stocks en gardant de quoi couvrir leurs besoins.
+  Activé par défaut.
+gold_group: Or entre alliés IA
+gold_group_details: |-
+  Les seigneurs IA riches aident aussi avec de l'or les alliés qui leur demandent des ressources.
 
+  Or de recrutement ajouté au seuil du personnage IA (or) — L'or de recrutement d'un seigneur correspond au « seuil d'or de recrutement » de son personnage IA augmenté de cette valeur. Ce seuil est ce que le jeu fait garder à une IA avant de dépenser chaque mois (souvent seulement 0 à 100) ; ce montant ajoute environ le coût d'une poignée de troupes.
 
-  Plafond de don mensuel (%) — Valeur par défaut: 30. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.'
-goods_no_pingpong: Éviter de redonner les biens reçus récemment
-goods_no_pingpong_details: Activé par défaut.
-goods_protect: Appliquer le plafond mensuel
-goods_protect_details: Activé par défaut.
-goods_rebuild: Aider à reconstruire
-goods_rebuild_details: Activé par défaut.
-goods_useful: Respecter la limite de stock du destinataire
-goods_useful_details: Activé par défaut.
-goods_weak: Aider les alliés faibles
-goods_weak_details: Activé par défaut.
-help_enabled: Améliorer l’aide militaire
-help_enabled_details: Activé par défaut.
-help_group: Aide militaire et portes
-help_group_details: 'Les alliés peuvent envoyer des troupes, garder une réserve et ouvrir leurs portes aux visiteurs.
+  Par défaut : 300. Utilisé lorsque la personnalité de l'IA (AIC) ne définit pas de valeur propre.
 
+  Or qu'un seigneur garde toujours pour lui — Un seigneur IA ne donne jamais d'or en dessous de ce seuil : c'est ce qu'il conserve pour continuer à recruter en vue de sa prochaine attaque. Seul l'or excédentaire est partagé.
 
-  Durée de l’aide (mois) — Valeur par défaut: 6.
+  Par défaut : 1000. Utilisé lorsque la personnalité de l'IA (AIC) ne définit pas de valeur propre.
 
+  Part de l'or au-dessus de ce seuil qu'il envoie (%) — Avec 25, un seigneur ayant un seuil de 1000 or et possédant 3000 envoie 500 or.
 
-  Critère de rappel — Valeur par défaut: Allié de nouveau fort.
+  Par défaut : 25. Utilisé lorsque la personnalité de l'IA (AIC) ne définit pas de valeur propre.
+gold_keep: Or qu'un seigneur garde toujours pour lui
+gold_player: Les alliés IA vous donnent de l'or
+gold_player_details: |-
+  Lorsque vous demandez de l'or à un allié IA, il vous l'envoie s'il conserve au moins son seuil d'or (Or gardé) après l'envoi. Le jeu d'origine ne permet jamais à un allié IA de donner de l'or.
 
+  Activé par défaut.
+gold_recruit: Financer le recrutement d'un allié affaibli
+gold_recruit_buffer: Or de recrutement ajouté au seuil du personnage IA (or)
+gold_recruit_details: |-
+  Lorsqu'un seigneur IA est affaibli ou menacé et manque d'or pour recruter, un allié plus aisé lui envoie ce qui lui manque — sur l'or au-dessus de son propre seuil et dans la limite de sa part mensuelle.
 
-  Part des troupes envoyées (%) — Valeur par défaut: 75. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.'
-help_months: Durée de l’aide (mois)
-help_recall: Critère de rappel
-help_recall_army: Allié de nouveau doté d’une armée
-help_recall_strong: Allié de nouveau fort
+  Activé par défaut.
+gold_share: Part de l'or au-dessus de ce seuil qu'il envoie (%)
+goods_enabled: Les alliés IA s'envoient des ressources entre eux
+goods_enabled_details: |-
+  Un allié IA n'envoie ce qui lui est demandé que s'il conserve son propre minimum après l'envoi (le « minimum de ressources conservé après échange » de son personnage IA) — la même règle que lorsque vous lui faites une demande. Dès qu'un allié a envoyé les ressources, les autres ne les renvoient pas. Un allié qui ne peut rien céder refuse immédiatement. Après une demande satisfaite, le demandeur attend son « délai de requête IA » (de son personnage IA, en semaines de jeu) avant de redemander ; après un refus, il attend un mois. Les seigneurs IA ne demandent que ce dont ils ont besoin sans pouvoir l'acheter. Les envois apparaissent dans les statistiques de ressources envoyées/reçues en fin de partie.
+
+  Activé par défaut.
+goods_give_share: Part maximale d'une ressource donnée par mois (%)
+goods_group: Ressources entre alliés IA
+goods_group_details: |-
+  Les seigneurs IA demandent à leurs alliés des ressources qu'ils ne peuvent pas acheter. Normalement vous êtes le seul à répondre ; avec cette option, leurs alliés IA répondent aussi.
+
+  Part maximale d'une ressource donnée par mois (%) — Avec 30, un seigneur possédant 100 pierres donne au plus 30 pierres par mois, toutes demandes confondues. Il en va de même pour l'or.
+
+  Par défaut : 30. Utilisé lorsque la personnalité de l'IA (AIC) ne définit pas de valeur propre.
+goods_no_pingpong: Ne jamais se renvoyer les ressources en boucle
+goods_no_pingpong_details: |-
+  Sans cette option, deux alliés peuvent se renvoyer les mêmes ressources indéfiniment. Avec elle, une demande satisfaite est rayée de la liste d'achats du demandeur, un seigneur ne donne jamais une ressource qu'il recherche lui-même, et une ressource reçue d'un allié n'est pas retransmise pendant 3 mois.
+
+  Activé par défaut.
+goods_protect: Seuls les alliés mieux lotis donnent
+goods_protect_details: |-
+  Un seigneur menacé ou affaibli ne donne rien, et seul un allié en meilleure situation que le demandeur donne — le plus prospère est sollicité en premier. Chaque seigneur donne au plus par mois la part définie ci-dessous de chaque ressource.
+
+  Activé par défaut.
+goods_rebuild: Aider à reconstruire les bâtiments clés même sous attaque
+goods_rebuild_details: |-
+  Un seigneur qui a perdu son camp de mercenaires, sa caserne, son armurerie, son grenier ou son marché en a besoin pour pouvoir se défendre. Tant qu'il en a moins qu'auparavant, le bois et la pierre lui parviennent en priorité — même lorsqu'il est menacé.
+
+  Activé par défaut.
+goods_useful: N'envoyer que ce qui est vraiment utile
+goods_useful_details: |-
+  Envoie la quantité réellement voulue par le demandeur (le jeu demande le double) et jamais plus qu'il ne peut stocker — tout excédent au-delà de la limite de stockage d'une IA serait vendu à perte. Les armes et la nourriture passent en premier ; le bois, la pierre et les matériaux de construction ne sont envoyés que si le demandeur n'est pas menacé.
+
+  Activé par défaut.
+goods_weak: Les alliés affaiblis reçoivent au moins la moitié
+goods_weak_details: |-
+  Lorsque l'allié demandeur est affaibli et que le donneur ne peut pas céder la totalité, il envoie jusqu'à la moitié de la quantité demandée. Pour cela, il peut descendre jusqu'à la moitié de son propre minimum.
+
+  Activé par défaut.
+help_enabled: Les alliés IA s'entraident militairement
+help_enabled_details: |-
+  Lorsque des ennemis s'approchent d'un seigneur IA, ses alliés IA envoient leur armée d'attaque vers son château, comme lorsqu'ils répondent à votre appel à l'aide. Un allié n'intervient que s'il n'est pas lui-même menacé, n'est pas déjà en train d'attaquer et dispose de la taille d'armée requise par son personnage IA avant d'aider. Les troupes restent au moins jusqu'à ce que le château soit de nouveau en sécurité (voir l'option suivante).
+
+  Activé par défaut.
+help_group: Troupes pour les alliés
+help_group_details: |-
+  Les seigneurs IA viennent en aide à leurs alliés IA et gardent une partie de leur armée d'attaque chez eux lorsqu'ils aident quelqu'un — vous compris.
+
+  Durée minimale du séjour (mois) — Les renforts restent au château de l'allié au moins ce nombre de mois de jeu, et plus longtemps tant que le château reste en danger — sauf si le réglage ci-dessous les rappelle plus tôt. Une fois terminé, ils rentrent à leur propre château.
+
+  Par défaut : 6.
+
+  Rappeler les renforts plus tôt quand — Rappelle immédiatement les renforts, même avant la fin de la durée minimale. Tant qu'ils sont absents, leur seigneur n'attaque personne, donc un long séjour retarde sa propre attaque. « Sa propre armée est prête à attaquer » les rappelle dès que le seigneur aidant atteint la taille d'armée requise pour attaquer (les troupes chez l'allié comptent). Après une aide, un seigneur attend 3 mois, ou jusqu'à lancer sa propre attaque, avant d'aider à nouveau.
+
+  Par défaut : L'allié se sent de nouveau fort.
+
+  Part de l'armée d'attaque envoyée (%) — Avec 75, une armée d'attaque de 40 envoie 30 unités et en garde 10 au château. Les troupes recrutées pendant l'aide sont réparties de la même façon.
+
+  Par défaut : 75. Utilisé lorsque la personnalité de l'IA (AIC) ne définit pas de valeur propre.
+help_months: Durée minimale du séjour (mois)
+help_recall: Rappeler les renforts plus tôt quand
+help_recall_army: Sa propre armée est prête à attaquer
+help_recall_strong: L'allié se sent de nouveau fort
 improvements: Améliorations
 misc: Divers
 tags.behavior: Comportement
