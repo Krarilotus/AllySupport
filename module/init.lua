@@ -332,6 +332,45 @@ local function diag(fmt, ...)
 end
 
 local function player(p) return G.players + p * P.STRIDE end
+
+-- Store values by character so Lua and the existing gold-request stub use the same floor.
+local AIC_OPTIONS = {
+  AllySupportGoldKeep = { default = "goldKeep", min = 0, max = 100000 },
+  AllySupportRecruitGoldBuffer = { default = "recruitBuffer", min = 0, max = 5000 },
+  AllySupportGoldSharePercent = { default = "goldShare", min = 0, max = 100 },
+  AllySupportMonthlyGivePercent = { default = "giveShare", min = 0, max = 100 },
+  AllySupportArmySharePercent = { default = "armyShare", min = 0, max = 100 },
+}
+
+local function aicOption(playerID, name)
+  local spec = AIC_OPTIONS[name]
+  local character = rd32(player(playerID) + P.AI_TYPE)
+  if character < 1 or character > 16 then return O[spec.default] end
+  return rd32(spec.address + character * 4)
+end
+
+local function registerAICOptions()
+  for name, spec in pairs(AIC_OPTIONS) do
+    spec.address = core.allocate(17 * 4, true)
+    for character = 1, 16 do
+      wr32(spec.address + character * 4, O[spec.default])
+    end
+    modules.aicloader:setAdditionalAICValue(name, function(character, value)
+      local address = spec.address + character * 4
+      if value == nil then return rd32(address) end
+      local integer = type(value) == "number" and math.tointeger(value)
+      if not integer or integer < spec.min or integer > spec.max then
+        log(WARNING, string.format("%s: %s must be an integer from %d to %d",
+          MODULE_NAME, name, spec.min, spec.max))
+        return
+      end
+      wr32(address, integer)
+    end, function(character)
+      wr32(spec.address + character * 4, O[spec.default])
+    end)
+  end
+end
+
 local function unit(id) return G.units + id * U.STRIDE end
 local function tribe(id) return G.tribes + id * G.tribeStride end
 local function building(id) return G.buildingArray + id * B.STRIDE end
@@ -411,9 +450,9 @@ end
 
 -- What a weak lord is helped up to so it can recruit: its AIC RecruitGoldThreshold (what the
 -- game makes it hold before it starts spending each month) plus the recruiting buffer.
-local function recruitLine(p) return math.max(0, aic(p, AIC.RECRUIT_GOLD)) + O.recruitBuffer end
+local function recruitLine(p) return math.max(0, aic(p, AIC.RECRUIT_GOLD)) + aicOption(p, "AllySupportRecruitGoldBuffer") end
 -- The gold a giver always keeps for its own recruiting (a flat setting, 1000 by default).
-local function goldLine(h) return O.goldKeep end
+local function goldLine(h) return aicOption(h, "AllySupportGoldKeep") end
 
 -- Book-keeping: what each lord gave away this month (the monthly allowance), when it last got
 -- each good from an ally (no passing it on), and the month's totals for the log summary.
@@ -480,7 +519,7 @@ end
 local function allowance(h, resource, have)
   if not O.protect then return have end
   local done = givenThisMonth(h)[resource] or 0
-  return math.max(0, (have + done) * O.giveShare // 100 - done)
+  return math.max(0, (have + done) * aicOption(h, "AllySupportMonthlyGivePercent") // 100 - done)
 end
 
 -- How much h sends of a request for goods: all of it if it keeps its AIC trade minimum
@@ -541,7 +580,7 @@ local function shareGold(h, r)
   local line = goldLine(h)
   local have = gold(h)
   if have < line or have <= gold(r) then return end
-  local gift = math.min((have - line) * O.goldShare // 100, allowance(h, GOLD, have))
+  local gift = math.min((have - line) * aicOption(h, "AllySupportGoldSharePercent") // 100, allowance(h, GOLD, have))
   if gift <= 0 then return end
   sendGold(h, r, gift)
   diag("player %d sends player %d %d gold (had %d, keeps at least %d)", h, r, gift, have, line)
@@ -901,7 +940,7 @@ local function release(h)
   diag("player %d stops helping: %d kept troops back in its army", h, moved)
 end
 
-local function keepHome(h)
+local function keepHome(h, share)
   local base = player(h)
   local asker = rd32(base + P.ASKER)
   if rd32(base + P.REQUEST_STATE) ~= REQUEST_HELP or asker < 1 or asker > 8
@@ -924,7 +963,7 @@ local function keepHome(h)
     end
   end)
 
-  local need = total - (total * O.armyShare + 99) // 100 - home
+  local need = total - (total * share + 99) // 100 - home
   if need <= 0 then return end
   if k == nil then
     local id = F.createTribe(G.tribes, h)
@@ -1140,7 +1179,8 @@ local function update(h)
   if h < 1 or h > 8 or not isAI(h) or not lordAlive(h) then return end
   -- What the player's gold request answer (GOLD_STUB) reads: has this AI finished its castle?
   if G.castleDone ~= nil then wr8(G.castleDone + h, castleDone(h) and 1 or 0) end
-  if O.army and not swept[h] then
+  local armyShare = aicOption(h, "AllySupportArmySharePercent")
+  if O.army and armyShare > 0 and not swept[h] then
     swept[h] = true
     sweep(h)
   end
@@ -1167,7 +1207,13 @@ local function update(h)
     lastMonth = month
   end
   if O.help then answerHelp(h) end
-  if O.army then keepHome(h) end
+  if O.army then
+    if armyShare > 0 then
+      keepHome(h, armyShare)
+    else
+      release(h)
+    end
+  end
   if O.gates then watchGates(h) end
   -- The game leaves the troops where they are when a help ends (also when the player calls it
   -- off); send them home the way it sends them to an ally's keep.
@@ -1191,10 +1237,15 @@ ja gold_no
 cmp byte [CASTLE_DONE+eax],0
 je gold_no
 imul eax,eax,PLAYER_DWORDS
+mov edx,[eax*4+AI_TYPE_ADDRESS]
+cmp edx,1
+jb gold_no
+cmp edx,16
+ja gold_no
 mov eax,[eax*4+GOLD_ADDRESS]
 sub eax,[esp+0x10]
-xor edx,edx
-cmp eax,KEEP
+cmp eax,[KEEP+edx*4]
+mov edx,0
 setge dl
 mov eax,edx
 pop esi
@@ -1342,13 +1393,11 @@ local function enable(self, config)
   O.goldPlayer = setting(config, "gold", "player") == true
   O.goldAfterCastle = setting(config, "gold", "after_castle") == true
   O.recruitBuffer = number(setting(config, "gold", "recruit_buffer"), 0, 5000)
-  if O.goldShare == 0 then O.gold = false end
   O.help = setting(config, "help", "enabled") == true
   O.stayMonths = number(setting(config, "help", "months"), 0, 120)
   O.recall = setting(config, "help", "recall") == "army" and "army" or "strong"
   O.army = setting(config, "army", "enabled") == true
   O.armyShare = number(setting(config, "army", "share"), 0, 100)
-  if O.armyShare == 0 then O.army = false end
   O.gates = setting(config, "gates", "enabled") == true
   O.onKeep = setting(config, "gates", "keep") == true
   O.log = setting(config, "diagnostics", "log") == true
@@ -1362,6 +1411,8 @@ local function enable(self, config)
     log(WARNING, tostring(problem))
     return
   end
+
+  registerAICOptions()
 
   local slots = core.allocate(8, true)
   local pad = core.allocateCode({ 0x90, 0x90, 0x90, 0x90, 0x90, 0xC3 })
@@ -1420,7 +1471,8 @@ local function enable(self, config)
     local stride = readOperand(G.enough, ENOUGH_GOLD.stride, "the AI's trade minimum test")
     local resources = readOperand(G.enough, ENOUGH_GOLD.resources, "the AI's trade minimum test")
     local goldStub = core.allocateAssembly(GOLD_STUB, {
-      GOLD = GOLD, PLAYER_DWORDS = stride, GOLD_ADDRESS = resources + GOLD * 4, KEEP = O.goldKeep,
+      GOLD = GOLD, PLAYER_DWORDS = stride, GOLD_ADDRESS = resources + GOLD * 4,
+      AI_TYPE_ADDRESS = G.players + P.AI_TYPE, KEEP = AIC_OPTIONS.AllySupportGoldKeep.address,
       CASTLE_DONE = G.castleDone,
       GOODS = G.enough + ENOUGH_GOLD.goods,
     })
@@ -1433,7 +1485,7 @@ local function enable(self, config)
     original = core.hookCode(function(sender, resource, amount, receiver)
       if resource + 1 == GOLD and isAI(sender) and castleDone(sender) then
         local ok, problem = pcall(function()
-          local send = math.min(amount, gold(sender))
+          local send = math.min(amount, gold(sender) - goldLine(sender))
           if send <= 0 then return end
           sendGold(sender, receiver, send)     -- with the AI's "goods sent" message
           diag("player %d sends player %d %d gold", sender, receiver, send)
@@ -1450,6 +1502,11 @@ local function enable(self, config)
 end
 
 local function disable(self, config)
+  if self.saved ~= nil then
+    for name in pairs(AIC_OPTIONS) do
+      modules.aicloader:setAdditionalAICValue(name, nil)
+    end
+  end
   if self.saved ~= nil then
     for _, saved in ipairs(self.saved) do core.writeCode(saved.address, saved.bytes) end
     self.saved = nil
