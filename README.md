@@ -15,3 +15,18 @@ is in the comment at the top of `module/init.lua`.
    `ucp/modules/ally-support-<version>`. Do this with the game closed.
 3. In the UCP GUI press F5, then apply.
 4. Commit and tag: `git commit -am "<version> - <what changed>" && git tag v<version>`.
+
+## Per-character AIC settings
+
+Customizations supplies defaults. With AIC Loader 1.1.1 or later in the 1.x series, add
+any of the following integer fields to the existing `Personality` object for a character.
+Omit a field to use the corresponding Customizations value, or reset the AIC to restore
+those values. The global feature switches still control which kinds of aid are enabled.
+
+| AIC field | Values and whose setting applies |
+| --- | --- |
+| `AllySupportGoldKeep` | Donor reserve, 0–100,000 gold. Also used for player gold requests. AI-to-AI requests from weak allies can use up to half the reserve when that option is enabled. |
+| `AllySupportRecruitGoldBuffer` | Recipient's extra recruiting reserve above its native threshold, 0–5,000 gold. |
+| `AllySupportGoldSharePercent` | Donor's share of excess gold offered without a gold request, 0–100%. Zero turns off these gifts. |
+| `AllySupportMonthlyGivePercent` | Donor's monthly goods and gold allowance with the relevant stock protection enabled, 0–100%. Zero disallows transfers subject to that limit. |
+| `AllySupportArmySharePercent` | Helper's army share, 0–100%. Zero keeps the original game behaviour for army reserves. 100 keeps none of this army back. |
