@@ -128,3 +128,7 @@ diagnostics_log_tooltip: |
   Writes a line to ucp3.log whenever an AI sends goods or gold, starts or stops helping an
   ally, keeps troops home, or opens a gate for allied troops - and once a month a summary of
   what each AI lord gave and got, and how it stands.
+gold_after_castle: AI allies give gold only once their castle is built
+gold_after_castle_tooltip: An AI ally keeps all its gold until it has built its castle as far as the ground allows - every part of its castle plan placed or found blocked. Only then does it give gold to you or to other allies, so its starting gold goes into its castle and cannot be asked away. Goods are not affected.
+gold_player: AI allies give you gold
+gold_player_tooltip: When you ask an AI ally for gold, it sends it if it keeps at least its gold line (Gold kept) afterwards. The unmodified game never lets an AI ally give gold.

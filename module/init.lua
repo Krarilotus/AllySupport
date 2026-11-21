@@ -88,7 +88,7 @@ local MODULE_NAME = "ally-support"
 local DEFAULTS = {
   goods = { enabled = true, weak = true, no_pingpong = true, useful = true, protect = true,
     give_share = 30, rebuild = true },
-  gold = { enabled = true, keep = 1000, share = 25, ask = true, recruit = true,
+  gold = { enabled = true, keep = 1000, share = 25, ask = true, recruit = true, player = true, after_castle = true,
     recruit_buffer = 300 },
   help = { enabled = true, months = 6, recall = "strong" },
   army = { enabled = true, share = 75 },
@@ -136,6 +136,17 @@ local AOB_REQUEST_GOODS = "51 8B 54 24 08 8B C2 69 C0 F4 39 00 00 83 B8 ? ? ? ? 
 
 -- AICState::isResourceLargerOrEqualThanMinimumGoodsRequiredAfterTrade(player, resource, amount)
 local AOB_ENOUGH = "8B 44 24 04 8B D0 69 D2 F4 39 00 00 8B 92 ? ? ? ? 85 D2 75 06 8D 42 01 C2 0C 00"
+-- ...where it refuses gold outright for an AI (`cmp esi,15 / jne <goods> / xor eax,eax / pop esi /
+-- ret 0xC`): the ally screen asks this before an AI ally sends the player what they asked for, so
+-- in the unmodified game an AI never gives the player gold. Also its player stride in dwords
+-- (`imul eax,eax,0xE7D`) and the resources it compares (`cmp [eax*4+RESOURCES],ecx`).
+local ENOUGH_GOLD = { site = 0x21, size = 5, bytes = { 0x83, 0xFE, 0x0F, 0x75, 0x06 }, goods = 0x2C,
+  stride = { 0x32, { 0x69, 0xC0 } }, resources = { 0x47, { 0x39, 0x0C, 0x85 } },
+  -- The command that carries out an ally's answer (sender, resource index, amount, receiver):
+  -- for gold it only handles a human sender, so an AI's "yes" did nothing at all. Its start
+  -- (`mov edx,[esp+8] / push esi / push edi / lea edi,[edx+1] / cmp edi,15 / jne`) is hooked; the
+  -- goods branch's call of playGoodsSentBikFromPlayerToPlayer (aiState, sender, receiver) at +0x101.
+  request = "8B 54 24 08 56 57 8D 7A 01 83 FF 0F 75", requestSize = 6, sentSpeech = 0x101 }
 
 -- updateAIPlayerState: requestStateUnk 2 -> clearRallyFlagOnAllAIAttackTribes,
 -- sendUnitsToPlayerIDsKeepIfPossible(player, playerID_askerUnk).
@@ -189,8 +200,18 @@ local P = {
   TRIBE_UIDS = 0x329C, NERVOUS = 0x3820, REQUESTED = 0x3824, REQUESTED_AMOUNT = 0x3838,
   REQUEST_STATE = 0x384C, ASKER = 0x38E4, TO_ACQUIRE = 0x2A70, TOTAL_FOOD = 0x209C,
   REQUEST_DELAY = 0x3898, STRENGTH_FEELING = 0x30F4, ATTACK_ENGINEERS = 0x2BA8, STRENGTH_STATE = 0x2B74,
-  WAVE_EXTRA = 0x38A0,
+  WAVE_EXTRA = 0x38A0, AIV_ID = 0x22FC,
 }
+-- An AI's castle plan (AIV) in the AIV state: per plan (the player's aivID) a block of 0x6D98
+-- bytes with its sub type (+0x14, 0 = no plan), the step it may build up to (+0x18) and its last
+-- step (+0x24); its steps at +0x38 + (aivID * 0x922 + step) * 12, each a state byte (0 = not yet
+-- placed - not reached or not affordable yet; 3/4 placed; 5 blocked, by terrain or units) and
+-- its building type word at +2. A castle is done once every step was tried: the step goal is at
+-- the last step and no step is still at 0.
+local AIV = { SPEC = 0x6D98, SUB_TYPE = 0x14, GOAL = 0x18, TOTAL = 0x24, STEPS = 0x38, STEP_ROW = 0x922,
+  STEP = 12, MAX_STEPS = 1000,
+  -- `... jne / push 0 / mov ecx, AIVState / call / pop ebx / ret` in the AI's update
+  AOB = "01 0A 75 0C 6A 00 B9 ? ? ? ? E8 ? ? ? ? 5B C3", OPERAND = 7 }
 local T = { UID = 0x34, STATE = 0x40 }
 -- AIC fields live in the AI state object: (character - 1) * 0x2A4 + field.
 local AIC = { STRIDE = 0x2A4, REQUEST_DELAY = 0xA0, MIN_GOODS = 0xA4, VARIANCE = 0xC0, RECRUIT_GOLD = 0xC4,
@@ -329,6 +350,24 @@ local function team(p) return rd32(G.teams + p * 4) end
 local function isAI(p) return rd32(player(p) + P.AI_TYPE) ~= 0 end
 local function nervous(p) return rd32(player(p) + P.NERVOUS) ~= 0 end
 local function gold(p) return rd32(player(p) + P.RESOURCES + GOLD * 4) end
+-- Has AI h built its castle as far as the ground lets it (see AIV)? Until then it gives no gold
+-- away, so its starting gold goes into the castle (gold.after_castle). Players without a plan
+-- (humans, AIs placed without one) count as done.
+local function castleDone(h)
+  if not O.goldAfterCastle or G.aivState == nil then return true end
+  local id = rd32(player(h) + P.AIV_ID)
+  if id <= 0 or id > 8 then return true end
+  local spec = G.aivState + id * AIV.SPEC
+  if rd32(spec + AIV.SUB_TYPE) == 0 then return true end
+  local total = rd32(spec + AIV.TOTAL)
+  if total <= 0 or total > AIV.MAX_STEPS then return true end
+  if rd32(spec + AIV.GOAL) < total then return false end
+  for step = 1, total do
+    local at = G.aivState + AIV.STEPS + (id * AIV.STEP_ROW + step) * AIV.STEP
+    if rd16(at + 2) ~= 0 and rd8(at) & 0xFF == 0 then return false end
+  end
+  return true
+end
 local function months() return rd32(G.year) * 12 + rd32(G.month) end
 
 -- Same non-zero team: team 0 means allied with nobody.
@@ -423,6 +462,8 @@ local function sendGold(h, r, amount)
   local g = givenThisMonth(h)
   g[GOLD] = (g[GOLD] or 0) + amount
   count(h, r, "Gold", amount)
+  -- An AI sending a player gold says so, with the same message as for goods.
+  if isAI(h) and not isAI(r) and F.sentSpeech ~= nil then F.sentSpeech(G.aiState or 0, h, r) end
 end
 
 -- May h give anything to r? An AI ally, and - with givers protected - not threatened or weak
@@ -469,6 +510,7 @@ end
 -- Gold asked for: all of it if h stays above its gold line, a weak ally up to half of it if h
 -- can spare that by going down to half its line; within h's monthly allowance.
 local function goldAmount(h, r, amount)
+  if not castleDone(h) then return 0 end
   local line = goldLine(h)
   local send = 0
   if gold(h) - amount >= line then
@@ -495,6 +537,7 @@ local function givers(r)
 end
 
 local function shareGold(h, r)
+  if not castleDone(h) then return end
   local line = goldLine(h)
   local have = gold(h)
   if have < line or have <= gold(r) then return end
@@ -701,7 +744,7 @@ local function recruitGold(r)
   local need = recruitLine(r) - gold(r)
   if need <= 0 then return end
   for _, h in ipairs(givers(r)) do
-    local send = math.min(need, gold(h) - goldLine(h), allowance(h, GOLD, gold(h)))
+    local send = castleDone(h) and math.min(need, gold(h) - goldLine(h), allowance(h, GOLD, gold(h))) or 0
     if send > 0 then
       sendGold(h, r, send)
       wr32(player(r) + P.REQUEST_DELAY, math.max(0, aic(r, AIC.REQUEST_DELAY)))
@@ -1095,6 +1138,8 @@ end
 local function update(h)
   checkLoad()
   if h < 1 or h > 8 or not isAI(h) or not lordAlive(h) then return end
+  -- What the player's gold request answer (GOLD_STUB) reads: has this AI finished its castle?
+  if G.castleDone ~= nil then wr8(G.castleDone + h, castleDone(h) and 1 or 0) end
   if O.army and not swept[h] then
     swept[h] = true
     sweep(h)
@@ -1133,6 +1178,34 @@ local function update(h)
   end
   wasHelping[h] = state == REQUEST_HELP
 end
+
+-- The player asks an AI ally for gold: yes when the AI keeps at least its gold line (gold.keep)
+-- after sending it. In place of `cmp esi,15 / jne <goods>`, with esi the resource and the
+-- function's own esi pushed: [esp+8] the AI, [esp+0x10] the amount.
+local GOLD_STUB = [[
+cmp esi,GOLD
+jne goods
+mov eax,[esp+8]
+cmp eax,8
+ja gold_no
+cmp byte [CASTLE_DONE+eax],0
+je gold_no
+imul eax,eax,PLAYER_DWORDS
+mov eax,[eax*4+GOLD_ADDRESS]
+sub eax,[esp+0x10]
+xor edx,edx
+cmp eax,KEEP
+setge dl
+mov eax,edx
+pop esi
+ret 0xC
+gold_no:
+xor eax,eax
+pop esi
+ret 0xC
+goods:
+jmp GOODS
+]]
 
 local GATE_STUB = [[
 cmp ebx,MAX_BUILDINGS
@@ -1184,6 +1257,8 @@ local function resolve()
   G.gameState = readOperand(gift, GIFT_GAME_STATE, "the game state")
   local sellPrice = readCallTarget(gift, GIFT_SELL_PRICE, "getSellPrice")
   G.goodsReceived = readOperand(gift, GIFT_RECEIVED, "the goods statistics")
+  G.aivState = rd32(scan(AIV.AOB, "the AI castle plans") + AIV.OPERAND)
+  G.castleDone = core.allocate(16, true)
   G.goodsSent = readOperand(gift, GIFT_SENT, "the goods statistics")
   local enough = scan(AOB_ENOUGH, "the AI's trade minimum test")
 
@@ -1228,11 +1303,16 @@ local function resolve()
   G.year, G.month = rd32(date + DATE_YEAR), rd32(date + DATE_MONTH)
 
   F.enough = core.exposeCode(enough, 4, 1)
+  G.enough = enough
   F.gain = core.exposeCode(gain, 4, 1)
   F.loss = core.exposeCode(loss, 5, 1)
   F.sellPrice = core.exposeCode(sellPrice, 4, 1)
   F.buyPrice = core.exposeCode(readCallTarget(scan(AOB_BUY, "the AI's purchase"), BUY_PRICE, "getBuyPrice"), 4, 1)
   F.requestGoods = core.exposeCode(scan(AOB_REQUEST_GOODS, "requestGoods"), 4, 1)
+  G.requestHandler = scan(ENOUGH_GOLD.request, "the ally request command")
+  -- The AI's "goods sent" speech (it plays only when the receiver is the player at this PC).
+  -- (exposeCode counts the thiscall's this as an argument: this, sender, receiver)
+  F.sentSpeech = core.exposeCode(readCallTarget(G.requestHandler, ENOUGH_GOLD.sentSpeech, "the goods sent speech"), 3, 1)
   if readOperand(scan(AOB_ACQUIRE, "the AI's wish list"), ACQUIRE_LIST, "the AI's wish list")
       ~= G.players + P.TO_ACQUIRE then
     error(MODULE_NAME .. ": the player array is not laid out as the module expects")
@@ -1259,6 +1339,8 @@ local function enable(self, config)
   O.goldShare = number(setting(config, "gold", "share"), 0, 100)
   O.goldAsk = setting(config, "gold", "ask") == true
   O.goldRecruit = setting(config, "gold", "recruit") == true
+  O.goldPlayer = setting(config, "gold", "player") == true
+  O.goldAfterCastle = setting(config, "gold", "after_castle") == true
   O.recruitBuffer = number(setting(config, "gold", "recruit_buffer"), 0, 5000)
   if O.goldShare == 0 then O.gold = false end
   O.help = setting(config, "help", "enabled") == true
@@ -1270,7 +1352,7 @@ local function enable(self, config)
   O.gates = setting(config, "gates", "enabled") == true
   O.onKeep = setting(config, "gates", "keep") == true
   O.log = setting(config, "diagnostics", "log") == true
-  if not (O.goods or O.gold or O.goldAsk or O.goldRecruit or O.help or O.army or O.gates) then
+  if not (O.goods or O.gold or O.goldAsk or O.goldRecruit or O.goldPlayer or O.help or O.army or O.gates) then
     log(INFO, MODULE_NAME .. ": every part is off")
     return
   end
@@ -1327,6 +1409,40 @@ local function enable(self, config)
     })
     table.insert(self.saved, { address = G.gateSite, bytes = core.readBytes(G.gateSite, GATE_SITE_SIZE) })
     core.writeCode(G.gateSite, { 0xE9, core.itob(core.getRelativeAddress(G.gateSite, gateStub, -5)), 0x90, 0x90 })
+  end
+  if O.goldPlayer then
+    local site = G.enough + ENOUGH_GOLD.site
+    for i, byte in ipairs(ENOUGH_GOLD.bytes) do
+      if (core.readByte(site + i - 1) & 0xFF) ~= byte then
+        error(MODULE_NAME .. ": the AI's gold refusal is not the code this module knows")
+      end
+    end
+    local stride = readOperand(G.enough, ENOUGH_GOLD.stride, "the AI's trade minimum test")
+    local resources = readOperand(G.enough, ENOUGH_GOLD.resources, "the AI's trade minimum test")
+    local goldStub = core.allocateAssembly(GOLD_STUB, {
+      GOLD = GOLD, PLAYER_DWORDS = stride, GOLD_ADDRESS = resources + GOLD * 4, KEEP = O.goldKeep,
+      CASTLE_DONE = G.castleDone,
+      GOODS = G.enough + ENOUGH_GOLD.goods,
+    })
+    table.insert(self.saved, { address = site, bytes = core.readBytes(site, ENOUGH_GOLD.size) })
+    core.writeCode(site, { 0xE9, core.itob(core.getRelativeAddress(site, goldStub, -5)) })
+    -- ...and the AI then really sends it, with its "goods sent" speech.
+    local handler = G.requestHandler
+    table.insert(self.saved, { address = handler, bytes = core.readBytes(handler, ENOUGH_GOLD.requestSize) })
+    local original
+    original = core.hookCode(function(sender, resource, amount, receiver)
+      if resource + 1 == GOLD and isAI(sender) and castleDone(sender) then
+        local ok, problem = pcall(function()
+          local send = math.min(amount, gold(sender))
+          if send <= 0 then return end
+          sendGold(sender, receiver, send)     -- with the AI's "goods sent" message
+          diag("player %d sends player %d %d gold", sender, receiver, send)
+        end)
+        if not ok then log(WARNING, MODULE_NAME .. ": " .. tostring(problem)) end
+        return 0
+      end
+      return original(sender, resource, amount, receiver)
+    end, handler, 4, 0, ENOUGH_GOLD.requestSize)
   end
   log(INFO, string.format("%s: on (goods %s, gold %s, help %s, army %s%%, gates %s); hooked 0x%X",
     MODULE_NAME, O.goods and "on" or "off", O.gold and "on" or "off", O.help and "on" or "off",

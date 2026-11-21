@@ -95,6 +95,22 @@ options:
     contents:
       type: boolean
       value: true
+  - url: ally-support.gold.player
+    name: ally-support-gold-player
+    text: '{{gold_player}}'
+    tooltip: '{{gold_player_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: ally-support.gold.after_castle
+    name: ally-support-gold-after-castle
+    text: '{{gold_after_castle}}'
+    tooltip: '{{gold_after_castle_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
   - url: ally-support.gold.recruit_buffer
     name: ally-support-gold-recruit-buffer
     text: '{{gold_recruit_buffer}}'
