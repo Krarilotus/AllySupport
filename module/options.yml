@@ -1,62 +1,63 @@
 options:
 - display: GroupBox
-  category: [Ally Support]
+  category:
+  - '{{ai}}'
+  - '{{improvements}}'
   header: '{{goods_group}}'
-  text: '{{goods_group_descr}}'
+  text: '{{goods_group_details}}'
   hasHeader: true
   children:
   - url: ally-support.goods.enabled
     name: ally-support-goods-enabled
-    text: '{{goods_enabled}}'
-    tooltip: '{{goods_enabled_tooltip}}'
-    display: Switch
+    text: '{{goods_enabled_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{goods_enabled}}'
   - url: ally-support.goods.weak
     name: ally-support-goods-weak
-    text: '{{goods_weak}}'
-    tooltip: '{{goods_weak_tooltip}}'
-    display: Switch
+    text: '{{goods_weak_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{goods_weak}}'
   - url: ally-support.goods.no_pingpong
     name: ally-support-goods-no-pingpong
-    text: '{{goods_no_pingpong}}'
-    tooltip: '{{goods_no_pingpong_tooltip}}'
-    display: Switch
+    text: '{{goods_no_pingpong_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{goods_no_pingpong}}'
   - url: ally-support.goods.useful
     name: ally-support-goods-useful
-    text: '{{goods_useful}}'
-    tooltip: '{{goods_useful_tooltip}}'
-    display: Switch
+    text: '{{goods_useful_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{goods_useful}}'
   - url: ally-support.goods.protect
     name: ally-support-goods-protect
-    text: '{{goods_protect}}'
-    tooltip: '{{goods_protect_tooltip}}'
-    display: Switch
+    text: '{{goods_protect_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{goods_protect}}'
   - url: ally-support.goods.rebuild
     name: ally-support-goods-rebuild
-    text: '{{goods_rebuild}}'
-    tooltip: '{{goods_rebuild_tooltip}}'
-    display: Switch
+    text: '{{goods_rebuild_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{goods_rebuild}}'
   - url: ally-support.goods.give_share
     name: ally-support-goods-give-share
     text: '{{goods_give_share}}'
-    tooltip: '{{goods_give_share_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -64,57 +65,57 @@ options:
       min: 5
       max: 100
       step: 5
-
 - display: GroupBox
-  category: [Ally Support]
+  category:
+  - '{{ai}}'
+  - '{{improvements}}'
   header: '{{gold_group}}'
-  text: '{{gold_group_descr}}'
+  text: '{{gold_group_details}}'
   hasHeader: true
   children:
   - url: ally-support.gold.enabled
     name: ally-support-gold-enabled
-    text: '{{gold_enabled}}'
-    tooltip: '{{gold_enabled_tooltip}}'
-    display: Switch
+    text: '{{gold_enabled_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{gold_enabled}}'
   - url: ally-support.gold.ask
     name: ally-support-gold-ask
-    text: '{{gold_ask}}'
-    tooltip: '{{gold_ask_tooltip}}'
-    display: Switch
+    text: '{{gold_ask_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{gold_ask}}'
   - url: ally-support.gold.recruit
     name: ally-support-gold-recruit
-    text: '{{gold_recruit}}'
-    tooltip: '{{gold_recruit_tooltip}}'
-    display: Switch
+    text: '{{gold_recruit_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{gold_recruit}}'
   - url: ally-support.gold.player
     name: ally-support-gold-player
-    text: '{{gold_player}}'
-    tooltip: '{{gold_player_tooltip}}'
-    display: Switch
+    text: '{{gold_player_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{gold_player}}'
   - url: ally-support.gold.after_castle
     name: ally-support-gold-after-castle
-    text: '{{gold_after_castle}}'
-    tooltip: '{{gold_after_castle_tooltip}}'
-    display: Switch
+    text: '{{gold_after_castle_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{gold_after_castle}}'
   - url: ally-support.gold.recruit_buffer
     name: ally-support-gold-recruit-buffer
     text: '{{gold_recruit_buffer}}'
-    tooltip: '{{gold_recruit_buffer_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -125,7 +126,6 @@ options:
   - url: ally-support.gold.keep
     name: ally-support-gold-keep
     text: '{{gold_keep}}'
-    tooltip: '{{gold_keep_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -136,7 +136,6 @@ options:
   - url: ally-support.gold.share
     name: ally-support-gold-share
     text: '{{gold_share}}'
-    tooltip: '{{gold_share_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -144,25 +143,25 @@ options:
       min: 5
       max: 100
       step: 5
-
 - display: GroupBox
-  category: [Ally Support]
+  category:
+  - '{{ai}}'
+  - '{{improvements}}'
   header: '{{help_group}}'
-  text: '{{help_group_descr}}'
+  text: '{{help_group_details}}'
   hasHeader: true
   children:
   - url: ally-support.help.enabled
     name: ally-support-help-enabled
-    text: '{{help_enabled}}'
-    tooltip: '{{help_enabled_tooltip}}'
-    display: Switch
+    text: '{{help_enabled_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{help_enabled}}'
   - url: ally-support.help.months
     name: ally-support-help-months
     text: '{{help_months}}'
-    tooltip: '{{help_months_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -173,7 +172,6 @@ options:
   - url: ally-support.help.recall
     name: ally-support-help-recall
     text: '{{help_recall}}'
-    tooltip: '{{help_recall_tooltip}}'
     display: Choice
     contents:
       type: string
@@ -185,16 +183,15 @@ options:
         text: '{{help_recall_army}}'
   - url: ally-support.army.enabled
     name: ally-support-army-enabled
-    text: '{{army_enabled}}'
-    tooltip: '{{army_enabled_tooltip}}'
-    display: Switch
+    text: '{{army_enabled_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{army_enabled}}'
   - url: ally-support.army.share
     name: ally-support-army-share
     text: '{{army_share}}'
-    tooltip: '{{army_share_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -204,32 +201,34 @@ options:
       step: 5
   - url: ally-support.gates.enabled
     name: ally-support-gates-enabled
-    text: '{{gates_enabled}}'
-    tooltip: '{{gates_enabled_tooltip}}'
-    display: Switch
+    text: '{{gates_enabled_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{gates_enabled}}'
   - url: ally-support.gates.keep
     name: ally-support-gates-keep
-    text: '{{gates_keep}}'
-    tooltip: '{{gates_keep_tooltip}}'
-    display: Switch
+    text: '{{gates_keep_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
-
+    header: '{{gates_keep}}'
 - display: GroupBox
-  category: [Ally Support]
+  category:
+  - '{{misc}}'
   header: '{{diagnostics_group}}'
   text: '{{diagnostics_group_descr}}'
   hasHeader: true
   children:
   - url: ally-support.diagnostics.log
     name: ally-support-diagnostics-log
-    text: '{{diagnostics_log}}'
-    tooltip: '{{diagnostics_log_tooltip}}'
-    display: Switch
+    text: '{{diagnostics_log_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: false
+    header: '{{diagnostics_log}}'
+meta:
+  version: 1.0.0

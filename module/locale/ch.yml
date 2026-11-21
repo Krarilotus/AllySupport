@@ -1,0 +1,74 @@
+ai: 电脑玩家
+army_enabled: 保留守军
+army_enabled_details: 默认开启。
+army_share: 出援兵力比例（%）
+diagnostics_group: 诊断
+diagnostics_group_descr: 在 ucp3.log 中查看诊断信息。
+diagnostics_log: 记录决策
+diagnostics_log_details: 默认关闭。
+gates_enabled: 向盟友开放城门
+gates_enabled_details: 默认开启。
+gates_keep: 允许进入主堡
+gates_keep_details: 默认开启。
+gold_after_castle: 城堡完工后才赠送黄金
+gold_after_castle_details: 默认开启。
+gold_ask: 允许电脑玩家请求黄金
+gold_ask_details: 默认开启。
+gold_enabled: 赠送多余黄金
+gold_enabled_details: 默认开启。
+gold_group: 黄金援助
+gold_group_details: '电脑玩家可请求和分享黄金，并预留招募资金。
+
+
+  额外招募储备金 — 默认值: 300. 电脑角色没有单独设置时使用此值。
+
+
+  赠送方黄金储备 — 默认值: 1000. 电脑角色没有单独设置时使用此值。
+
+
+  赠送多余黄金的比例（%） — 默认值: 25. 电脑角色没有单独设置时使用此值。'
+gold_keep: 赠送方黄金储备
+gold_player: 响应玩家的黄金请求
+gold_player_details: 默认开启。
+gold_recruit: 提供招募资金
+gold_recruit_buffer: 额外招募储备金
+gold_recruit_details: 默认开启。
+gold_share: 赠送多余黄金的比例（%）
+goods_enabled: 共享物资
+goods_enabled_details: 默认开启。
+goods_give_share: 每月赠送上限（%）
+goods_group: 物资援助
+goods_group_details: '电脑盟友分享库存，同时保留自用物资。
+
+
+  每月赠送上限（%） — 默认值: 30. 电脑角色没有单独设置时使用此值。'
+goods_no_pingpong: 避免转赠最近收到的物资
+goods_no_pingpong_details: 默认开启。
+goods_protect: 启用每月赠送上限
+goods_protect_details: 默认开启。
+goods_rebuild: 帮助重建
+goods_rebuild_details: 默认开启。
+goods_useful: 遵守接收方的库存上限
+goods_useful_details: 默认开启。
+goods_weak: 帮助弱势盟友
+goods_weak_details: 默认开启。
+help_enabled: 改进军事援助
+help_enabled_details: 默认开启。
+help_group: 军事援助与城门
+help_group_details: '盟友可派兵、保留守军并为来访者开门。
+
+
+  援助期限（月） — 默认值: 6.
+
+
+  撤回条件 — 默认值: 盟友恢复实力.
+
+
+  出援兵力比例（%） — 默认值: 75. 电脑角色没有单独设置时使用此值。'
+help_months: 援助期限（月）
+help_recall: 撤回条件
+help_recall_army: 盟友重建军队
+help_recall_strong: 盟友恢复实力
+improvements: 改进
+misc: 其他
+tags.behavior: 行为

@@ -1,0 +1,74 @@
+ai: MI
+army_enabled: Tartalékcsapatok otthon tartása
+army_enabled_details: Alapértelmezésben be van kapcsolva.
+army_share: Elküldött csapatok aránya (%)
+diagnostics_group: Diagnosztika
+diagnostics_group_descr: Hibakereséshez az ucp3.log fájlban.
+diagnostics_log: Döntések naplózása
+diagnostics_log_details: Alapértelmezésben ki van kapcsolva.
+gates_enabled: Kapunyitás a szövetségeseknek
+gates_enabled_details: Alapértelmezésben be van kapcsolva.
+gates_keep: Bejárás engedélyezése az öregtoronyhoz
+gates_keep_details: Alapértelmezésben be van kapcsolva.
+gold_after_castle: Aranyadás a vár elkészülte után
+gold_after_castle_details: Alapértelmezésben be van kapcsolva.
+gold_ask: MI-aranykérések engedélyezése
+gold_ask_details: Alapértelmezésben be van kapcsolva.
+gold_enabled: Felesleges arany adományozása
+gold_enabled_details: Alapértelmezésben be van kapcsolva.
+gold_group: Aranysegély
+gold_group_details: 'Az MI aranyat kérhet és adhat, tartalékot hagyva a toborzásra.
+
+
+  További toborzási tartalék — Alapérték: 300. Ez az érték érvényes, ha az MI személyisége nem ad meg másikat.
+
+
+  Az adományozó aranytartaléka — Alapérték: 1000. Ez az érték érvényes, ha az MI személyisége nem ad meg másikat.
+
+
+  Elajándékozott aranyfelesleg (%) — Alapérték: 25. Ez az érték érvényes, ha az MI személyisége nem ad meg másikat.'
+gold_keep: Az adományozó aranytartaléka
+gold_player: Játékosok aranykéréseinek teljesítése
+gold_player_details: Alapértelmezésben be van kapcsolva.
+gold_recruit: Arany adása toborzásra
+gold_recruit_buffer: További toborzási tartalék
+gold_recruit_details: Alapértelmezésben be van kapcsolva.
+gold_share: Elajándékozott aranyfelesleg (%)
+goods_enabled: Áruk megosztása
+goods_enabled_details: Alapértelmezésben be van kapcsolva.
+goods_give_share: Havi adománykorlát (%)
+goods_group: Árusegély
+goods_group_details: 'Az MI-szövetségesek úgy osztják meg készleteiket, hogy maguknak is maradjon.
+
+
+  Havi adománykorlát (%) — Alapérték: 30. Ez az érték érvényes, ha az MI személyisége nem ad meg másikat.'
+goods_no_pingpong: Nemrég kapott áru továbbadásának tiltása
+goods_no_pingpong_details: Alapértelmezésben be van kapcsolva.
+goods_protect: Havi adománykorlát alkalmazása
+goods_protect_details: Alapértelmezésben be van kapcsolva.
+goods_rebuild: Újjáépítés segítése
+goods_rebuild_details: Alapértelmezésben be van kapcsolva.
+goods_useful: A fogadó készletkorlátjának betartása
+goods_useful_details: Alapértelmezésben be van kapcsolva.
+goods_weak: Gyenge szövetségesek segítése
+goods_weak_details: Alapértelmezésben be van kapcsolva.
+help_enabled: Katonai segítség javítása
+help_enabled_details: Alapértelmezésben be van kapcsolva.
+help_group: Katonai segítség és kapuk
+help_group_details: 'A szövetségesek csapatokat küldhetnek, tartalékot tarthatnak és kaput nyithatnak a látogatóknak.
+
+
+  Segítség időtartama (hónap) — Alapérték: 6.
+
+
+  Visszahívási feltétel — Alapérték: A szövetséges ismét erős.
+
+
+  Elküldött csapatok aránya (%) — Alapérték: 75. Ez az érték érvényes, ha az MI személyisége nem ad meg másikat.'
+help_months: Segítség időtartama (hónap)
+help_recall: Visszahívási feltétel
+help_recall_army: A szövetségesnek ismét van serege
+help_recall_strong: A szövetséges ismét erős
+improvements: Fejlesztések
+misc: Egyéb
+tags.behavior: Viselkedés

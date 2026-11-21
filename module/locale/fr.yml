@@ -1,0 +1,74 @@
+ai: IA
+army_enabled: Garder des troupes en réserve
+army_enabled_details: Activé par défaut.
+army_share: Part des troupes envoyées (%)
+diagnostics_group: Diagnostic
+diagnostics_group_descr: Pour le dépannage dans ucp3.log.
+diagnostics_log: Journaliser les décisions
+diagnostics_log_details: Désactivé par défaut.
+gates_enabled: Ouvrir les portes aux alliés
+gates_enabled_details: Activé par défaut.
+gates_keep: Autoriser l’accès au donjon
+gates_keep_details: Activé par défaut.
+gold_after_castle: Donner de l’or après la construction du château
+gold_after_castle_details: Activé par défaut.
+gold_ask: Autoriser les demandes d’or de l’IA
+gold_ask_details: Activé par défaut.
+gold_enabled: Offrir l’or excédentaire
+gold_enabled_details: Activé par défaut.
+gold_group: Aide en or
+gold_group_details: 'L’IA peut demander et partager de l’or tout en gardant une réserve pour le recrutement.
+
+
+  Réserve supplémentaire de recrutement — Valeur par défaut: 300. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.
+
+
+  Réserve d’or du donateur — Valeur par défaut: 1000. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.
+
+
+  Part offerte de l’or excédentaire (%) — Valeur par défaut: 25. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.'
+gold_keep: Réserve d’or du donateur
+gold_player: Répondre aux demandes d’or des joueurs
+gold_player_details: Activé par défaut.
+gold_recruit: Donner de l’or pour recruter
+gold_recruit_buffer: Réserve supplémentaire de recrutement
+gold_recruit_details: Activé par défaut.
+gold_share: Part offerte de l’or excédentaire (%)
+goods_enabled: Partager les marchandises
+goods_enabled_details: Activé par défaut.
+goods_give_share: Plafond de don mensuel (%)
+goods_group: Aide en marchandises
+goods_group_details: 'Les alliés de l’IA partagent les stocks en gardant de quoi couvrir leurs besoins.
+
+
+  Plafond de don mensuel (%) — Valeur par défaut: 30. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.'
+goods_no_pingpong: Éviter de redonner les biens reçus récemment
+goods_no_pingpong_details: Activé par défaut.
+goods_protect: Appliquer le plafond mensuel
+goods_protect_details: Activé par défaut.
+goods_rebuild: Aider à reconstruire
+goods_rebuild_details: Activé par défaut.
+goods_useful: Respecter la limite de stock du destinataire
+goods_useful_details: Activé par défaut.
+goods_weak: Aider les alliés faibles
+goods_weak_details: Activé par défaut.
+help_enabled: Améliorer l’aide militaire
+help_enabled_details: Activé par défaut.
+help_group: Aide militaire et portes
+help_group_details: 'Les alliés peuvent envoyer des troupes, garder une réserve et ouvrir leurs portes aux visiteurs.
+
+
+  Durée de l’aide (mois) — Valeur par défaut: 6.
+
+
+  Critère de rappel — Valeur par défaut: Allié de nouveau fort.
+
+
+  Part des troupes envoyées (%) — Valeur par défaut: 75. Cette valeur s’applique si la personnalité de l’IA ne fixe aucune valeur.'
+help_months: Durée de l’aide (mois)
+help_recall: Critère de rappel
+help_recall_army: Allié de nouveau doté d’une armée
+help_recall_strong: Allié de nouveau fort
+improvements: Améliorations
+misc: Divers
+tags.behavior: Comportement

@@ -1,0 +1,74 @@
+ai: YZ
+army_enabled: Yedek birlik bırak
+army_enabled_details: Varsayılan olarak açık.
+army_share: Gönderilen birliklerin oranı (%)
+diagnostics_group: Tanılama
+diagnostics_group_descr: ucp3.log ile hata ayıklamak için.
+diagnostics_log: Kararları günlüğe yaz
+diagnostics_log_details: Varsayılan olarak kapalı.
+gates_enabled: Müttefiklere kapıları aç
+gates_enabled_details: Varsayılan olarak açık.
+gates_keep: İç kaleye erişime izin ver
+gates_keep_details: Varsayılan olarak açık.
+gold_after_castle: Kale tamamlanınca altın ver
+gold_after_castle_details: Varsayılan olarak açık.
+gold_ask: YZ altın isteklerine izin ver
+gold_ask_details: Varsayılan olarak açık.
+gold_enabled: Fazla altını bağışla
+gold_enabled_details: Varsayılan olarak açık.
+gold_group: Altın yardımı
+gold_group_details: 'YZ altın isteyebilir, paylaşabilir ve asker alımı için ayırabilir.
+
+
+  Ek asker alım bütçesi — Varsayılan değer: 300. YZ karakterinde değer yoksa bu değer kullanılır.
+
+
+  Bağışçının altın rezervi — Varsayılan değer: 1000. YZ karakterinde değer yoksa bu değer kullanılır.
+
+
+  Bağışlanan fazla altın (%) — Varsayılan değer: 25. YZ karakterinde değer yoksa bu değer kullanılır.'
+gold_keep: Bağışçının altın rezervi
+gold_player: Oyuncuların altın isteklerini yanıtla
+gold_player_details: Varsayılan olarak açık.
+gold_recruit: Asker alımı için altın ver
+gold_recruit_buffer: Ek asker alım bütçesi
+gold_recruit_details: Varsayılan olarak açık.
+gold_share: Bağışlanan fazla altın (%)
+goods_enabled: Mal paylaş
+goods_enabled_details: Varsayılan olarak açık.
+goods_give_share: Aylık yardım sınırı (%)
+goods_group: Mal yardımı
+goods_group_details: 'YZ müttefikleri kendi ihtiyaçlarını ayırarak stokları paylaşır.
+
+
+  Aylık yardım sınırı (%) — Varsayılan değer: 30. YZ karakterinde değer yoksa bu değer kullanılır.'
+goods_no_pingpong: Yeni alınan malları tekrar verme
+goods_no_pingpong_details: Varsayılan olarak açık.
+goods_protect: Aylık yardım sınırı uygula
+goods_protect_details: Varsayılan olarak açık.
+goods_rebuild: Yeniden inşaya yardım et
+goods_rebuild_details: Varsayılan olarak açık.
+goods_useful: Alıcının stok sınırına uy
+goods_useful_details: Varsayılan olarak açık.
+goods_weak: Zayıf müttefiklere yardım et
+goods_weak_details: Varsayılan olarak açık.
+help_enabled: Askerî yardımı iyileştir
+help_enabled_details: Varsayılan olarak açık.
+help_group: Askerî yardım ve kapılar
+help_group_details: 'Müttefikler asker gönderebilir, yedek tutabilir ve ziyaretçilere kapı açabilir.
+
+
+  Yardım süresi (ay) — Varsayılan değer: 6.
+
+
+  Geri çağırma koşulu — Varsayılan değer: Müttefik yeniden güçlü.
+
+
+  Gönderilen birliklerin oranı (%) — Varsayılan değer: 75. YZ karakterinde değer yoksa bu değer kullanılır.'
+help_months: Yardım süresi (ay)
+help_recall: Geri çağırma koşulu
+help_recall_army: Müttefik yeniden ordu kurdu
+help_recall_strong: Müttefik yeniden güçlü
+improvements: İyileştirmeler
+misc: Diğer
+tags.behavior: Davranış

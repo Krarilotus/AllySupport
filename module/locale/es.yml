@@ -1,0 +1,74 @@
+ai: IA
+army_enabled: Mantener tropas de reserva
+army_enabled_details: Activado por defecto.
+army_share: Parte de tropas enviadas (%)
+diagnostics_group: Diagnóstico
+diagnostics_group_descr: Para diagnosticar problemas en ucp3.log.
+diagnostics_log: Registrar decisiones
+diagnostics_log_details: Desactivado por defecto.
+gates_enabled: Abrir las puertas a aliados
+gates_enabled_details: Activado por defecto.
+gates_keep: Permitir el acceso al torreón
+gates_keep_details: Activado por defecto.
+gold_after_castle: Dar oro al terminar el castillo
+gold_after_castle_details: Activado por defecto.
+gold_ask: Permitir peticiones de oro de la IA
+gold_ask_details: Activado por defecto.
+gold_enabled: Regalar oro sobrante
+gold_enabled_details: Activado por defecto.
+gold_group: Ayuda con oro
+gold_group_details: 'La IA puede pedir y compartir oro y reservar parte para reclutar.
+
+
+  Reserva extra de reclutamiento — Valor predeterminado: 300. Se usa este valor si la personalidad de la IA no define otro.
+
+
+  Reserva de oro del donante — Valor predeterminado: 1000. Se usa este valor si la personalidad de la IA no define otro.
+
+
+  Parte regalada del oro sobrante (%) — Valor predeterminado: 25. Se usa este valor si la personalidad de la IA no define otro.'
+gold_keep: Reserva de oro del donante
+gold_player: Responder a las peticiones de oro de jugadores
+gold_player_details: Activado por defecto.
+gold_recruit: Dar oro para reclutar
+gold_recruit_buffer: Reserva extra de reclutamiento
+gold_recruit_details: Activado por defecto.
+gold_share: Parte regalada del oro sobrante (%)
+goods_enabled: Compartir bienes
+goods_enabled_details: Activado por defecto.
+goods_give_share: Límite mensual de donación (%)
+goods_group: Ayuda con bienes
+goods_group_details: 'Los aliados de la IA comparten sus reservas sin descuidar sus necesidades.
+
+
+  Límite mensual de donación (%) — Valor predeterminado: 30. Se usa este valor si la personalidad de la IA no define otro.'
+goods_no_pingpong: Evitar redistribuir bienes recién recibidos
+goods_no_pingpong_details: Activado por defecto.
+goods_protect: Aplicar el límite mensual
+goods_protect_details: Activado por defecto.
+goods_rebuild: Ayudar a reconstruir
+goods_rebuild_details: Activado por defecto.
+goods_useful: Respetar el límite de almacén del receptor
+goods_useful_details: Activado por defecto.
+goods_weak: Ayudar a aliados débiles
+goods_weak_details: Activado por defecto.
+help_enabled: Mejorar la ayuda militar
+help_enabled_details: Activado por defecto.
+help_group: Ayuda militar y puertas
+help_group_details: 'Los aliados pueden enviar tropas, guardar una reserva y abrir puertas a visitantes.
+
+
+  Duración de la ayuda (meses) — Valor predeterminado: 6.
+
+
+  Criterio de retirada — Valor predeterminado: El aliado recupera su fuerza.
+
+
+  Parte de tropas enviadas (%) — Valor predeterminado: 75. Se usa este valor si la personalidad de la IA no define otro.'
+help_months: Duración de la ayuda (meses)
+help_recall: Criterio de retirada
+help_recall_army: El aliado vuelve a tener ejército
+help_recall_strong: El aliado recupera su fuerza
+improvements: Mejoras
+misc: Varios
+tags.behavior: Comportamiento

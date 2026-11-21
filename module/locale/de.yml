@@ -1,0 +1,74 @@
+ai: KI
+army_enabled: Truppen als Reserve zurücklassen
+army_enabled_details: Standardmäßig an.
+army_share: Anteil entsandter Truppen (%)
+diagnostics_group: Diagnose
+diagnostics_group_descr: Für die Fehlersuche in ucp3.log.
+diagnostics_log: Entscheidungen protokollieren
+diagnostics_log_details: Standardmäßig aus.
+gates_enabled: Tore für Verbündete öffnen
+gates_enabled_details: Standardmäßig an.
+gates_keep: Zugang zum Bergfried erlauben
+gates_keep_details: Standardmäßig an.
+gold_after_castle: Gold erst nach Burgbau abgeben
+gold_after_castle_details: Standardmäßig an.
+gold_ask: KI-Goldanfragen erlauben
+gold_ask_details: Standardmäßig an.
+gold_enabled: Überschüssiges Gold schenken
+gold_enabled_details: Standardmäßig an.
+gold_group: Goldhilfe
+gold_group_details: 'Die KI kann Gold erbitten, teilen und als Reserve für neue Truppen behalten.
+
+
+  Zusätzliche Rekrutierungsreserve — Standardwert: 300. Der Wert gilt, wenn die KI-Persönlichkeit keinen eigenen Wert vorgibt.
+
+
+  Goldreserve des Gebers — Standardwert: 1000. Der Wert gilt, wenn die KI-Persönlichkeit keinen eigenen Wert vorgibt.
+
+
+  Geschenk aus dem Goldüberschuss (%) — Standardwert: 25. Der Wert gilt, wenn die KI-Persönlichkeit keinen eigenen Wert vorgibt.'
+gold_keep: Goldreserve des Gebers
+gold_player: Goldanfragen von Spielern beantworten
+gold_player_details: Standardmäßig an.
+gold_recruit: Gold für die Rekrutierung geben
+gold_recruit_buffer: Zusätzliche Rekrutierungsreserve
+gold_recruit_details: Standardmäßig an.
+gold_share: Geschenk aus dem Goldüberschuss (%)
+goods_enabled: Waren teilen
+goods_enabled_details: Standardmäßig an.
+goods_give_share: Monatliches Abgabelimit (%)
+goods_group: Warenhilfe
+goods_group_details: 'KI-Verbündete teilen Vorräte und behalten genug für den Eigenbedarf.
+
+
+  Monatliches Abgabelimit (%) — Standardwert: 30. Der Wert gilt, wenn die KI-Persönlichkeit keinen eigenen Wert vorgibt.'
+goods_no_pingpong: Weitergabe kürzlich erhaltener Waren begrenzen
+goods_no_pingpong_details: Standardmäßig an.
+goods_protect: Monatliches Abgabelimit anwenden
+goods_protect_details: Standardmäßig an.
+goods_rebuild: Wiederaufbau unterstützen
+goods_rebuild_details: Standardmäßig an.
+goods_useful: Vorratsgrenze des Empfängers beachten
+goods_useful_details: Standardmäßig an.
+goods_weak: Schwachen Verbündeten helfen
+goods_weak_details: Standardmäßig an.
+help_enabled: Militärhilfe verbessern
+help_enabled_details: Standardmäßig an.
+help_group: Militärhilfe und Tore
+help_group_details: 'Verbündete können Truppen schicken, eine Reserve behalten und Besuchern Tore öffnen.
+
+
+  Dauer der Hilfe (Monate) — Standardwert: 6.
+
+
+  Rückrufkriterium — Standardwert: Verbündeter wieder stark.
+
+
+  Anteil entsandter Truppen (%) — Standardwert: 75. Der Wert gilt, wenn die KI-Persönlichkeit keinen eigenen Wert vorgibt.'
+help_months: Dauer der Hilfe (Monate)
+help_recall: Rückrufkriterium
+help_recall_army: Verbündeter hat wieder eine Armee
+help_recall_strong: Verbündeter wieder stark
+improvements: Verbesserungen
+misc: Sonstiges
+tags.behavior: Verhalten
