@@ -178,7 +178,8 @@ local GATE_STATE = { 0x188, { 0xC6, 0x87 } }     -- mov byte [edi + gate state],
 local GATE_APPLY = 0x196
 
 -- GameState::canNavigateFromKeepToKeep: the area map. The tile map: rows and y of a tile.
-local AOB_KEEP_TO_KEEP = "56 8B 74 24 08 8B C6 69 C0 F4 39 00 00 03 C1 83 B8 ? ? ? ? 00 75 09 B8 01 00 00 00"
+-- Mode 0 wrapper. The mode 2 wrapper shares its prologue and native target.
+local AOB_KEEP_TO_KEEP = "56 8B 74 24 08 8B C6 69 C0 F4 39 00 00 03 C1 83 B8 ? ? ? ? 00 75 09 B8 01 00 00 00 5E C2 08 00 8B 54 24 0C 69 D2 F4 39 00 ? ? ? ? B9 ? ? ? ? ? ? ? 8B 89 ? ? ? ? 8B 90 ? ? ? ? ? B7 04 4D D8 ? ? ? ? 85 C0 75 ? ? ? ? C2 08 00 ? ? ? ? D8 ? ? ? ? ? ? 74 ED 66 3B C8 74 B1 0F BF C9 6A 00 51 0F BF D0 52 56 B9 ? ? ? ? E8"
 local K2K_AREA = { 0x42, { 0x0F, 0xB7, 0x04, 0x4D } }
 local AOB_TILE_FLAGS = "F7 04 9D ? ? ? ? 00 01 00 00"
 local TILE_FLAGS_OPERAND = 0x03
