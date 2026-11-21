@@ -1,7 +1,7 @@
 # Ally Support
 
 **Author**: Monsterfish
-**Version**: 1.0.13
+**Version**: 1.0.19
 
 AI allies help each other the way they already help you. Every part can be switched off in the
 settings.
