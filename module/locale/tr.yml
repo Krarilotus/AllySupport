@@ -1,132 +1,75 @@
 ai: Yapay zekâ
 army_enabled: Saldırı ordusunun yalnızca bir kısmını gönder
-army_enabled_details: |-
-  Normalde bir yapay zekâ müttefiki yardım ederken tüm saldırı ordusunu gönderir. Bu ayar açıkken yalnızca aşağıdaki payı gönderir ve geri kalanını kendi kampında tutar. Kale savunmacıları, devriyeler ve akıncılar asla gitmez. Mühendisler, merdivenciler, tünelciler ve kuşatma araçları ilk olarak evde kalanlardır. Yardım bittiğinde evde tutulan birlikler orduya tekrar katılır.
-
-  Varsayılan olarak açık.
+army_enabled_details: Normalde bir yapay zekâ müttefiki yardım ederken tüm saldırı ordusunu gönderir. Bu ayar açıkken yalnızca aşağıdaki payı gönderir ve geri kalanını kendi kampında tutar. Kale savunmacıları, devriyeler ve akıncılar asla gitmez. Mühendisler, merdivenciler, tünelciler ve kuşatma araçları ilk olarak evde kalanlardır. Yardım bittiğinde evde tutulan birlikler orduya tekrar katılır.
 army_share: Gönderilen saldırı ordusu payı (%)
+army_share_tooltip: |-
+  75 değeriyle 40 kişilik bir saldırı ordusu 30 asker gönderip 10 askeri evde tutar. Yardım sırasında toplanan yeni birlikler de aynı şekilde bölünür.
+
+  Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
 diagnostics_group: Tanılama
 diagnostics_group_descr: Test ve hata ayıklama için.
 diagnostics_log: Müttefik yardımlarını günlüğe yaz
-diagnostics_log_details: |-
-  Bir yapay zekâ mal veya altın gönderdiğinde, bir müttefike yardıma başladığında ya da yardımı bitirdiğinde, birliklerini evde tuttuğunda veya müttefik birliklere kapı açtığında ucp3.log dosyasına bir satır yazar — ayrıca ayda bir her yapay zekâ lordunun ne verip ne aldığını ve durumunu özetler.
-
-  Varsayılan olarak kapalı.
+diagnostics_log_details: Bir yapay zekâ mal veya altın gönderdiğinde, bir müttefike yardıma başladığında ya da yardımı bitirdiğinde, birliklerini evde tuttuğunda veya müttefik birliklere kapı açtığında ucp3.log dosyasına bir satır yazar — ayrıca ayda bir her yapay zekâ lordunun ne verip ne aldığını ve durumunu özetler.
 gates_enabled: Yardım birlikleri için kapıyı aç
-gates_enabled_details: |-
-  Saldırı altındaki bir kale kapılarını kapalı tuttuğundan yardım birlikleri dışarıda kalır. Bu ayar açıkken yardım birlikleri destekledikleri kalenin bir kapısı önünde durduğunda kapı açılır ve içeri alınırlar (iç kaleye, aşağıya bakın). Kapıda bekleyen kalmadığında kapı her zamanki gibi kendiliğinden kapanır. Yardım sona erdiğinde dışarı çıkmaları için kapı aynı şekilde açılır. Bir yapay zekâ müttefiki sana yardıma geldiğinde kendi kapıların için de çalışır.
-
-  Varsayılan olarak açık.
+gates_enabled_details: Saldırı altındaki bir kale kapılarını kapalı tuttuğundan yardım birlikleri dışarıda kalır. Bu ayar açıkken yardım birlikleri destekledikleri kalenin bir kapısı önünde durduğunda kapı açılır ve içeri alınırlar (iç kaleye, aşağıya bakın). Kapıda bekleyen kalmadığında kapı her zamanki gibi kendiliğinden kapanır. Yardım sona erdiğinde dışarı çıkmaları için kapı aynı şekilde açılır. Bir yapay zekâ müttefiki sana yardıma geldiğinde kendi kapıların için de çalışır.
 gates_keep: Yardımcılar müttefikin iç kalesine yerleşir
-gates_keep_details: |-
-  İçeri girdiklerinde yardım birlikleri, destekledikleri lordun iç kalesinin üstüne gönderilir — yapay zekânın tehlike anında kendi okçularına verdiği emrin aynısı — böylece okçular ve arbaletçiler yukarıdan ateş edebilir. Yukarıda yer bulamayanlar iç kalenin çevresinde durur. Kapalıysa bunun yerine lordun kampında toplanırlar.
-
-  Varsayılan olarak açık.
+gates_keep_details: İçeri girdiklerinde yardım birlikleri, destekledikleri lordun iç kalesinin üstüne gönderilir — yapay zekânın tehlike anında kendi okçularına verdiği emrin aynısı — böylece okçular ve arbaletçiler yukarıdan ateş edebilir. Yukarıda yer bulamayanlar iç kalenin çevresinde durur. Kapalıysa bunun yerine lordun kampında toplanırlar.
 gold_after_castle: Yapay zekâ müttefikleri yalnızca kaleleri bitince altın verir
-gold_after_castle_details: |-
-  Bir yapay zekâ müttefiki, arazinin izin verdiği ölçüde kalesini tamamlayana kadar — kale planının her parçası kurulana veya engelli olduğu anlaşılana dek — tüm altınını saklar. Ancak bundan sonra sana veya diğer müttefiklere altın verir; böylece başlangıç altını kalesine harcanır ve elinden alınamaz. Mallar bundan etkilenmez.
-
-  Varsayılan olarak açık.
+gold_after_castle_details: Bir yapay zekâ müttefiki, arazinin izin verdiği ölçüde kalesini tamamlayana kadar — kale planının her parçası kurulana veya engelli olduğu anlaşılana dek — tüm altınını saklar. Ancak bundan sonra sana veya diğer müttefiklere altın verir; böylece başlangıç altını kalesine harcanır ve elinden alınamaz. Mallar bundan etkilenmez.
 gold_ask: Yapay zekâ lordları müttefiklerinden altın ister
-gold_ask_details: |-
-  Bir yapay zekâ lordu parasının yetmediği bir mal almak istediğinde eksik altını senden ve yapay zekâ müttefiklerinden ister (yapay zekâ istek gecikmesinden daha sık olmamak üzere). İsteği müttefik ekranında diğer talepler gibi görür ve oradan altın gönderebilirsin. Bir yapay zekâ müttefiki, sonrasında kendi altın sınırını koruyabiliyorsa gönderir (aşağıya bakın); zayıf bir müttefike gerekirse bu sınırın yarısına inerek yarısına kadar gönderir.
-
-  Varsayılan olarak açık.
+gold_ask_details: Bir yapay zekâ lordu parasının yetmediği bir mal almak istediğinde eksik altını senden ve yapay zekâ müttefiklerinden ister (yapay zekâ istek gecikmesinden daha sık olmamak üzere). İsteği müttefik ekranında diğer talepler gibi görür ve oradan altın gönderebilirsin. Bir yapay zekâ müttefiki, sonrasında kendi altın sınırını koruyabiliyorsa gönderir (aşağıya bakın); zayıf bir müttefike gerekirse bu sınırın yarısına inerek yarısına kadar gönderir.
 gold_enabled: Zengin yapay zekâ müttefikleri altın gönderir
-gold_enabled_details: |-
-  Bir yapay zekâ müttefiki mal istediğinde, bol altını olan bir lord yanında bir miktar altın da gönderir — ancak yalnızca isteyenin altını verenden daha azsa.
-
-  Varsayılan olarak açık.
+gold_enabled_details: Bir yapay zekâ müttefiki mal istediğinde, bol altını olan bir lord yanında bir miktar altın da gönderir — ancak yalnızca isteyenin altını verenden daha azsa.
 gold_group: Yapay zekâ müttefikleri arasında altın
-gold_group_details: |-
-  Zengin yapay zekâ lordları, kendilerinden mal isteyen müttefiklere altınla da destek olur.
-
-  Yapay zekâ karakterinin kendi değerine ek asker toplama altını (altın) — Bir lordun asker toplama altını, yapay zekâ karakterindeki «asker toplama altın eşiği» artı bu değerdir. Bu eşik, oyunun yapay zekâya her ay harcama yapmadan önce elinde tutturduğu miktardır (genellikle yalnızca 0-100); bu tutar bunun üzerine birkaç askerin maliyetini ekler.
-
-  Varsayılan: 300. Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
-
-  Lordun her zaman kendisi için sakladığı altın — Bir yapay zekâ lordu bu sınırın altına düşecek şekilde asla altın vermez; bunu kendi bir sonraki saldırısı için asker toplamaya ayırır. Yalnızca bunun üzerindeki altın paylaşılır.
-
-  Varsayılan: 1000. Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
-
-  Bu sınırın üzerindeki altından gönderilen pay (%) — 25 değeriyle, sınırı 1000 ve elinde 3000 altını olan bir lord 500 altın gönderir.
-
-  Varsayılan: 25. Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
+gold_group_details: Zengin yapay zekâ lordları, kendilerinden mal isteyen müttefiklere altınla da destek olur.
 gold_keep: Lordun her zaman kendisi için sakladığı altın
-gold_player: Yapay zekâ müttefikleri sana da altın verir
-gold_player_details: |-
-  Bir yapay zekâ müttefikinden altın istediğinde, sonrasında en az kendi altın sınırını (Saklanan altın) koruyabiliyorsa gönderir. Değiştirilmemiş oyun bir yapay zekâ müttefikinin altın vermesine asla izin vermez.
+gold_keep_tooltip: |-
+  Bir yapay zekâ lordu bu sınırın altına düşecek şekilde asla altın vermez; bunu kendi bir sonraki saldırısı için asker toplamaya ayırır. Yalnızca bunun üzerindeki altın paylaşılır.
 
-  Varsayılan olarak açık.
+  Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
+gold_player: Yapay zekâ müttefikleri sana da altın verir
+gold_player_details: Bir yapay zekâ müttefikinden altın istediğinde, sonrasında en az kendi altın sınırını (Saklanan altın) koruyabiliyorsa gönderir. Değiştirilmemiş oyun bir yapay zekâ müttefikinin altın vermesine asla izin vermez.
 gold_recruit: Zayıf bir müttefikin asker toplamasını finanse et
 gold_recruit_buffer: Yapay zekâ karakterinin kendi değerine ek asker toplama altını (altın)
-gold_recruit_details: |-
-  Bir yapay zekâ lordu zayıf veya tehdit altındayken asker toplamaya parası yetmiyorsa, durumu daha iyi bir müttefik eksiğini gönderir — kendi sınırının üzerindeki altından, aylık payı dâhilinde.
+gold_recruit_buffer_tooltip: |-
+  Bir lordun asker toplama altını, yapay zekâ karakterindeki «asker toplama altın eşiği» artı bu değerdir. Bu eşik, oyunun yapay zekâya her ay harcama yapmadan önce elinde tutturduğu miktardır (genellikle yalnızca 0-100); bu tutar bunun üzerine birkaç askerin maliyetini ekler.
 
-  Varsayılan olarak açık.
+  Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
+gold_recruit_details: Bir yapay zekâ lordu zayıf veya tehdit altındayken asker toplamaya parası yetmiyorsa, durumu daha iyi bir müttefik eksiğini gönderir — kendi sınırının üzerindeki altından, aylık payı dâhilinde.
 gold_share: Bu sınırın üzerindeki altından gönderilen pay (%)
+gold_share_tooltip: |-
+  25 değeriyle, sınırı 1000 ve elinde 3000 altını olan bir lord 500 altın gönderir.
+
+  Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
 goods_enabled: Yapay zekâ müttefikleri birbirine mal gönderir
-goods_enabled_details: |-
-  Bir yapay zekâ müttefiki istenen malı yalnızca sonrasında kendi alt sınırını koruyabiliyorsa (yapay zekâ karakterindeki «ticaret sonrası saklanan en az mal») gönderir — sen istediğinde kullandığı kuralın aynısı. Bir müttefik malı gönderdiğinde diğerleri tekrar göndermez. Veremeyen müttefik isteği hemen reddeder. Karşılanan bir istekten sonra isteyen lord yeniden sormadan önce kendi «yapay zekâ istek gecikmesi» kadar (oyun haftası olarak) bekler; reddedilirse bir ay bekler. Yapay zekâ lordları yalnızca ihtiyaç duyup satın alamadıkları malları ister. Gönderilenler oyun sonu gönderilen/alınan mal istatistiklerinde görünür.
-
-  Varsayılan olarak açık.
+goods_enabled_details: Bir yapay zekâ müttefiki istenen malı yalnızca sonrasında kendi alt sınırını koruyabiliyorsa (yapay zekâ karakterindeki «ticaret sonrası saklanan en az mal») gönderir — sen istediğinde kullandığı kuralın aynısı. Bir müttefik malı gönderdiğinde diğerleri tekrar göndermez. Veremeyen müttefik isteği hemen reddeder. Karşılanan bir istekten sonra isteyen lord yeniden sormadan önce kendi «yapay zekâ istek gecikmesi» kadar (oyun haftası olarak) bekler; reddedilirse bir ay bekler. Yapay zekâ lordları yalnızca ihtiyaç duyup satın alamadıkları malları ister. Gönderilenler oyun sonu gönderilen/alınan mal istatistiklerinde görünür.
 goods_give_share: Bir lordun aylık verebileceği en yüksek mal payı (%)
+goods_give_share_tooltip: |-
+  30 değeriyle, 100 taşı olan bir lord tüm istekler toplamında ayda en fazla 30 taş verir. Aynı kural altın için de geçerlidir.
+
+  Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
 goods_group: Yapay zekâ müttefikleri arasında mallar
-goods_group_details: |-
-  Yapay zekâ lordları satın alamadıkları malları müttefiklerinden ister. Normalde yalnızca sen yanıt verirsin; bu ayar açıkken yapay zekâ müttefikleri de yanıt verir.
-
-  Bir lordun aylık verebileceği en yüksek mal payı (%) — 30 değeriyle, 100 taşı olan bir lord tüm istekler toplamında ayda en fazla 30 taş verir. Aynı kural altın için de geçerlidir.
-
-  Varsayılan: 30. Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
+goods_group_details: Yapay zekâ lordları satın alamadıkları malları müttefiklerinden ister. Normalde yalnızca sen yanıt verirsin; bu ayar açıkken yapay zekâ müttefikleri de yanıt verir.
 goods_no_pingpong: Malları karşılıklı paslaşmayı engelle
-goods_no_pingpong_details: |-
-  Bu ayar olmadan iki müttefik aynı malları sonsuza dek birbirine gönderip durabilir. Açık olduğunda karşılanan bir istek isteyenin alışveriş listesinden silinir, bir lord kendi aradığı malı asla vermez ve bir müttefikten aldığı malı 3 ay boyunca başkasına aktarmaz.
-
-  Varsayılan olarak açık.
+goods_no_pingpong_details: Bu ayar olmadan iki müttefik aynı malları sonsuza dek birbirine gönderip durabilir. Açık olduğunda karşılanan bir istek isteyenin alışveriş listesinden silinir, bir lord kendi aradığı malı asla vermez ve bir müttefikten aldığı malı 3 ay boyunca başkasına aktarmaz.
 goods_protect: Yalnızca durumu daha iyi olan müttefikler verir
-goods_protect_details: |-
-  Tehdit altında veya zayıf olan bir lord hiçbir şey vermez; yalnızca isteyenden daha iyi durumdaki bir müttefik yardım eder ve en iyi durumdakine ilk sorulur. Her lord her maldan ayda en fazla aşağıdaki pay kadar verir.
-
-  Varsayılan olarak açık.
+goods_protect_details: Tehdit altında veya zayıf olan bir lord hiçbir şey vermez; yalnızca isteyenden daha iyi durumdaki bir müttefik yardım eder ve en iyi durumdakine ilk sorulur. Her lord her maldan ayda en fazla aşağıdaki pay kadar verir.
 goods_rebuild: Saldırı altında bile kilit binaların yeniden inşasına yardım et
-goods_rebuild_details: |-
-  Paralı asker kampını, kışlasını, cephaneliğini, ambarını veya pazarını kaybeden bir lordun savunma yapabilmesi için bunları geri kurması gerekir. Bunlardan eskisine göre daha azı varken — tehdit altında olsa bile — odun ve taş ilk olarak ona ulaşır.
-
-  Varsayılan olarak açık.
+goods_rebuild_details: Paralı asker kampını, kışlasını, cephaneliğini, ambarını veya pazarını kaybeden bir lordun savunma yapabilmesi için bunları geri kurması gerekir. Bunlardan eskisine göre daha azı varken — tehdit altında olsa bile — odun ve taş ilk olarak ona ulaşır.
 goods_useful: Yalnızca gerçekten işe yarayanı gönder
-goods_useful_details: |-
-  İsteyenin gerçekten aradığı miktarı gönderir (oyun iki katını ister) ve depolayabileceğinden fazlasını asla yollamaz — yapay zekânın depo sınırını aşan her şey zararına satılır. Silahlar ve yiyecek önceliklidir; odun, taş ve diğer yapı malzemeleri yalnızca isteyen tehdit altında değilken gönderilir.
-
-  Varsayılan olarak açık.
+goods_useful_details: İsteyenin gerçekten aradığı miktarı gönderir (oyun iki katını ister) ve depolayabileceğinden fazlasını asla yollamaz — yapay zekânın depo sınırını aşan her şey zararına satılır. Silahlar ve yiyecek önceliklidir; odun, taş ve diğer yapı malzemeleri yalnızca isteyen tehdit altında değilken gönderilir.
 goods_weak: Zayıf müttefikler en az yarısını alır
-goods_weak_details: |-
-  İsteyen müttefik zayıf durumdaysa ve veren tam miktarı ayıramıyorsa istenen miktarın yarısına kadar gönderir. Bunun için kendi alt sınırının yarısına kadar inebilir.
-
-  Varsayılan olarak açık.
+goods_weak_details: İsteyen müttefik zayıf durumdaysa ve veren tam miktarı ayıramıyorsa istenen miktarın yarısına kadar gönderir. Bunun için kendi alt sınırının yarısına kadar inebilir.
 help_enabled: Yapay zekâ müttefikleri birbirine askerle yardım eder
-help_enabled_details: |-
-  Bir yapay zekâ lorduna düşmanlar yaklaştığında, yapay zekâ müttefikleri saldırı ordularını onun kalesine gönderir — tıpkı senden yardım istediklerinde olduğu gibi. Bir müttefik yalnızca kendisi tehdit altında değilse, saldırı hâlinde değilse ve yardım etmeden önce yapay zekâ karakterinin gerektirdiği ordu büyüklüğüne ulaştıysa gelir. Birlikler en azından kale tekrar güvende olana kadar kalır (sonraki ayara bakın).
-
-  Varsayılan olarak açık.
+help_enabled_details: Bir yapay zekâ lorduna düşmanlar yaklaştığında, yapay zekâ müttefikleri saldırı ordularını onun kalesine gönderir — tıpkı senden yardım istediklerinde olduğu gibi. Bir müttefik yalnızca kendisi tehdit altında değilse, saldırı hâlinde değilse ve yardım etmeden önce yapay zekâ karakterinin gerektirdiği ordu büyüklüğüne ulaştıysa gelir. Birlikler en azından kale tekrar güvende olana kadar kalır (sonraki ayara bakın).
 help_group: Müttefikler için birlikler
-help_group_details: |-
-  Yapay zekâ lordları kendi yapay zekâ müttefiklerinin yardımına koşar ve birine yardım ederken — sen dâhil — saldırı ordularının bir kısmını evde tutar.
-
-  En az kalma süresi (ay) — Yardımcılar müttefikin kalesinde en az bu kadar oyun ayı, kale hâlâ tehlikedeyse daha da uzun kalır — aşağıdaki ayar onları daha erken geri çağırmadıkça. İşleri bitince kendi kalelerine dönerler.
-
-  Varsayılan: 6.
-
-  Yardımcıları şu durumda daha erken geri çağır — Asgari süre dolmadan bile yardımcıları derhâl eve çağırır. Onlar uzaktayken lordları kimseye saldırmaz; bu yüzden uzun kalış kendi saldırısını geciktirir. «Kendi ordusu saldırmaya hazır» seçeneği, yardım eden lord saldırmak için beklediği ordu büyüklüğüne ulaştığı anda onları geri çağırır (müttefikin kalesindeki birlikler sayılır). Bir yardım bittikten sonra lord yeniden yardım etmeden önce 3 ay ya da kendi saldırısına çıkana kadar bekler.
-
-  Varsayılan: Müttefik kendini yeniden güçlü hissettiğinde.
-
-  Gönderilen saldırı ordusu payı (%) — 75 değeriyle 40 kişilik bir saldırı ordusu 30 asker gönderip 10 askeri evde tutar. Yardım sırasında toplanan yeni birlikler de aynı şekilde bölünür.
-
-  Varsayılan: 75. Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
+help_group_details: Yapay zekâ lordları kendi yapay zekâ müttefiklerinin yardımına koşar ve birine yardım ederken — sen dâhil — saldırı ordularının bir kısmını evde tutar.
 help_months: En az kalma süresi (ay)
+help_months_tooltip: Yardımcılar müttefikin kalesinde en az bu kadar oyun ayı, kale hâlâ tehlikedeyse daha da uzun kalır — aşağıdaki ayar onları daha erken geri çağırmadıkça. İşleri bitince kendi kalelerine dönerler.
 help_recall: Yardımcıları şu durumda daha erken geri çağır
 help_recall_army: Kendi ordusu saldırmaya hazır
 help_recall_strong: Müttefik kendini yeniden güçlü hissettiğinde
+help_recall_tooltip: Asgari süre dolmadan bile yardımcıları derhâl eve çağırır. Onlar uzaktayken lordları kimseye saldırmaz; bu yüzden uzun kalış kendi saldırısını geciktirir. «Kendi ordusu saldırmaya hazır» seçeneği, yardım eden lord saldırmak için beklediği ordu büyüklüğüne ulaştığı anda onları geri çağırır (müttefikin kalesindeki birlikler sayılır). Bir yardım bittikten sonra lord yeniden yardım etmeden önce 3 ay ya da kendi saldırısına çıkana kadar bekler.
 improvements: İyileştirmeler
 misc: Diğer
 tags.behavior: Davranış

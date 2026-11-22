@@ -1,132 +1,75 @@
 ai: IA
 army_enabled: Enviar solo parte del ejército de ataque
-army_enabled_details: |-
-  Normalmente, un aliado de la IA envía todo su ejército de ataque cuando presta ayuda. Con esta opción activada, solo envía el porcentaje indicado abajo y deja el resto en su propio campamento. Los defensores del castillo, patrullas y saqueadores nunca salen. Los ingenieros, escaladores, zapadores y máquinas de asedio son los primeros en quedarse en casa. Cuando termina la ayuda, las tropas que se quedaron vuelven al ejército.
-
-  Activado por defecto.
+army_enabled_details: Normalmente, un aliado de la IA envía todo su ejército de ataque cuando presta ayuda. Con esta opción activada, solo envía el porcentaje indicado abajo y deja el resto en su propio campamento. Los defensores del castillo, patrullas y saqueadores nunca salen. Los ingenieros, escaladores, zapadores y máquinas de asedio son los primeros en quedarse en casa. Cuando termina la ayuda, las tropas que se quedaron vuelven al ejército.
 army_share: Proporción del ejército de ataque enviada (%)
+army_share_tooltip: |-
+  Con 75, un ejército de ataque de 40 envía 30 y deja 10 en casa. Las tropas reclutadas mientras ayuda se reparten igual.
+
+  Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
 diagnostics_group: Diagnóstico
 diagnostics_group_descr: Para pruebas y depuración.
 diagnostics_log: Registrar en el log lo que envían los aliados
-diagnostics_log_details: |-
-  Escribe una línea en ucp3.log cada vez que una IA envía bienes u oro, empieza o deja de ayudar a un aliado, retiene tropas en casa o abre una puerta a tropas aliadas, además de un resumen mensual de lo que cada señor de la IA dio, recibió y su situación actual.
-
-  Desactivado por defecto.
+diagnostics_log_details: Escribe una línea en ucp3.log cada vez que una IA envía bienes u oro, empieza o deja de ayudar a un aliado, retiene tropas en casa o abre una puerta a tropas aliadas, además de un resumen mensual de lo que cada señor de la IA dio, recibió y su situación actual.
 gates_enabled: Abrir la puerta a los refuerzos aliados
-gates_enabled_details: |-
-  Un castillo bajo ataque mantiene sus puertas cerradas, dejando a los refuerzos fuera. Con esta opción, cuando las tropas aliadas esperan ante una puerta del castillo al que ayudan, la puerta se abre y entran (hacia la fortaleza, ver abajo). En cuanto no queda nadie esperando en la puerta, vuelve a cerrarse sola como de costumbre. Al terminar la ayuda, la puerta se abre igual para dejarlas salir. También funciona con tus propias puertas cuando un aliado de la IA acude a ayudarte.
-
-  Activado por defecto.
+gates_enabled_details: Un castillo bajo ataque mantiene sus puertas cerradas, dejando a los refuerzos fuera. Con esta opción, cuando las tropas aliadas esperan ante una puerta del castillo al que ayudan, la puerta se abre y entran (hacia la fortaleza, ver abajo). En cuanto no queda nadie esperando en la puerta, vuelve a cerrarse sola como de costumbre. Al terminar la ayuda, la puerta se abre igual para dejarlas salir. También funciona con tus propias puertas cuando un aliado de la IA acude a ayudarte.
 gates_keep: Los refuerzos se colocan en la fortaleza del aliado
-gates_keep_details: |-
-  Una vez dentro, las tropas de refuerzo suben a la fortaleza del señor al que ayudan —la misma orden que una IA da a sus propios arqueros cuando se siente amenazada— para que arqueros y ballesteros disparen desde arriba. Quienes no encuentren sitio arriba se colocan alrededor de la fortaleza. Desactivado: se reúnen en el campamento del señor.
-
-  Activado por defecto.
+gates_keep_details: 'Una vez dentro, las tropas de refuerzo suben a la fortaleza del señor al que ayudan —la misma orden que una IA da a sus propios arqueros cuando se siente amenazada— para que arqueros y ballesteros disparen desde arriba. Quienes no encuentren sitio arriba se colocan alrededor de la fortaleza. Desactivado: se reúnen en el campamento del señor.'
 gold_after_castle: Los aliados de la IA solo dan oro tras terminar su castillo
-gold_after_castle_details: |-
-  Un aliado de la IA conserva todo su oro hasta terminar su castillo tanto como el terreno permita (todas las partes de su plano construidas o bloqueadas). Solo entonces da oro a ti o a otros aliados, para que su oro inicial se destine a su castillo y no pueda pedírsele antes. No afecta a los bienes.
-
-  Activado por defecto.
+gold_after_castle_details: Un aliado de la IA conserva todo su oro hasta terminar su castillo tanto como el terreno permita (todas las partes de su plano construidas o bloqueadas). Solo entonces da oro a ti o a otros aliados, para que su oro inicial se destine a su castillo y no pueda pedírsele antes. No afecta a los bienes.
 gold_ask: Los señores de la IA piden oro a sus aliados
-gold_ask_details: |-
-  Cuando un señor de la IA quiere comprar bienes que no puede pagar, te pide a ti y a sus aliados de la IA el oro que le falta (sin superar la frecuencia de su retraso de peticiones). Verás la solicitud en la pantalla de aliados como cualquier otra y podrás enviar el oro desde ahí. Un aliado de la IA lo envía si mantiene su reserva de oro (ver abajo); a un aliado débil le envía hasta la mitad, bajando si hace falta hasta la mitad de esa reserva.
-
-  Activado por defecto.
+gold_ask_details: Cuando un señor de la IA quiere comprar bienes que no puede pagar, te pide a ti y a sus aliados de la IA el oro que le falta (sin superar la frecuencia de su retraso de peticiones). Verás la solicitud en la pantalla de aliados como cualquier otra y podrás enviar el oro desde ahí. Un aliado de la IA lo envía si mantiene su reserva de oro (ver abajo); a un aliado débil le envía hasta la mitad, bajando si hace falta hasta la mitad de esa reserva.
 gold_enabled: Los aliados de la IA ricos envían oro
-gold_enabled_details: |-
-  Cuando un aliado de la IA pide bienes, un señor con mucho oro le envía también algo de oro, pero solo si quien pide tiene menos oro que quien da.
-
-  Activado por defecto.
+gold_enabled_details: Cuando un aliado de la IA pide bienes, un señor con mucho oro le envía también algo de oro, pero solo si quien pide tiene menos oro que quien da.
 gold_group: Oro entre aliados de la IA
-gold_group_details: |-
-  Los señores de la IA ricos ayudan también con oro a los aliados que les piden bienes.
-
-  Oro de reclutamiento adicional sobre el propio del personaje IA (oro) — El oro de reclutamiento de un señor es el «umbral de oro para reclutar» de su personaje IA más esta cantidad. Ese umbral es lo que el juego hace reservar a una IA antes de gastar cada mes (a menudo solo 0-100); esta cantidad añade aproximadamente el coste de un puñado de tropas.
-
-  Predeterminado: 300. Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
-
-  Oro que un señor siempre guarda para sí — Un señor de la IA nunca cede oro por debajo de este límite: es lo que reserva para seguir reclutando para su próximo ataque. Solo se comparte el oro por encima.
-
-  Predeterminado: 1000. Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
-
-  Porcentaje del oro excedente que envía (%) — Con 25, un señor con un límite de 1000 oro y 3000 en caja envía 500.
-
-  Predeterminado: 25. Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
+gold_group_details: Los señores de la IA ricos ayudan también con oro a los aliados que les piden bienes.
 gold_keep: Oro que un señor siempre guarda para sí
-gold_player: Los aliados de la IA te dan oro
-gold_player_details: |-
-  Cuando pides oro a un aliado de la IA, te lo envía si tras ello conserva al menos su límite de oro (Oro guardado). El juego original nunca permite que un aliado de la IA dé oro.
+gold_keep_tooltip: |-
+  Un señor de la IA nunca cede oro por debajo de este límite: es lo que reserva para seguir reclutando para su próximo ataque. Solo se comparte el oro por encima.
 
-  Activado por defecto.
+  Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
+gold_player: Los aliados de la IA te dan oro
+gold_player_details: Cuando pides oro a un aliado de la IA, te lo envía si tras ello conserva al menos su límite de oro (Oro guardado). El juego original nunca permite que un aliado de la IA dé oro.
 gold_recruit: Financiar el reclutamiento de un aliado débil
 gold_recruit_buffer: Oro de reclutamiento adicional sobre el propio del personaje IA (oro)
-gold_recruit_details: |-
-  Cuando un señor de la IA está débil o amenazado y no tiene oro para reclutar, un aliado en mejor situación le envía lo que le falta, tomando del oro por encima de su propio límite y dentro de su cuota mensual.
+gold_recruit_buffer_tooltip: |-
+  El oro de reclutamiento de un señor es el «umbral de oro para reclutar» de su personaje IA más esta cantidad. Ese umbral es lo que el juego hace reservar a una IA antes de gastar cada mes (a menudo solo 0-100); esta cantidad añade aproximadamente el coste de un puñado de tropas.
 
-  Activado por defecto.
+  Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
+gold_recruit_details: Cuando un señor de la IA está débil o amenazado y no tiene oro para reclutar, un aliado en mejor situación le envía lo que le falta, tomando del oro por encima de su propio límite y dentro de su cuota mensual.
 gold_share: Porcentaje del oro excedente que envía (%)
+gold_share_tooltip: |-
+  Con 25, un señor con un límite de 1000 oro y 3000 en caja envía 500.
+
+  Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
 goods_enabled: Los aliados de la IA se envían bienes entre sí
-goods_enabled_details: |-
-  Un aliado de la IA solo envía lo solicitado si tras ello conserva su propio mínimo (el «mínimo de bienes guardado tras comerciar» de su personaje IA), la misma regla que cuando tú le pides. En cuanto un aliado envía los bienes, los demás no vuelven a enviarlos. Quien no puede prescindir de ellos rechaza la petición al instante. Tras una petición atendida, quien pidió espera su «retraso de peticiones de la IA» (en semanas de juego) antes de volver a pedir; tras un rechazo espera un mes. Los señores de la IA solo piden lo que necesitan y no pueden comprar. Lo enviado aparece en las estadísticas de bienes enviados/recibidos al final de la partida.
-
-  Activado por defecto.
+goods_enabled_details: Un aliado de la IA solo envía lo solicitado si tras ello conserva su propio mínimo (el «mínimo de bienes guardado tras comerciar» de su personaje IA), la misma regla que cuando tú le pides. En cuanto un aliado envía los bienes, los demás no vuelven a enviarlos. Quien no puede prescindir de ellos rechaza la petición al instante. Tras una petición atendida, quien pidió espera su «retraso de peticiones de la IA» (en semanas de juego) antes de volver a pedir; tras un rechazo espera un mes. Los señores de la IA solo piden lo que necesitan y no pueden comprar. Lo enviado aparece en las estadísticas de bienes enviados/recibidos al final de la partida.
 goods_give_share: Máximo de un bien que un señor cede al mes (%)
+goods_give_share_tooltip: |-
+  Con 30, un señor con 100 de piedra cede como máximo 30 de piedra al mes entre todas las peticiones juntas. Lo mismo se aplica al oro.
+
+  Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
 goods_group: Bienes entre aliados de la IA
-goods_group_details: |-
-  Los señores de la IA piden a sus aliados bienes que no pueden comprar. Normalmente solo respondes tú; con esta opción, sus aliados de la IA también responden.
-
-  Máximo de un bien que un señor cede al mes (%) — Con 30, un señor con 100 de piedra cede como máximo 30 de piedra al mes entre todas las peticiones juntas. Lo mismo se aplica al oro.
-
-  Predeterminado: 30. Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
+goods_group_details: Los señores de la IA piden a sus aliados bienes que no pueden comprar. Normalmente solo respondes tú; con esta opción, sus aliados de la IA también responden.
 goods_no_pingpong: No pasarse bienes de un lado a otro
-goods_no_pingpong_details: |-
-  Sin esta opción, dos aliados pueden pasarse los mismos bienes indefinidamente. Con ella, una petición atendida se tacha de la lista de compras de quien pidió, un señor nunca cede un bien que él mismo busca y un bien recibido de un aliado no se reenvía durante 3 meses.
-
-  Activado por defecto.
+goods_no_pingpong_details: Sin esta opción, dos aliados pueden pasarse los mismos bienes indefinidamente. Con ella, una petición atendida se tacha de la lista de compras de quien pidió, un señor nunca cede un bien que él mismo busca y un bien recibido de un aliado no se reenvía durante 3 meses.
 goods_protect: Solo dan los aliados en mejor situación
-goods_protect_details: |-
-  Un señor amenazado o débil no da nada, y solo ayuda un aliado que esté en mejor situación que quien pide (se pregunta primero al mejor situado). Cada señor cede como máximo al mes el porcentaje indicado abajo de cada bien.
-
-  Activado por defecto.
+goods_protect_details: Un señor amenazado o débil no da nada, y solo ayuda un aliado que esté en mejor situación que quien pide (se pregunta primero al mejor situado). Cada señor cede como máximo al mes el porcentaje indicado abajo de cada bien.
 goods_rebuild: Ayudar a reconstruir edificios clave incluso bajo ataque
-goods_rebuild_details: |-
-  Un señor que ha perdido su campamento de mercenarios, cuartel, arsenal, granero o mercado necesita recuperarlo para poder defenderse. Mientras tenga menos de alguno de estos que antes, la madera y la piedra le llegan primero, incluso estando amenazado.
-
-  Activado por defecto.
+goods_rebuild_details: Un señor que ha perdido su campamento de mercenarios, cuartel, arsenal, granero o mercado necesita recuperarlo para poder defenderse. Mientras tenga menos de alguno de estos que antes, la madera y la piedra le llegan primero, incluso estando amenazado.
 goods_useful: Enviar solo lo que de verdad ayuda
-goods_useful_details: |-
-  Envía lo que el solicitante realmente quiere (el juego pide el doble) y nunca más de lo que puede almacenar: todo lo que supere el límite de almacén de una IA se vende con pérdidas. Las armas y la comida van primero; la madera, la piedra y demás materiales de construcción solo mientras el solicitante no esté amenazado.
-
-  Activado por defecto.
+goods_useful_details: 'Envía lo que el solicitante realmente quiere (el juego pide el doble) y nunca más de lo que puede almacenar: todo lo que supere el límite de almacén de una IA se vende con pérdidas. Las armas y la comida van primero; la madera, la piedra y demás materiales de construcción solo mientras el solicitante no esté amenazado.'
 goods_weak: Los aliados débiles reciben al menos la mitad
-goods_weak_details: |-
-  Cuando el aliado solicitante está débil y el donante no puede ceder toda la cantidad, envía hasta la mitad de lo pedido. Para ello puede bajar hasta la mitad de su propio mínimo.
-
-  Activado por defecto.
+goods_weak_details: Cuando el aliado solicitante está débil y el donante no puede ceder toda la cantidad, envía hasta la mitad de lo pedido. Para ello puede bajar hasta la mitad de su propio mínimo.
 help_enabled: Los aliados de la IA se ayudan con tropas
-help_enabled_details: |-
-  Cuando se acercan enemigos a un señor de la IA, sus aliados de la IA envían su ejército de ataque a su castillo, igual que cuando tú les pides ayuda. Un aliado solo acude si no está amenazado, no está atacando y tiene el tamaño de ejército que su personaje IA requiere antes de ayudar. Las tropas permanecen al menos hasta que el castillo vuelva a estar a salvo (ver ajuste siguiente).
-
-  Activado por defecto.
+help_enabled_details: Cuando se acercan enemigos a un señor de la IA, sus aliados de la IA envían su ejército de ataque a su castillo, igual que cuando tú les pides ayuda. Un aliado solo acude si no está amenazado, no está atacando y tiene el tamaño de ejército que su personaje IA requiere antes de ayudar. Las tropas permanecen al menos hasta que el castillo vuelva a estar a salvo (ver ajuste siguiente).
 help_group: Tropas para aliados
-help_group_details: |-
-  Los señores de la IA acuden en ayuda de sus aliados de la IA y dejan parte de su ejército de ataque en casa cuando ayudan a cualquiera, incluido tú.
-
-  Permanecer al menos estos meses — Los refuerzos se quedan en el castillo del aliado al menos este número de meses de juego, y más tiempo mientras el castillo siga en peligro, salvo que el ajuste siguiente los llame antes. Al terminar, regresan a su propio castillo.
-
-  Predeterminado: 6.
-
-  Llamar antes de vuelta a los refuerzos cuando — Hace volver de inmediato a los refuerzos, incluso antes de cumplir la estancia mínima. Mientras están fuera su señor no ataca a nadie, así que una estancia larga retrasa su propio ataque. «Su propio ejército está listo para atacar» los llama en cuanto el señor ayudante alcanza el tamaño de ejército que espera antes de atacar (cuentan las tropas en el castillo aliado). Tras una ayuda, el señor espera 3 meses, o hasta lanzar su propio ataque, antes de ayudar otra vez.
-
-  Predeterminado: El aliado vuelve a sentirse fuerte.
-
-  Proporción del ejército de ataque enviada (%) — Con 75, un ejército de ataque de 40 envía 30 y deja 10 en casa. Las tropas reclutadas mientras ayuda se reparten igual.
-
-  Predeterminado: 75. Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
+help_group_details: Los señores de la IA acuden en ayuda de sus aliados de la IA y dejan parte de su ejército de ataque en casa cuando ayudan a cualquiera, incluido tú.
 help_months: Permanecer al menos estos meses
+help_months_tooltip: Los refuerzos se quedan en el castillo del aliado al menos este número de meses de juego, y más tiempo mientras el castillo siga en peligro, salvo que el ajuste siguiente los llame antes. Al terminar, regresan a su propio castillo.
 help_recall: Llamar antes de vuelta a los refuerzos cuando
 help_recall_army: Su propio ejército está listo para atacar
 help_recall_strong: El aliado vuelve a sentirse fuerte
+help_recall_tooltip: Hace volver de inmediato a los refuerzos, incluso antes de cumplir la estancia mínima. Mientras están fuera su señor no ataca a nadie, así que una estancia larga retrasa su propio ataque. «Su propio ejército está listo para atacar» los llama en cuanto el señor ayudante alcanza el tamaño de ejército que espera antes de atacar (cuentan las tropas en el castillo aliado). Tras una ayuda, el señor espera 3 meses, o hasta lanzar su propio ataque, antes de ayudar otra vez.
 improvements: Mejoras
 misc: Varios
 tags.behavior: Comportamiento

@@ -1,132 +1,75 @@
 ai: KI
 army_enabled: Nur einen Teil der Angriffsarmee entsenden
-army_enabled_details: |-
-  Normalerweise schickt ein KI-Verbündeter seine gesamte Angriffsarmee, wenn er hilft. Ist diese Option aktiv, sendet er nur den unten eingestellten Anteil und behält den Rest im eigenen Lager. Burgverteidiger, Patrouillen und Plünderer rücken nie aus. Baumeister, Leiterträger, Tunnelgräber und Belagerungsgeräte bleiben als Erste zu Hause. Endet die Hilfe, schließen sich die zurückgebliebenen Truppen wieder der Armee an.
-
-  Standardmäßig aktiviert.
+army_enabled_details: Normalerweise schickt ein KI-Verbündeter seine gesamte Angriffsarmee, wenn er hilft. Ist diese Option aktiv, sendet er nur den unten eingestellten Anteil und behält den Rest im eigenen Lager. Burgverteidiger, Patrouillen und Plünderer rücken nie aus. Baumeister, Leiterträger, Tunnelgräber und Belagerungsgeräte bleiben als Erste zu Hause. Endet die Hilfe, schließen sich die zurückgebliebenen Truppen wieder der Armee an.
 army_share: Anteil der entsandten Angriffsarmee (%)
+army_share_tooltip: |-
+  Bei 75 schickt eine Angriffsarmee aus 40 Einheiten 30 los und behält 10 zu Hause. Während der Hilfe neu rekrutierte Truppen werden genauso aufgeteilt.
+
+  Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
 diagnostics_group: Diagnose
 diagnostics_group_descr: Für Tests und Fehlersuche.
 diagnostics_log: Hilfsaktionen der Verbündeten protokollieren
-diagnostics_log_details: |-
-  Schreibt eine Zeile in ucp3.log, sobald eine KI Güter oder Gold sendet, einem Verbündeten hilft oder die Hilfe beendet, Truppen zu Hause behält oder ein Torhaus für verbündete Truppen öffnet – sowie einmal im Monat eine Übersicht, was jeder KI-Lord gegeben und erhalten hat und wie es um ihn steht.
-
-  Standardmäßig deaktiviert.
+diagnostics_log_details: Schreibt eine Zeile in ucp3.log, sobald eine KI Güter oder Gold sendet, einem Verbündeten hilft oder die Hilfe beendet, Truppen zu Hause behält oder ein Torhaus für verbündete Truppen öffnet – sowie einmal im Monat eine Übersicht, was jeder KI-Lord gegeben und erhalten hat und wie es um ihn steht.
 gates_enabled: Torhaus für Helfer öffnen
-gates_enabled_details: |-
-  Eine angegriffene Burg hält ihre Torhäuser geschlossen, sodass Hilfstruppen draußen stehen bleiben. Mit dieser Option öffnet sich das Torhaus, sobald die Helfer davor stehen, und sie werden hineingeschickt (auf den Bergfried, siehe unten). Sobald niemand mehr vor dem Tor wartet, schließt es sich wieder wie gewohnt selbstständig. Endet die Hilfe, öffnet sich das Torhaus genauso, um sie wieder hinauszulassen. Dies funktioniert auch bei deinen eigenen Torhäusern, wenn dir ein KI-Verbündeter zu Hilfe kommt.
-
-  Standardmäßig aktiviert.
+gates_enabled_details: Eine angegriffene Burg hält ihre Torhäuser geschlossen, sodass Hilfstruppen draußen stehen bleiben. Mit dieser Option öffnet sich das Torhaus, sobald die Helfer davor stehen, und sie werden hineingeschickt (auf den Bergfried, siehe unten). Sobald niemand mehr vor dem Tor wartet, schließt es sich wieder wie gewohnt selbstständig. Endet die Hilfe, öffnet sich das Torhaus genauso, um sie wieder hinauszulassen. Dies funktioniert auch bei deinen eigenen Torhäusern, wenn dir ein KI-Verbündeter zu Hilfe kommt.
 gates_keep: Helfer stellen sich auf dem Bergfried des Verbündeten auf
-gates_keep_details: |-
-  Einmal in der Burg, werden die Hilfstruppen auf den Bergfried des unterstützten Lords geschickt – derselbe Befehl, den eine KI ihren eigenen Bogenschützen gibt, wenn sie unter Druck steht –, sodass Bogenschützen und Armbrustschützen von dort oben schießen können. Wer oben keinen Platz mehr findet, sammelt sich rund um den Bergfried. Aus: Sie sammeln sich stattdessen am Lager des Lords.
-
-  Standardmäßig aktiviert.
+gates_keep_details: 'Einmal in der Burg, werden die Hilfstruppen auf den Bergfried des unterstützten Lords geschickt – derselbe Befehl, den eine KI ihren eigenen Bogenschützen gibt, wenn sie unter Druck steht –, sodass Bogenschützen und Armbrustschützen von dort oben schießen können. Wer oben keinen Platz mehr findet, sammelt sich rund um den Bergfried. Aus: Sie sammeln sich stattdessen am Lager des Lords.'
 gold_after_castle: KI-Verbündete geben erst Gold ab, wenn ihre Burg fertig gebaut ist
-gold_after_castle_details: |-
-  Ein KI-Verbündeter behält sein gesamtes Gold, bis er seine Burg so weit wie vom Gelände möglich errichtet hat – jeder Teil seines Burgplans ist gebaut oder als blockiert erkannt. Erst danach gibt er Gold an dich oder andere Verbündete ab, sodass sein Startgold in die eigene Burg fließt und nicht weggebeten werden kann. Güter sind davon nicht betroffen.
-
-  Standardmäßig aktiviert.
+gold_after_castle_details: Ein KI-Verbündeter behält sein gesamtes Gold, bis er seine Burg so weit wie vom Gelände möglich errichtet hat – jeder Teil seines Burgplans ist gebaut oder als blockiert erkannt. Erst danach gibt er Gold an dich oder andere Verbündete ab, sodass sein Startgold in die eigene Burg fließt und nicht weggebeten werden kann. Güter sind davon nicht betroffen.
 gold_ask: KI-Lords bitten ihre Verbündeten um Gold
-gold_ask_details: |-
-  Will ein KI-Lord Güter kaufen, die er sich nicht leisten kann, bittet er dich und seine KI-Verbündeten um das fehlende Gold (nicht öfter, als es seine KI-Anfrageverzögerung erlaubt). Du siehst die Bitte im Verbündeten-Bildschirm wie jede andere Anfrage und kannst das Gold dort senden. Ein KI-Verbündeter sendet es, wenn ihm danach mindestens seine Goldreserve bleibt (siehe unten); einem geschwächten Verbündeten sendet er bis zur Hälfte und geht notfalls bis auf die Hälfte dieser Reserve herunter.
-
-  Standardmäßig aktiviert.
+gold_ask_details: Will ein KI-Lord Güter kaufen, die er sich nicht leisten kann, bittet er dich und seine KI-Verbündeten um das fehlende Gold (nicht öfter, als es seine KI-Anfrageverzögerung erlaubt). Du siehst die Bitte im Verbündeten-Bildschirm wie jede andere Anfrage und kannst das Gold dort senden. Ein KI-Verbündeter sendet es, wenn ihm danach mindestens seine Goldreserve bleibt (siehe unten); einem geschwächten Verbündeten sendet er bis zur Hälfte und geht notfalls bis auf die Hälfte dieser Reserve herunter.
 gold_enabled: Reiche KI-Verbündete senden Gold
-gold_enabled_details: |-
-  Bittet ein KI-Verbündeter um Güter, sendet ein wohlhabender Lord zusätzlich etwas Gold – aber nur, wenn der Bittsteller weniger Gold besitzt als der Geber.
-
-  Standardmäßig aktiviert.
+gold_enabled_details: Bittet ein KI-Verbündeter um Güter, sendet ein wohlhabender Lord zusätzlich etwas Gold – aber nur, wenn der Bittsteller weniger Gold besitzt als der Geber.
 gold_group: Gold zwischen KI-Verbündeten
-gold_group_details: |-
-  Reiche KI-Lords helfen Verbündeten, die sie um Güter bitten, zusätzlich mit Gold aus.
-
-  Rekrutierungsgold zusätzlich zum Wert des KI-Charakters (Gold) — Das Rekrutierungsgold eines Lords ist seine „Rekrutierungs-Goldschwelle“ aus dem KI-Charakter plus dieser Betrag. Diese Schwelle legt fest, wie viel Gold eine KI zurückhält, bevor sie monatlich ausgibt (oft nur 0–100); dieser Betrag legt ungefähr den Preis einer Handvoll Truppen obendrauf.
-
-  Standard: 300. Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
-
-  Gold, das ein Lord immer für sich behält — Ein KI-Lord verschenkt niemals Gold unterhalb dieser Grenze; sie dient dazu, weiter Truppen für seinen eigenen nächsten Angriff zu rekrutieren. Nur Gold darüber wird geteilt.
-
-  Standard: 1000. Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
-
-  Anteil des Goldes über dieser Grenze, der gesendet wird (%) — Bei 25 sendet ein Lord mit einer Grenze von 1000 Gold und einem Bestand von 3000 genau 500 Gold.
-
-  Standard: 25. Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
+gold_group_details: Reiche KI-Lords helfen Verbündeten, die sie um Güter bitten, zusätzlich mit Gold aus.
 gold_keep: Gold, das ein Lord immer für sich behält
-gold_player: KI-Verbündete geben dir Gold
-gold_player_details: |-
-  Wenn du einen KI-Verbündeten um Gold bittest, sendet er es, sofern ihm danach mindestens seine Goldreserve (behaltenes Gold) bleibt. Im Originalspiel geben KI-Verbündete niemals Gold ab.
+gold_keep_tooltip: |-
+  Ein KI-Lord verschenkt niemals Gold unterhalb dieser Grenze; sie dient dazu, weiter Truppen für seinen eigenen nächsten Angriff zu rekrutieren. Nur Gold darüber wird geteilt.
 
-  Standardmäßig aktiviert.
+  Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
+gold_player: KI-Verbündete geben dir Gold
+gold_player_details: Wenn du einen KI-Verbündeten um Gold bittest, sendet er es, sofern ihm danach mindestens seine Goldreserve (behaltenes Gold) bleibt. Im Originalspiel geben KI-Verbündete niemals Gold ab.
 gold_recruit: Rekrutierung eines geschwächten Verbündeten finanzieren
 gold_recruit_buffer: Rekrutierungsgold zusätzlich zum Wert des KI-Charakters (Gold)
-gold_recruit_details: |-
-  Ist ein KI-Lord geschwächt oder bedroht und hat kein Gold zum Rekrutieren, sendet ein besser gestellter Verbündeter ihm den fehlenden Betrag – aus dem Gold oberhalb seiner eigenen Reserve, innerhalb seines Monatsanteils.
+gold_recruit_buffer_tooltip: |-
+  Das Rekrutierungsgold eines Lords ist seine „Rekrutierungs-Goldschwelle“ aus dem KI-Charakter plus dieser Betrag. Diese Schwelle legt fest, wie viel Gold eine KI zurückhält, bevor sie monatlich ausgibt (oft nur 0–100); dieser Betrag legt ungefähr den Preis einer Handvoll Truppen obendrauf.
 
-  Standardmäßig aktiviert.
+  Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
+gold_recruit_details: Ist ein KI-Lord geschwächt oder bedroht und hat kein Gold zum Rekrutieren, sendet ein besser gestellter Verbündeter ihm den fehlenden Betrag – aus dem Gold oberhalb seiner eigenen Reserve, innerhalb seines Monatsanteils.
 gold_share: Anteil des Goldes über dieser Grenze, der gesendet wird (%)
+gold_share_tooltip: |-
+  Bei 25 sendet ein Lord mit einer Grenze von 1000 Gold und einem Bestand von 3000 genau 500 Gold.
+
+  Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
 goods_enabled: KI-Verbündete senden sich gegenseitig Güter
-goods_enabled_details: |-
-  Ein KI-Verbündeter sendet das erbetene Gut nur, wenn ihm danach sein eigenes Minimum bleibt (die „Mindestgüter nach Handel“ seines KI-Charakters) – genau dieselbe Regel wie bei deinen Anfragen. Sobald ein Verbündeter geliefert hat, senden die anderen nicht noch einmal. Wer nichts entbehren kann, lehnt sofort ab. Nach einer erfüllten Anfrage wartet der Bittsteller seine „KI-Anfrageverzögerung“ (aus dem KI-Charakter, in Spielwochen) bis zur nächsten Bitte; nach einer Ablehnung wartet er einen Monat. KI-Lords bitten nur um Dinge, die sie brauchen und nicht kaufen können. Die Lieferungen erscheinen am Spielende in der Statistik für gesendete/erhaltene Güter.
-
-  Standardmäßig aktiviert.
+goods_enabled_details: Ein KI-Verbündeter sendet das erbetene Gut nur, wenn ihm danach sein eigenes Minimum bleibt (die „Mindestgüter nach Handel“ seines KI-Charakters) – genau dieselbe Regel wie bei deinen Anfragen. Sobald ein Verbündeter geliefert hat, senden die anderen nicht noch einmal. Wer nichts entbehren kann, lehnt sofort ab. Nach einer erfüllten Anfrage wartet der Bittsteller seine „KI-Anfrageverzögerung“ (aus dem KI-Charakter, in Spielwochen) bis zur nächsten Bitte; nach einer Ablehnung wartet er einen Monat. KI-Lords bitten nur um Dinge, die sie brauchen und nicht kaufen können. Die Lieferungen erscheinen am Spielende in der Statistik für gesendete/erhaltene Güter.
 goods_give_share: Höchstanteil eines Gutes, den ein Lord pro Monat abgibt (%)
+goods_give_share_tooltip: |-
+  Bei 30 gibt ein Lord mit 100 Stein höchstens 30 Stein pro Monat über alle Anfragen hinweg ab. Dasselbe gilt für Gold.
+
+  Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
 goods_group: Güter zwischen KI-Verbündeten
-goods_group_details: |-
-  KI-Lords bitten ihre Verbündeten um Güter, die sie sich nicht kaufen können. Normalerweise antwortest nur du; mit dieser Option antworten auch ihre KI-Verbündeten.
-
-  Höchstanteil eines Gutes, den ein Lord pro Monat abgibt (%) — Bei 30 gibt ein Lord mit 100 Stein höchstens 30 Stein pro Monat über alle Anfragen hinweg ab. Dasselbe gilt für Gold.
-
-  Standard: 30. Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
+goods_group_details: KI-Lords bitten ihre Verbündeten um Güter, die sie sich nicht kaufen können. Normalerweise antwortest nur du; mit dieser Option antworten auch ihre KI-Verbündeten.
 goods_no_pingpong: Güter nicht hin- und herschicken
-goods_no_pingpong_details: |-
-  Ohne diese Option können zwei Verbündete dieselben Güter endlos hin- und herschicken. Mit ihr wird eine erfüllte Anfrage von der Bedarfsliste gestrichen, ein Lord gibt nie ein Gut ab, das er selbst sucht, und ein von einem Verbündeten erhaltenes Gut wird 3 Monate lang nicht weitergegeben.
-
-  Standardmäßig aktiviert.
+goods_no_pingpong_details: Ohne diese Option können zwei Verbündete dieselben Güter endlos hin- und herschicken. Mit ihr wird eine erfüllte Anfrage von der Bedarfsliste gestrichen, ein Lord gibt nie ein Gut ab, das er selbst sucht, und ein von einem Verbündeten erhaltenes Gut wird 3 Monate lang nicht weitergegeben.
 goods_protect: Nur besser gestellte Verbündete geben ab
-goods_protect_details: |-
-  Ein bedrohter oder geschwächter Lord gibt nichts ab, und nur ein Verbündeter, dem es besser geht als dem Bittsteller, hilft – der am besten gestellte wird zuerst gefragt. Jeder Lord gibt pro Monat höchstens den unten eingestellten Anteil je Gut ab.
-
-  Standardmäßig aktiviert.
+goods_protect_details: Ein bedrohter oder geschwächter Lord gibt nichts ab, und nur ein Verbündeter, dem es besser geht als dem Bittsteller, hilft – der am besten gestellte wird zuerst gefragt. Jeder Lord gibt pro Monat höchstens den unten eingestellten Anteil je Gut ab.
 goods_rebuild: Beim Wiederaufbau wichtiger Gebäude auch unter Angriff helfen
-goods_rebuild_details: |-
-  Ein Lord, der sein Söldnerlager, seine Kaserne, seine Waffenkammer, seinen Kornspeicher oder seinen Marktplatz verloren hat, braucht dieses Gebäude zurück, um sich überhaupt verteidigen zu können. Solange er weniger davon hat als zuvor, erreichen ihn Holz und Stein zuerst – selbst wenn er gerade bedroht wird.
-
-  Standardmäßig aktiviert.
+goods_rebuild_details: Ein Lord, der sein Söldnerlager, seine Kaserne, seine Waffenkammer, seinen Kornspeicher oder seinen Marktplatz verloren hat, braucht dieses Gebäude zurück, um sich überhaupt verteidigen zu können. Solange er weniger davon hat als zuvor, erreichen ihn Holz und Stein zuerst – selbst wenn er gerade bedroht wird.
 goods_useful: Nur das senden, was wirklich hilft
-goods_useful_details: |-
-  Sendet nur die tatsächlich benötigte Menge (das Spiel fragt das Doppelte an) und nie mehr, als der Bittsteller lagern kann – alles über dem Lagerlimit einer KI würde mit Verlust verkauft. Waffen und Nahrung haben Vorrang; Holz, Stein und andere Baumaterialien werden nur gesendet, solange der Bittsteller nicht bedroht wird.
-
-  Standardmäßig aktiviert.
+goods_useful_details: Sendet nur die tatsächlich benötigte Menge (das Spiel fragt das Doppelte an) und nie mehr, als der Bittsteller lagern kann – alles über dem Lagerlimit einer KI würde mit Verlust verkauft. Waffen und Nahrung haben Vorrang; Holz, Stein und andere Baumaterialien werden nur gesendet, solange der Bittsteller nicht bedroht wird.
 goods_weak: Geschwächte Verbündete erhalten mindestens die Hälfte
-goods_weak_details: |-
-  Ist der bittende Verbündete geschwächt und kann der Geber nicht die volle Menge entbehren, sendet er bis zur Hälfte der angefragten Menge. Dafür darf er bis auf die Hälfte seines eigenen Minimums heruntergehen.
-
-  Standardmäßig aktiviert.
+goods_weak_details: Ist der bittende Verbündete geschwächt und kann der Geber nicht die volle Menge entbehren, sendet er bis zur Hälfte der angefragten Menge. Dafür darf er bis auf die Hälfte seines eigenen Minimums heruntergehen.
 help_enabled: KI-Verbündete helfen einander mit Truppen
-help_enabled_details: |-
-  Nähern sich Feinde einem KI-Lord, schicken seine KI-Verbündeten ihre Angriffsarmee zu seiner Burg, genau wie wenn du sie um Hilfe bittest. Ein Verbündeter rückt nur aus, wenn er nicht selbst bedroht ist, nicht gerade angreift und die Armeegröße erreicht hat, die sein KI-Charakter vor einer Hilfeleistung verlangt. Die Truppen bleiben mindestens, bis die Burg wieder sicher ist (siehe nächste Einstellung).
-
-  Standardmäßig aktiviert.
+help_enabled_details: Nähern sich Feinde einem KI-Lord, schicken seine KI-Verbündeten ihre Angriffsarmee zu seiner Burg, genau wie wenn du sie um Hilfe bittest. Ein Verbündeter rückt nur aus, wenn er nicht selbst bedroht ist, nicht gerade angreift und die Armeegröße erreicht hat, die sein KI-Charakter vor einer Hilfeleistung verlangt. Die Truppen bleiben mindestens, bis die Burg wieder sicher ist (siehe nächste Einstellung).
 help_group: Truppen für Verbündete
-help_group_details: |-
-  KI-Lords eilen ihren KI-Verbündeten zu Hilfe und behalten einen Teil ihrer Angriffsarmee zu Hause, wenn sie jemandem helfen – dich eingeschlossen.
-
-  Mindestaufenthalt in Monaten — Die Helfer bleiben mindestens so viele Spielmonate an der Burg des Verbündeten, und länger, solange die Burg noch in Gefahr ist – sofern die folgende Einstellung sie nicht früher zurückruft. Danach marschieren sie zu ihrer eigenen Burg zurück.
-
-  Standard: 6.
-
-  Helfer früher zurückrufen, wenn — Ruft die Helfer sofort zurück, auch vor Ablauf der Mindestdauer. Solange sie unterwegs sind, greift ihr Lord niemanden an; ein langer Aufenthalt verzögert also seinen eigenen Angriff. „Die eigene Armee ist angriffsbereit“ ruft sie zurück, sobald der helfende Lord die Armeegröße erreicht hat, auf die er vor einem Angriff wartet (die Truppen beim Verbündeten zählen mit). Nach Ende einer Hilfe wartet ein Lord 3 Monate – oder bis zu seinem eigenen Angriff –, bevor er erneut hilft.
-
-  Standard: Der Verbündete fühlt sich wieder stark.
-
-  Anteil der entsandten Angriffsarmee (%) — Bei 75 schickt eine Angriffsarmee aus 40 Einheiten 30 los und behält 10 zu Hause. Während der Hilfe neu rekrutierte Truppen werden genauso aufgeteilt.
-
-  Standard: 75. Gilt, wenn die KI-Persönlichkeit (AIC) keinen eigenen Wert vorgibt.
+help_group_details: KI-Lords eilen ihren KI-Verbündeten zu Hilfe und behalten einen Teil ihrer Angriffsarmee zu Hause, wenn sie jemandem helfen – dich eingeschlossen.
 help_months: Mindestaufenthalt in Monaten
+help_months_tooltip: Die Helfer bleiben mindestens so viele Spielmonate an der Burg des Verbündeten, und länger, solange die Burg noch in Gefahr ist – sofern die folgende Einstellung sie nicht früher zurückruft. Danach marschieren sie zu ihrer eigenen Burg zurück.
 help_recall: Helfer früher zurückrufen, wenn
 help_recall_army: Die eigene Armee ist angriffsbereit
 help_recall_strong: Der Verbündete fühlt sich wieder stark
+help_recall_tooltip: Ruft die Helfer sofort zurück, auch vor Ablauf der Mindestdauer. Solange sie unterwegs sind, greift ihr Lord niemanden an; ein langer Aufenthalt verzögert also seinen eigenen Angriff. „Die eigene Armee ist angriffsbereit“ ruft sie zurück, sobald der helfende Lord die Armeegröße erreicht hat, auf die er vor einem Angriff wartet (die Truppen beim Verbündeten zählen mit). Nach Ende einer Hilfe wartet ein Lord 3 Monate – oder bis zu seinem eigenen Angriff –, bevor er erneut hilft.
 improvements: Verbesserungen
 misc: Sonstiges
 tags.behavior: Verhalten

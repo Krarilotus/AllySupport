@@ -58,6 +58,7 @@ options:
   - url: ally-support.goods.give_share
     name: ally-support-goods-give-share
     text: '{{goods_give_share}}'
+    tooltip: '{{goods_give_share_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -116,6 +117,7 @@ options:
   - url: ally-support.gold.recruit_buffer
     name: ally-support-gold-recruit-buffer
     text: '{{gold_recruit_buffer}}'
+    tooltip: '{{gold_recruit_buffer_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -126,6 +128,7 @@ options:
   - url: ally-support.gold.keep
     name: ally-support-gold-keep
     text: '{{gold_keep}}'
+    tooltip: '{{gold_keep_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -136,6 +139,7 @@ options:
   - url: ally-support.gold.share
     name: ally-support-gold-share
     text: '{{gold_share}}'
+    tooltip: '{{gold_share_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -162,6 +166,7 @@ options:
   - url: ally-support.help.months
     name: ally-support-help-months
     text: '{{help_months}}'
+    tooltip: '{{help_months_tooltip}}'
     display: Number
     contents:
       type: integer
@@ -172,6 +177,7 @@ options:
   - url: ally-support.help.recall
     name: ally-support-help-recall
     text: '{{help_recall}}'
+    tooltip: '{{help_recall_tooltip}}'
     display: Choice
     contents:
       type: string
@@ -192,6 +198,7 @@ options:
   - url: ally-support.army.share
     name: ally-support-army-share
     text: '{{army_share}}'
+    tooltip: '{{army_share_tooltip}}'
     display: Number
     contents:
       type: integer

@@ -1,132 +1,75 @@
 ai: MI
 army_enabled: Csak a támadó sereg egy részének elküldése
-army_enabled_details: |-
-  Alapesetben egy MI-szövetséges a teljes támadó seregét elküldi, amikor segít. Ezzel a beállítással csak az alábbi arányt küldi el, a többit a saját táborában tartja. A várvédők, járőrök és portyázók sosem mennek el. A mérnökök, létrahordozók, alagútásók és ostromgépek maradnak otthon először. A segítség végén az otthon tartott csapatok újra csatlakoznak a sereghez.
-
-  Alapértelmezés szerint bekapcsolva.
+army_enabled_details: Alapesetben egy MI-szövetséges a teljes támadó seregét elküldi, amikor segít. Ezzel a beállítással csak az alábbi arányt küldi el, a többit a saját táborában tartja. A várvédők, járőrök és portyázók sosem mennek el. A mérnökök, létrahordozók, alagútásók és ostromgépek maradnak otthon először. A segítség végén az otthon tartott csapatok újra csatlakoznak a sereghez.
 army_share: Elküldött támadó sereg aránya (%)
+army_share_tooltip: |-
+  75 esetén egy 40 fős támadó sereg 30 katonát küld el és 10-et otthon tart. A segítség közben toborzott csapatok ugyanilyen arányban oszlanak meg.
+
+  Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
 diagnostics_group: Diagnosztika
 diagnostics_group_descr: Teszteléshez.
 diagnostics_log: Szövetségesek küldeményeinek naplózása
-diagnostics_log_details: |-
-  Sort ír a ucp3.log fájlba, valahányszor egy MI nyersanyagot vagy aranyat küld, segítséget kezd vagy fejez be, csapatokat tart otthon, vagy kaput nyit szövetséges csapatoknak — valamint havonta egyszer összefoglalja, hogy melyik MI-lord mit adott, mit kapott, és hogyan áll.
-
-  Alapértelmezés szerint kikapcsolva.
+diagnostics_log_details: Sort ír a ucp3.log fájlba, valahányszor egy MI nyersanyagot vagy aranyat küld, segítséget kezd vagy fejez be, csapatokat tart otthon, vagy kaput nyit szövetséges csapatoknak — valamint havonta egyszer összefoglalja, hogy melyik MI-lord mit adott, mit kapott, és hogyan áll.
 gates_enabled: Kapu kinyitása a segítő csapatoknak
-gates_enabled_details: |-
-  Az ostromlott vár zárva tartja a kapuit, így a segítő csapatok kint rekednek. Ezzel a beállítással, ha a segítők a támogatott vár kapuja előtt állnak, a kapuház kinyílik és beengedi őket (a vártoronyra, lásd alább). Amint már senki sem várakozik a kapunál, a kapu a szokásos módon ismét magától bezárul. A segítség végén ugyanígy kinyílik, hogy kiengedje őket. A saját kapuidnál is működik, ha MI-szövetséges jön segíteni.
-
-  Alapértelmezés szerint bekapcsolva.
+gates_enabled_details: Az ostromlott vár zárva tartja a kapuit, így a segítő csapatok kint rekednek. Ezzel a beállítással, ha a segítők a támogatott vár kapuja előtt állnak, a kapuház kinyílik és beengedi őket (a vártoronyra, lásd alább). Amint már senki sem várakozik a kapunál, a kapu a szokásos módon ismét magától bezárul. A segítség végén ugyanígy kinyílik, hogy kiengedje őket. A saját kapuidnál is működik, ha MI-szövetséges jön segíteni.
 gates_keep: A segítők a szövetséges vártornyán állnak fel
-gates_keep_details: |-
-  Bent a segítő csapatok felmennek a támogatott lord vártornyára — ugyanazzal a paranccsal, amelyet az MI saját íjászainak ad veszély esetén —, hogy az íjászok és számszeríjászok fentről lőhessenek. Aki fent nem fér el, a vártorony körül áll fel. Kikapcsolva: a lord táboránál gyülekeznek.
-
-  Alapértelmezés szerint bekapcsolva.
+gates_keep_details: 'Bent a segítő csapatok felmennek a támogatott lord vártornyára — ugyanazzal a paranccsal, amelyet az MI saját íjászainak ad veszély esetén —, hogy az íjászok és számszeríjászok fentről lőhessenek. Aki fent nem fér el, a vártorony körül áll fel. Kikapcsolva: a lord táboránál gyülekeznek.'
 gold_after_castle: Az MI-szövetségesek csak váruk elkészülte után adnak aranyat
-gold_after_castle_details: |-
-  Egy MI-szövetséges minden aranyát megtartja, amíg fel nem építi a várát annyira, amennyire a terep engedi — a várterv minden része megépült vagy akadályba ütközött. Csak ezután ad aranyat neked vagy más szövetségeseknek, hogy a kezdő aranya a várára menjen, és ne lehessen elkérni tőle. A nyersanyagokat ez nem érinti.
-
-  Alapértelmezés szerint bekapcsolva.
+gold_after_castle_details: Egy MI-szövetséges minden aranyát megtartja, amíg fel nem építi a várát annyira, amennyire a terep engedi — a várterv minden része megépült vagy akadályba ütközött. Csak ezután ad aranyat neked vagy más szövetségeseknek, hogy a kezdő aranya a várára menjen, és ne lehessen elkérni tőle. A nyersanyagokat ez nem érinti.
 gold_ask: Az MI-lordok aranyat kérnek szövetségeseiktől
-gold_ask_details: |-
-  Ha egy MI-lord olyan árut akar venni, amire nincs pénze, tőled és MI-szövetségeseitől kéri a hiányzó aranyat (legfeljebb az MI-kérés késleltetésének megfelelő gyakorisággal). A kérést a szövetségesek képernyőjén látod, mint bármely más kérést, és onnan küldhetsz aranyat. Egy MI-szövetséges akkor küld, ha utána is megmarad a saját aranytartaléka (lásd alább); gyenge szövetségesnek legfeljebb a felét küldi el, szükség esetén a tartaléka feléig lemenve.
-
-  Alapértelmezés szerint bekapcsolva.
+gold_ask_details: Ha egy MI-lord olyan árut akar venni, amire nincs pénze, tőled és MI-szövetségeseitől kéri a hiányzó aranyat (legfeljebb az MI-kérés késleltetésének megfelelő gyakorisággal). A kérést a szövetségesek képernyőjén látod, mint bármely más kérést, és onnan küldhetsz aranyat. Egy MI-szövetséges akkor küld, ha utána is megmarad a saját aranytartaléka (lásd alább); gyenge szövetségesnek legfeljebb a felét küldi el, szükség esetén a tartaléka feléig lemenve.
 gold_enabled: A gazdag MI-szövetségesek aranyat küldenek
-gold_enabled_details: |-
-  Ha egy MI-szövetséges nyersanyagot kér, egy sok arannyal rendelkező lord némi aranyat is küld neki — de csak akkor, ha a kérőnek kevesebb aranya van, mint az adónak.
-
-  Alapértelmezés szerint bekapcsolva.
+gold_enabled_details: Ha egy MI-szövetséges nyersanyagot kér, egy sok arannyal rendelkező lord némi aranyat is küld neki — de csak akkor, ha a kérőnek kevesebb aranya van, mint az adónak.
 gold_group: Arany az MI-szövetségesek között
-gold_group_details: |-
-  A gazdag MI-lordok arannyal is kisegítik a nyersanyagot kérő szövetségeseiket.
-
-  Toborzási arany az MI-karakter saját küszöbe felett (arany) — A lord toborzási aranya az MI-karakter „toborzási aranyküszöbe” plusz ez az összeg. Ez a küszöb az, amennyit a játék visszatartat az MI-vel havi költés előtt (gyakran csak 0–100); ez az összeg nagyjából néhány katona árát teszi hozzá.
-
-  Alapértelmezett: 300. Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
-
-  Mindig megtartott arany — Egy MI-lord sosem ad át aranyat e határ alá csökkenve; ebből toboroz a saját következő támadásához. Csak az e feletti részt osztja meg.
-
-  Alapértelmezett: 1000. Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
-
-  A határ feletti arany elküldött aránya (%) — 25 esetén egy 1000-es határral és 3000 arannyal rendelkező lord 500 aranyat küld.
-
-  Alapértelmezett: 25. Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
+gold_group_details: A gazdag MI-lordok arannyal is kisegítik a nyersanyagot kérő szövetségeseiket.
 gold_keep: Mindig megtartott arany
-gold_player: Az MI-szövetségesek neked is adnak aranyat
-gold_player_details: |-
-  Ha aranyat kérsz egy MI-szövetségestől, elküldi, ha utána is megmarad legalább a saját aranytartaléka (Mindig megtartott arany). Az alapjátékban az MI-szövetségesek sosem adnak aranyat.
+gold_keep_tooltip: |-
+  Egy MI-lord sosem ad át aranyat e határ alá csökkenve; ebből toboroz a saját következő támadásához. Csak az e feletti részt osztja meg.
 
-  Alapértelmezés szerint bekapcsolva.
+  Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
+gold_player: Az MI-szövetségesek neked is adnak aranyat
+gold_player_details: Ha aranyat kérsz egy MI-szövetségestől, elküldi, ha utána is megmarad legalább a saját aranytartaléka (Mindig megtartott arany). Az alapjátékban az MI-szövetségesek sosem adnak aranyat.
 gold_recruit: Gyenge szövetséges toborzásának támogatása
 gold_recruit_buffer: Toborzási arany az MI-karakter saját küszöbe felett (arany)
-gold_recruit_details: |-
-  Ha egy MI-lord gyenge vagy fenyegetett, és nincs aranya toborozni, egy jobb helyzetű szövetséges elküldi neki a hiányzó összeget — a saját tartaléka feletti aranyból, a havi arányon belül.
+gold_recruit_buffer_tooltip: |-
+  A lord toborzási aranya az MI-karakter „toborzási aranyküszöbe” plusz ez az összeg. Ez a küszöb az, amennyit a játék visszatartat az MI-vel havi költés előtt (gyakran csak 0–100); ez az összeg nagyjából néhány katona árát teszi hozzá.
 
-  Alapértelmezés szerint bekapcsolva.
+  Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
+gold_recruit_details: Ha egy MI-lord gyenge vagy fenyegetett, és nincs aranya toborozni, egy jobb helyzetű szövetséges elküldi neki a hiányzó összeget — a saját tartaléka feletti aranyból, a havi arányon belül.
 gold_share: A határ feletti arany elküldött aránya (%)
+gold_share_tooltip: |-
+  25 esetén egy 1000-es határral és 3000 arannyal rendelkező lord 500 aranyat küld.
+
+  Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
 goods_enabled: Az MI-szövetségesek nyersanyagot küldenek egymásnak
-goods_enabled_details: |-
-  Egy MI-szövetséges csak akkor küldi el a kért árut, ha utána is megmarad a saját minimuma (az MI-karakter „kereskedelem után megtartott minimuma”) — ugyanaz a szabály, mint amikor te kérsz tőle. Ha egy szövetséges már küldött, a többiek nem küldenek újra. Aki nem tud nélkülözni, azonnal elutasítja. Teljesített kérés után a kérő kivárja a saját „MI-kérés késleltetését” (játékhetekben), elutasítás után pedig egy hónapot. Az MI-lordok csak akkor kérnek, ha olyan árura van szükségük, amit nem tudnak megvenni. A küldemények megjelennek a játék végi küldött/kapott áruk statisztikájában.
-
-  Alapértelmezés szerint bekapcsolva.
+goods_enabled_details: Egy MI-szövetséges csak akkor küldi el a kért árut, ha utána is megmarad a saját minimuma (az MI-karakter „kereskedelem után megtartott minimuma”) — ugyanaz a szabály, mint amikor te kérsz tőle. Ha egy szövetséges már küldött, a többiek nem küldenek újra. Aki nem tud nélkülözni, azonnal elutasítja. Teljesített kérés után a kérő kivárja a saját „MI-kérés késleltetését” (játékhetekben), elutasítás után pedig egy hónapot. Az MI-lordok csak akkor kérnek, ha olyan árura van szükségük, amit nem tudnak megvenni. A küldemények megjelennek a játék végi küldött/kapott áruk statisztikájában.
 goods_give_share: Egy áruból havonta legfeljebb átadható arány (%)
+goods_give_share_tooltip: |-
+  30 esetén egy 100 kővel rendelkező lord havonta összesen legfeljebb 30 követ ad át az összes kérésre együttvéve. Ugyanez érvényes az aranyra is.
+
+  Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
 goods_group: Nyersanyagok az MI-szövetségesek között
-goods_group_details: |-
-  Az MI-lordok olyan nyersanyagot kérnek szövetségeseiktől, amelyet nem tudnak megvenni. Alapesetben csak te válaszolsz; ezzel a beállítással az MI-szövetségesek is válaszolnak.
-
-  Egy áruból havonta legfeljebb átadható arány (%) — 30 esetén egy 100 kővel rendelkező lord havonta összesen legfeljebb 30 követ ad át az összes kérésre együttvéve. Ugyanez érvényes az aranyra is.
-
-  Alapértelmezett: 30. Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
+goods_group_details: Az MI-lordok olyan nyersanyagot kérnek szövetségeseiktől, amelyet nem tudnak megvenni. Alapesetben csak te válaszolsz; ezzel a beállítással az MI-szövetségesek is válaszolnak.
 goods_no_pingpong: Nyersanyagok oda-vissza küldözgetésének tiltása
-goods_no_pingpong_details: |-
-  Enélkül két szövetséges a végtelenségig dobálhatná egymásnak ugyanazt az árut. Bekapcsolva a teljesített kérés lekerül a kérő bevásárlólistájáról, egy lord sosem ad el olyasmit, amit maga is keres, és a szövetségestől kapott árut 3 hónapig nem adja tovább.
-
-  Alapértelmezés szerint bekapcsolva.
+goods_no_pingpong_details: Enélkül két szövetséges a végtelenségig dobálhatná egymásnak ugyanazt az árut. Bekapcsolva a teljesített kérés lekerül a kérő bevásárlólistájáról, egy lord sosem ad el olyasmit, amit maga is keres, és a szövetségestől kapott árut 3 hónapig nem adja tovább.
 goods_protect: Csak jobb helyzetű szövetségesek adnak
-goods_protect_details: |-
-  Fenyegetett vagy gyenge lord semmit sem ad át, és csak olyan szövetséges ad, aki jobban áll a kérőnél — a legjobb helyzetűt kérdezik meg először. Minden lord havonta legfeljebb az alábbi arányt adja át minden áruból.
-
-  Alapértelmezés szerint bekapcsolva.
+goods_protect_details: Fenyegetett vagy gyenge lord semmit sem ad át, és csak olyan szövetséges ad, aki jobban áll a kérőnél — a legjobb helyzetűt kérdezik meg először. Minden lord havonta legfeljebb az alábbi arányt adja át minden áruból.
 goods_rebuild: Kulcsfontosságú épületek újjáépítésének segítése támadás alatt is
-goods_rebuild_details: |-
-  Ha egy lord elvesztette zsoldostáborát, kaszárnyáját, fegyvertárát, magtárát vagy piacát, ezek nélkül nem tud védekezni. Amíg kevesebb van neki valamelyikből, mint korábban, elsőként kap fát és követ — még akkor is, ha fenyegetik.
-
-  Alapértelmezés szerint bekapcsolva.
+goods_rebuild_details: Ha egy lord elvesztette zsoldostáborát, kaszárnyáját, fegyvertárát, magtárát vagy piacát, ezek nélkül nem tud védekezni. Amíg kevesebb van neki valamelyikből, mint korábban, elsőként kap fát és követ — még akkor is, ha fenyegetik.
 goods_useful: Csak hasznos küldemények küldése
-goods_useful_details: |-
-  Csak a ténylegesen kért mennyiséget küldi (a játék a dupláját kéri), és sosem többet, mint amennyit a kérő tárolni tud — a raktárkorlát feletti részt az MI veszteséggel adná el. A fegyverek és az élelem elsőbbséget élveznek; fa, kő és más építőanyag csak akkor megy, ha a kérő nincs fenyegetve.
-
-  Alapértelmezés szerint bekapcsolva.
+goods_useful_details: Csak a ténylegesen kért mennyiséget küldi (a játék a dupláját kéri), és sosem többet, mint amennyit a kérő tárolni tud — a raktárkorlát feletti részt az MI veszteséggel adná el. A fegyverek és az élelem elsőbbséget élveznek; fa, kő és más építőanyag csak akkor megy, ha a kérő nincs fenyegetve.
 goods_weak: A gyenge szövetségesek legalább a felét megkapják
-goods_weak_details: |-
-  Ha a kérő szövetséges gyenge állapotban van, és az adó nem tudja a teljes mennyiséget nélkülözni, a kért mennyiség feléig mégis küld, szükség esetén saját minimuma feléig lemenve.
-
-  Alapértelmezés szerint bekapcsolva.
+goods_weak_details: Ha a kérő szövetséges gyenge állapotban van, és az adó nem tudja a teljes mennyiséget nélkülözni, a kért mennyiség feléig mégis küld, szükség esetén saját minimuma feléig lemenve.
 help_enabled: Az MI-szövetségesek csapatokkal segítik egymást
-help_enabled_details: |-
-  Ha ellenség közelít egy MI-lordhoz, az MI-szövetségesei elküldik a támadó seregüket a várához, akárcsak amikor te kérsz segítséget. Egy szövetséges csak akkor jön, ha maga nincs fenyegetve, nem támad éppen, és elérte az MI-karaktere által megkövetelt seregméretet. A csapatok legalább addig maradnak, amíg a vár újra biztonságban van (lásd a következő beállítást).
-
-  Alapértelmezés szerint bekapcsolva.
+help_enabled_details: Ha ellenség közelít egy MI-lordhoz, az MI-szövetségesei elküldik a támadó seregüket a várához, akárcsak amikor te kérsz segítséget. Egy szövetséges csak akkor jön, ha maga nincs fenyegetve, nem támad éppen, és elérte az MI-karaktere által megkövetelt seregméretet. A csapatok legalább addig maradnak, amíg a vár újra biztonságban van (lásd a következő beállítást).
 help_group: Csapatok szövetségeseknek
-help_group_details: |-
-  Az MI-lordok a bajba jutott MI-szövetségeseik segítségére sietnek, és a támadó seregük egy részét otthon tartják, amikor bárkinek segítenek — téged is beleértve.
-
-  Minimális tartózkodás (hónap) — A segítők legalább ennyi játékhónapig maradnak a szövetséges váránál, és tovább is, amíg a vár veszélyben van — kivéve, ha az alábbi beállítás korábban hazahívja őket. Utána visszavonulnak a saját várukhoz.
-
-  Alapértelmezett: 6.
-
-  Segítők korábbi hazahívása, amikor — Azonnal hazahívja a segítőket, akár a minimális idő letelte előtt is. Amíg távol vannak, a lordjuk nem támad senkit, így a hosszú tartózkodás késlelteti a saját támadását. A „Saját serege támadásra kész” akkor hívja őket vissza, amint a segítő lord eléri a támadáshoz szükséges seregméretet (a szövetségesnél lévő csapatok is beleszámítanak). A segítség után a lord 3 hónapot — vagy a saját támadásáig — vár, mielőtt újra segítene.
-
-  Alapértelmezett: A szövetséges újra erősnek érzi magát.
-
-  Elküldött támadó sereg aránya (%) — 75 esetén egy 40 fős támadó sereg 30 katonát küld el és 10-et otthon tart. A segítség közben toborzott csapatok ugyanilyen arányban oszlanak meg.
-
-  Alapértelmezett: 75. Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
+help_group_details: Az MI-lordok a bajba jutott MI-szövetségeseik segítségére sietnek, és a támadó seregük egy részét otthon tartják, amikor bárkinek segítenek — téged is beleértve.
 help_months: Minimális tartózkodás (hónap)
+help_months_tooltip: A segítők legalább ennyi játékhónapig maradnak a szövetséges váránál, és tovább is, amíg a vár veszélyben van — kivéve, ha az alábbi beállítás korábban hazahívja őket. Utána visszavonulnak a saját várukhoz.
 help_recall: Segítők korábbi hazahívása, amikor
 help_recall_army: Saját serege támadásra kész
 help_recall_strong: A szövetséges újra erősnek érzi magát
+help_recall_tooltip: Azonnal hazahívja a segítőket, akár a minimális idő letelte előtt is. Amíg távol vannak, a lordjuk nem támad senkit, így a hosszú tartózkodás késlelteti a saját támadását. A „Saját serege támadásra kész” akkor hívja őket vissza, amint a segítő lord eléri a támadáshoz szükséges seregméretet (a szövetségesnél lévő csapatok is beleszámítanak). A segítség után a lord 3 hónapot — vagy a saját támadásáig — vár, mielőtt újra segítene.
 improvements: Fejlesztések
 misc: Egyéb
 tags.behavior: Viselkedés

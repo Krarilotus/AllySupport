@@ -6,11 +6,14 @@ army_enabled_details: 'Normally an AI ally sends its whole attack army when it h
 
   never go. Engineers, laddermen, tunnellers and siege engines are the first to stay home. When
 
-  the help ends, the troops kept home rejoin the army.
-
-
-  Enabled by default.'
+  the help ends, the troops kept home rejoin the army.'
 army_share: Share of the attack army sent (%)
+army_share_tooltip: 'With 75, an attack army of 40 sends 30 and keeps 10 home. Troops recruited while it helps are
+
+  split the same way.
+
+
+  Used when the AI personality does not supply an override.'
 diagnostics_group: Diagnostics
 diagnostics_group_descr: 'For testing.
 
@@ -20,10 +23,7 @@ diagnostics_log_details: 'Writes a line to ucp3.log whenever an AI sends goods o
 
   ally, keeps troops home, or opens a gate for allied troops - and once a month a summary of
 
-  what each AI lord gave and got, and how it stands.
-
-
-  Disabled by default.'
+  what each AI lord gave and got, and how it stands.'
 gates_enabled: Open the gate for the helpers
 gates_enabled_details: 'A castle under attack keeps its gates shut, so the helpers end up standing outside. With this
 
@@ -33,10 +33,7 @@ gates_enabled_details: 'A castle under attack keeps its gates shut, so the helpe
 
   back to closing by itself as usual. When the help ends, the gate opens the same way to let
 
-  them out. This works for your gates too when an AI ally comes to help you.
-
-
-  Enabled by default.'
+  them out. This works for your gates too when an AI ally comes to help you.'
 gates_keep: Helpers stand on the ally's keep
 gates_keep_details: 'Once inside, the helping troops are sent up onto the keep of the lord they help - the same
 
@@ -44,15 +41,9 @@ gates_keep_details: 'Once inside, the helping troops are sent up onto the keep o
 
   from up there. Whoever finds no room up top stands around the keep. Off: they gather at the
 
-  lord''s camp instead.
-
-
-  Enabled by default.'
+  lord''s camp instead.'
 gold_after_castle: AI allies give gold only once their castle is built
-gold_after_castle_details: 'An AI ally keeps all its gold until it has built its castle as far as the ground allows - every part of its castle plan placed or found blocked. Only then does it give gold to you or to other allies, so its starting gold goes into its castle and cannot be asked away. Goods are not affected.
-
-
-  Enabled by default.'
+gold_after_castle_details: An AI ally keeps all its gold until it has built its castle as far as the ground allows - every part of its castle plan placed or found blocked. Only then does it give gold to you or to other allies, so its starting gold goes into its castle and cannot be asked away. Goods are not affected.
 gold_ask: AI lords ask their allies for gold
 gold_ask_details: 'When an AI lord wants goods it can''t afford, it asks you and its AI allies for the gold it is
 
@@ -60,58 +51,40 @@ gold_ask_details: 'When an AI lord wants goods it can''t afford, it asks you and
 
   send the gold from there. An AI ally sends it if it still keeps its gold line afterwards
 
-  (see below); to a weak ally it sends up to half, going down to half that line if it must.
-
-
-  Enabled by default.'
+  (see below); to a weak ally it sends up to half, going down to half that line if it must.'
 gold_enabled: Rich AI allies send gold
 gold_enabled_details: 'When an AI ally asks for goods, a lord with lots of gold also sends it some gold - but only
 
-  if the asker has less gold than the giver.
-
-
-  Enabled by default.'
+  if the asker has less gold than the giver.'
 gold_group: Gold between AI allies
-gold_group_details: 'Rich AI lords help out allies that ask them for goods with gold as well.
+gold_group_details: Rich AI lords help out allies that ask them for goods with gold as well.
+gold_keep: Gold a lord always keeps for itself
+gold_keep_tooltip: 'An AI lord never gives away gold below this line - it is what it keeps to go on recruiting for
+
+  its own next attack. Only gold above it is shared.
 
 
-  Recruiting gold on top of the AI character''s own (gold) — A lord''s recruiting gold is its AI character''s "recruit gold threshold" plus this. That
+  Used when the AI personality does not supply an override.'
+gold_player: AI allies give you gold
+gold_player_details: When you ask an AI ally for gold, it sends it if it keeps at least its gold line (Gold kept) afterwards. The unmodified game never lets an AI ally give gold.
+gold_recruit: Pay a weak ally's recruiting
+gold_recruit_buffer: Recruiting gold on top of the AI character's own (gold)
+gold_recruit_buffer_tooltip: 'A lord''s recruiting gold is its AI character''s "recruit gold threshold" plus this. That
 
   threshold is what the game makes an AI hold before it starts spending each month (often only
 
   0-100); this amount adds roughly the price of a handful of troops on top.
 
 
-  Default: 300. Used when the AI personality does not supply an override.
-
-
-  Gold a lord always keeps for itself — An AI lord never gives away gold below this line - it is what it keeps to go on recruiting for
-
-  its own next attack. Only gold above it is shared.
-
-
-  Default: 1000. Used when the AI personality does not supply an override.
-
-
-  Share of the gold above that line it sends (%) — With 25, a lord whose line is 1000 gold and who has 3000 sends 500.
-
-
-  Default: 25. Used when the AI personality does not supply an override.'
-gold_keep: Gold a lord always keeps for itself
-gold_player: AI allies give you gold
-gold_player_details: 'When you ask an AI ally for gold, it sends it if it keeps at least its gold line (Gold kept) afterwards. The unmodified game never lets an AI ally give gold.
-
-
-  Enabled by default.'
-gold_recruit: Pay a weak ally's recruiting
-gold_recruit_buffer: Recruiting gold on top of the AI character's own (gold)
+  Used when the AI personality does not supply an override.'
 gold_recruit_details: 'When an AI lord is weak or under threat and doesn''t have the gold to recruit, a better-off ally
 
-  sends it what it is short - from gold it has above its own line, within its monthly share.
-
-
-  Enabled by default.'
+  sends it what it is short - from gold it has above its own line, within its monthly share.'
 gold_share: Share of the gold above that line it sends (%)
+gold_share_tooltip: 'With 25, a lord whose line is 1000 gold and who has 3000 sends 500.
+
+
+  Used when the AI personality does not supply an override.'
 goods_enabled: AI allies send each other goods
 goods_enabled_details: 'An AI ally only sends what it was asked for if it still keeps its own minimum afterwards
 
@@ -127,66 +100,46 @@ goods_enabled_details: 'An AI ally only sends what it was asked for if it still 
 
   ask when they need something they can''t afford to buy. What they send shows in the goods
 
-  sent / received statistics at the end of the game.
-
-
-  Enabled by default.'
+  sent / received statistics at the end of the game.'
 goods_give_share: Most of a good a lord gives away per month (%)
-goods_group: Goods between AI allies
-goods_group_details: 'AI lords ask their allies for goods they can''t buy. Normally only you ever answer; with this
-
-  on, their AI allies answer too.
-
-
-  Most of a good a lord gives away per month (%) — With 30, a lord holding 100 stone gives away at most 30 stone a month, all requests together.
+goods_give_share_tooltip: 'With 30, a lord holding 100 stone gives away at most 30 stone a month, all requests together.
 
   The same goes for gold.
 
 
-  Default: 30. Used when the AI personality does not supply an override.'
+  Used when the AI personality does not supply an override.'
+goods_group: Goods between AI allies
+goods_group_details: 'AI lords ask their allies for goods they can''t buy. Normally only you ever answer; with this
+
+  on, their AI allies answer too.'
 goods_no_pingpong: Never pass goods back and forth
 goods_no_pingpong_details: 'Without this, two allies can bounce the same goods between them for ever. With it, a request
 
   that was filled is crossed off the asker''s shopping list, a lord never gives away a good it
 
-  wants itself, and a good it got from an ally isn''t passed on for 3 months.
-
-
-  Enabled by default.'
+  wants itself, and a good it got from an ally isn''t passed on for 3 months.'
 goods_protect: Only better-off allies give
 goods_protect_details: 'A lord that is under threat or weak gives nothing away, and only an ally that is doing better
 
   than the asker gives - the best-off ally is asked first. Each lord gives away at most the share
 
-  below of each good per month.
-
-
-  Enabled by default.'
+  below of each good per month.'
 goods_rebuild: Help rebuild key buildings even under attack
 goods_rebuild_details: 'A lord that has lost its mercenary post, barracks, armoury, granary or market needs it back to
 
   defend itself at all. While it has fewer of one of these than it had before, wood and stone
 
-  reach it first - even while it is under threat.
-
-
-  Enabled by default.'
+  reach it first - even while it is under threat.'
 goods_useful: Send only what helps
 goods_useful_details: 'Sends what the asker actually wants (the game asks for double), and never more than it can
 
   store - anything above an AI''s storage limit is sold at a loss. Weapons and food go first;
 
-  wood, stone and other building materials only while the asker isn''t under threat.
-
-
-  Enabled by default.'
+  wood, stone and other building materials only while the asker isn''t under threat.'
 goods_weak: Weak allies get at least half
 goods_weak_details: 'When the asking ally is in a weak state and the giver can''t spare the full amount, it sends
 
-  up to half of what was asked for. To do that it may go down to half of its own minimum.
-
-
-  Enabled by default.'
+  up to half of what was asked for. To do that it may go down to half of its own minimum.'
 help_enabled: AI allies help each other
 help_enabled_details: 'When enemies close in on an AI lord, its AI allies send their attack army to its castle, just
 
@@ -194,27 +147,21 @@ help_enabled_details: 'When enemies close in on an AI lord, its AI allies send t
 
   isn''t busy attacking, and has the army size its AI character needs before it helps anyone.
 
-  The troops stay at least until the castle is safe again (see the next setting).
-
-
-  Enabled by default.'
+  The troops stay at least until the castle is safe again (see the next setting).'
 help_group: Troops for allies
 help_group_details: 'AI lords come to the aid of their AI allies, and keep part of their attack army home when they
 
-  help anyone - you included.
-
-
-  Stay at least this many months — The helpers stay at the ally''s castle at least this many in-game months, and longer while
+  help anyone - you included.'
+help_months: Stay at least this many months
+help_months_tooltip: 'The helpers stay at the ally''s castle at least this many in-game months, and longer while
 
   the castle is still in danger - unless the setting below calls them home sooner. When they
 
-  are done, they march back to their own castle.
-
-
-  Default: 6.
-
-
-  Call the helpers home sooner when — Calls the helpers home at once, even before the minimum stay is over. While they are away
+  are done, they march back to their own castle.'
+help_recall: Call the helpers home sooner when
+help_recall_army: Its own army is ready to attack
+help_recall_strong: The ally feels strong again
+help_recall_tooltip: 'Calls the helpers home at once, even before the minimum stay is over. While they are away
 
   their lord doesn''t attack anyone, so a long stay also holds back its own attack. "Its own
 
@@ -222,22 +169,7 @@ help_group_details: 'AI lords come to the aid of their AI allies, and keep part 
 
   before attacking (the troops at the ally''s castle count). After a help ends, a lord waits 3
 
-  months, or until it has set out on its own attack, before it helps again.
-
-
-  Default: The ally feels strong again.
-
-
-  Share of the attack army sent (%) — With 75, an attack army of 40 sends 30 and keeps 10 home. Troops recruited while it helps are
-
-  split the same way.
-
-
-  Default: 75. Used when the AI personality does not supply an override.'
-help_months: Stay at least this many months
-help_recall: Call the helpers home sooner when
-help_recall_army: Its own army is ready to attack
-help_recall_strong: The ally feels strong again
+  months, or until it has set out on its own attack, before it helps again.'
 improvements: Improvements
 misc: Miscellaneous
 tags.behavior: Behavior
