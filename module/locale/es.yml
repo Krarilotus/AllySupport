@@ -32,7 +32,7 @@ gold_player_details: Cuando pides oro a un aliado de la IA, te lo envía si tras
 gold_recruit: Financiar el reclutamiento de un aliado débil
 gold_recruit_buffer: Oro de reclutamiento adicional sobre el propio del personaje IA (oro)
 gold_recruit_buffer_tooltip: |-
-  El oro de reclutamiento de un señor es el «umbral de oro para reclutar» de su personaje IA más esta cantidad. Ese umbral es lo que el juego hace reservar a una IA antes de gastar cada mes (a menudo solo 0-100); esta cantidad añade aproximadamente el coste de un puñado de tropas.
+  El oro de reclutamiento de un señor es el «umbral de oro para reclutar» de su personaje IA más esta cantidad.
 
   Se usa cuando la personalidad de la IA (AIC) no indica un valor propio.
 gold_recruit_details: Cuando un señor de la IA está débil o amenazado y no tiene oro para reclutar, un aliado en mejor situación le envía lo que le falta, tomando del oro por encima de su propio límite y dentro de su cuota mensual.
@@ -58,7 +58,7 @@ goods_rebuild: Ayudar a reconstruir edificios clave incluso bajo ataque
 goods_rebuild_details: Un señor que ha perdido su campamento de mercenarios, cuartel, arsenal, granero o mercado necesita recuperarlo para poder defenderse. Mientras tenga menos de alguno de estos que antes, la madera y la piedra le llegan primero, incluso estando amenazado.
 goods_useful: Enviar solo lo que de verdad ayuda
 goods_useful_details: 'Envía lo que el solicitante realmente quiere (el juego pide el doble) y nunca más de lo que puede almacenar: todo lo que supere el límite de almacén de una IA se vende con pérdidas. Las armas y la comida van primero; la madera, la piedra y demás materiales de construcción solo mientras el solicitante no esté amenazado.'
-goods_weak: Los aliados débiles reciben al menos la mitad
+goods_weak: Los aliados débiles reciben hasta la mitad
 goods_weak_details: Cuando el aliado solicitante está débil y el donante no puede ceder toda la cantidad, envía hasta la mitad de lo pedido. Para ello puede bajar hasta la mitad de su propio mínimo.
 help_enabled: Los aliados de la IA se ayudan con tropas
 help_enabled_details: Cuando se acercan enemigos a un señor de la IA, sus aliados de la IA envían su ejército de ataque a su castillo, igual que cuando tú les pides ayuda. Un aliado solo acude si no está amenazado, no está atacando y tiene el tamaño de ejército que su personaje IA requiere antes de ayudar. Las tropas permanecen al menos hasta que el castillo vuelva a estar a salvo (ver ajuste siguiente).
@@ -69,7 +69,7 @@ help_months_tooltip: Los refuerzos se quedan en el castillo del aliado al menos 
 help_recall: Llamar antes de vuelta a los refuerzos cuando
 help_recall_army: Su propio ejército está listo para atacar
 help_recall_strong: El aliado vuelve a sentirse fuerte
-help_recall_tooltip: Hace volver de inmediato a los refuerzos, incluso antes de cumplir la estancia mínima. Mientras están fuera su señor no ataca a nadie, así que una estancia larga retrasa su propio ataque. «Su propio ejército está listo para atacar» los llama en cuanto el señor ayudante alcanza el tamaño de ejército que espera antes de atacar (cuentan las tropas en el castillo aliado). Tras una ayuda, el señor espera 3 meses, o hasta lanzar su propio ataque, antes de ayudar otra vez.
+help_recall_tooltip: Hace volver de inmediato a los refuerzos, incluso antes de cumplir la estancia mínima. «Su propio ejército está listo para atacar» los llama en cuanto el señor ayudante alcanza el tamaño de ejército que espera antes de atacar (cuentan las tropas en el castillo aliado).
 improvements: Mejoras
 misc: Varios
 tags.behavior: Comportamiento

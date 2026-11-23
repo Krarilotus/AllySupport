@@ -32,7 +32,7 @@ gold_player_details: Bir yapay zekâ müttefikinden altın istediğinde, sonras�
 gold_recruit: Zayıf bir müttefikin asker toplamasını finanse et
 gold_recruit_buffer: Yapay zekâ karakterinin kendi değerine ek asker toplama altını (altın)
 gold_recruit_buffer_tooltip: |-
-  Bir lordun asker toplama altını, yapay zekâ karakterindeki «asker toplama altın eşiği» artı bu değerdir. Bu eşik, oyunun yapay zekâya her ay harcama yapmadan önce elinde tutturduğu miktardır (genellikle yalnızca 0-100); bu tutar bunun üzerine birkaç askerin maliyetini ekler.
+  Bir lordun asker toplama altını, yapay zekâ karakterindeki «asker toplama altın eşiği» artı bu değerdir.
 
   Yapay zekâ kişiliği (AIC) kendi değerini belirtmediğinde kullanılır.
 gold_recruit_details: Bir yapay zekâ lordu zayıf veya tehdit altındayken asker toplamaya parası yetmiyorsa, durumu daha iyi bir müttefik eksiğini gönderir — kendi sınırının üzerindeki altından, aylık payı dâhilinde.
@@ -58,7 +58,7 @@ goods_rebuild: Saldırı altında bile kilit binaların yeniden inşasına yard�
 goods_rebuild_details: Paralı asker kampını, kışlasını, cephaneliğini, ambarını veya pazarını kaybeden bir lordun savunma yapabilmesi için bunları geri kurması gerekir. Bunlardan eskisine göre daha azı varken — tehdit altında olsa bile — odun ve taş ilk olarak ona ulaşır.
 goods_useful: Yalnızca gerçekten işe yarayanı gönder
 goods_useful_details: İsteyenin gerçekten aradığı miktarı gönderir (oyun iki katını ister) ve depolayabileceğinden fazlasını asla yollamaz — yapay zekânın depo sınırını aşan her şey zararına satılır. Silahlar ve yiyecek önceliklidir; odun, taş ve diğer yapı malzemeleri yalnızca isteyen tehdit altında değilken gönderilir.
-goods_weak: Zayıf müttefikler en az yarısını alır
+goods_weak: Zayıf müttefikler en fazla yarısını alır
 goods_weak_details: İsteyen müttefik zayıf durumdaysa ve veren tam miktarı ayıramıyorsa istenen miktarın yarısına kadar gönderir. Bunun için kendi alt sınırının yarısına kadar inebilir.
 help_enabled: Yapay zekâ müttefikleri birbirine askerle yardım eder
 help_enabled_details: Bir yapay zekâ lorduna düşmanlar yaklaştığında, yapay zekâ müttefikleri saldırı ordularını onun kalesine gönderir — tıpkı senden yardım istediklerinde olduğu gibi. Bir müttefik yalnızca kendisi tehdit altında değilse, saldırı hâlinde değilse ve yardım etmeden önce yapay zekâ karakterinin gerektirdiği ordu büyüklüğüne ulaştıysa gelir. Birlikler en azından kale tekrar güvende olana kadar kalır (sonraki ayara bakın).
@@ -69,7 +69,7 @@ help_months_tooltip: Yardımcılar müttefikin kalesinde en az bu kadar oyun ay�
 help_recall: Yardımcıları şu durumda daha erken geri çağır
 help_recall_army: Kendi ordusu saldırmaya hazır
 help_recall_strong: Müttefik kendini yeniden güçlü hissettiğinde
-help_recall_tooltip: Asgari süre dolmadan bile yardımcıları derhâl eve çağırır. Onlar uzaktayken lordları kimseye saldırmaz; bu yüzden uzun kalış kendi saldırısını geciktirir. «Kendi ordusu saldırmaya hazır» seçeneği, yardım eden lord saldırmak için beklediği ordu büyüklüğüne ulaştığı anda onları geri çağırır (müttefikin kalesindeki birlikler sayılır). Bir yardım bittikten sonra lord yeniden yardım etmeden önce 3 ay ya da kendi saldırısına çıkana kadar bekler.
+help_recall_tooltip: Asgari süre dolmadan bile yardımcıları derhâl eve çağırır. «Kendi ordusu saldırmaya hazır» seçeneği, yardım eden lord saldırmak için beklediği ordu büyüklüğüne ulaştığı anda onları geri çağırır (müttefikin kalesindeki birlikler sayılır).
 improvements: İyileştirmeler
 misc: Diğer
 tags.behavior: Davranış

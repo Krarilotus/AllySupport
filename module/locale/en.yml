@@ -69,11 +69,7 @@ gold_player: AI allies give you gold
 gold_player_details: When you ask an AI ally for gold, it sends it if it keeps at least its gold line (Gold kept) afterwards. The unmodified game never lets an AI ally give gold.
 gold_recruit: Pay a weak ally's recruiting
 gold_recruit_buffer: Recruiting gold on top of the AI character's own (gold)
-gold_recruit_buffer_tooltip: 'A lord''s recruiting gold is its AI character''s "recruit gold threshold" plus this. That
-
-  threshold is what the game makes an AI hold before it starts spending each month (often only
-
-  0-100); this amount adds roughly the price of a handful of troops on top.
+gold_recruit_buffer_tooltip: 'A lord''s recruiting gold is its AI character''s "recruit gold threshold" plus this.
 
 
   Used when the AI personality does not supply an override.'
@@ -136,7 +132,7 @@ goods_useful_details: 'Sends what the asker actually wants (the game asks for do
   store - anything above an AI''s storage limit is sold at a loss. Weapons and food go first;
 
   wood, stone and other building materials only while the asker isn''t under threat.'
-goods_weak: Weak allies get at least half
+goods_weak: Weak allies get up to half
 goods_weak_details: 'When the asking ally is in a weak state and the giver can''t spare the full amount, it sends
 
   up to half of what was asked for. To do that it may go down to half of its own minimum.'
@@ -161,15 +157,7 @@ help_months_tooltip: 'The helpers stay at the ally''s castle at least this many 
 help_recall: Call the helpers home sooner when
 help_recall_army: Its own army is ready to attack
 help_recall_strong: The ally feels strong again
-help_recall_tooltip: 'Calls the helpers home at once, even before the minimum stay is over. While they are away
-
-  their lord doesn''t attack anyone, so a long stay also holds back its own attack. "Its own
-
-  army is ready" calls them home as soon as the helping lord has the army size it waits for
-
-  before attacking (the troops at the ally''s castle count). After a help ends, a lord waits 3
-
-  months, or until it has set out on its own attack, before it helps again.'
+help_recall_tooltip: Calls the helpers home at once, even before the minimum stay is over. "Its own army is ready" calls them home as soon as the helping lord has the army size it waits for before attacking (the troops at the ally's castle count).
 improvements: Improvements
 misc: Miscellaneous
 tags.behavior: Behavior

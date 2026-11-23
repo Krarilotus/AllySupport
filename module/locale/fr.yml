@@ -32,7 +32,7 @@ gold_player_details: Lorsque vous demandez de l'or à un allié IA, il vous l'en
 gold_recruit: Financer le recrutement d'un allié affaibli
 gold_recruit_buffer: Or de recrutement ajouté au seuil du personnage IA (or)
 gold_recruit_buffer_tooltip: |-
-  L'or de recrutement d'un seigneur correspond au « seuil d'or de recrutement » de son personnage IA augmenté de cette valeur. Ce seuil est ce que le jeu fait garder à une IA avant de dépenser chaque mois (souvent seulement 0 à 100) ; ce montant ajoute environ le coût d'une poignée de troupes.
+  L'or de recrutement d'un seigneur correspond au « seuil d'or de recrutement » de son personnage IA augmenté de cette valeur.
 
   Utilisé lorsque la personnalité de l'IA (AIC) ne définit pas de valeur propre.
 gold_recruit_details: Lorsqu'un seigneur IA est affaibli ou menacé et manque d'or pour recruter, un allié plus aisé lui envoie ce qui lui manque — sur l'or au-dessus de son propre seuil et dans la limite de sa part mensuelle.
@@ -58,7 +58,7 @@ goods_rebuild: Aider à reconstruire les bâtiments clés même sous attaque
 goods_rebuild_details: Un seigneur qui a perdu son camp de mercenaires, sa caserne, son armurerie, son grenier ou son marché en a besoin pour pouvoir se défendre. Tant qu'il en a moins qu'auparavant, le bois et la pierre lui parviennent en priorité — même lorsqu'il est menacé.
 goods_useful: N'envoyer que ce qui est vraiment utile
 goods_useful_details: Envoie la quantité réellement voulue par le demandeur (le jeu demande le double) et jamais plus qu'il ne peut stocker — tout excédent au-delà de la limite de stockage d'une IA serait vendu à perte. Les armes et la nourriture passent en premier ; le bois, la pierre et les matériaux de construction ne sont envoyés que si le demandeur n'est pas menacé.
-goods_weak: Les alliés affaiblis reçoivent au moins la moitié
+goods_weak: Les alliés affaiblis reçoivent jusqu'à la moitié
 goods_weak_details: Lorsque l'allié demandeur est affaibli et que le donneur ne peut pas céder la totalité, il envoie jusqu'à la moitié de la quantité demandée. Pour cela, il peut descendre jusqu'à la moitié de son propre minimum.
 help_enabled: Les alliés IA s'entraident militairement
 help_enabled_details: Lorsque des ennemis s'approchent d'un seigneur IA, ses alliés IA envoient leur armée d'attaque vers son château, comme lorsqu'ils répondent à votre appel à l'aide. Un allié n'intervient que s'il n'est pas lui-même menacé, n'est pas déjà en train d'attaquer et dispose de la taille d'armée requise par son personnage IA avant d'aider. Les troupes restent au moins jusqu'à ce que le château soit de nouveau en sécurité (voir l'option suivante).
@@ -69,7 +69,7 @@ help_months_tooltip: Les renforts restent au château de l'allié au moins ce no
 help_recall: Rappeler les renforts plus tôt quand
 help_recall_army: Sa propre armée est prête à attaquer
 help_recall_strong: L'allié se sent de nouveau fort
-help_recall_tooltip: Rappelle immédiatement les renforts, même avant la fin de la durée minimale. Tant qu'ils sont absents, leur seigneur n'attaque personne, donc un long séjour retarde sa propre attaque. « Sa propre armée est prête à attaquer » les rappelle dès que le seigneur aidant atteint la taille d'armée requise pour attaquer (les troupes chez l'allié comptent). Après une aide, un seigneur attend 3 mois, ou jusqu'à lancer sa propre attaque, avant d'aider à nouveau.
+help_recall_tooltip: Rappelle immédiatement les renforts, même avant la fin de la durée minimale. « Sa propre armée est prête à attaquer » les rappelle dès que le seigneur aidant atteint la taille d'armée requise pour attaquer (les troupes chez l'allié comptent).
 improvements: Améliorations
 misc: Divers
 tags.behavior: Comportement

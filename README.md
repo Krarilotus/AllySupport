@@ -8,6 +8,16 @@ sends 75% of its attack army and keeps the rest home.
 What the module does, in plain English, is in `module/locale/description-en.md`; how it does it
 is in the comment at the top of `module/init.lua`.
 
+## Notes on the settings
+
+- **Recruiting gold on top of the AI character's own:** a lord's recruiting gold is its AI
+  character's "recruit gold threshold" plus this value. The game makes an AI hold that
+  threshold before it spends each month (often only 0-100); the default adds roughly the price
+  of a handful of troops.
+- **Call the helpers home sooner:** while the helpers are away their lord doesn't attack anyone,
+  so a long stay also holds back its own attack. After a help ends, a lord waits 3 months, or
+  until it has set out on its own attack, before it helps again.
+
 ## Working on it
 
 1. Edit under `module/`.

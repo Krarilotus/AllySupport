@@ -32,7 +32,7 @@ gold_player_details: Ha aranyat kérsz egy MI-szövetségestől, elküldi, ha ut
 gold_recruit: Gyenge szövetséges toborzásának támogatása
 gold_recruit_buffer: Toborzási arany az MI-karakter saját küszöbe felett (arany)
 gold_recruit_buffer_tooltip: |-
-  A lord toborzási aranya az MI-karakter „toborzási aranyküszöbe” plusz ez az összeg. Ez a küszöb az, amennyit a játék visszatartat az MI-vel havi költés előtt (gyakran csak 0–100); ez az összeg nagyjából néhány katona árát teszi hozzá.
+  A lord toborzási aranya az MI-karakter „toborzási aranyküszöbe” plusz ez az összeg.
 
   Akkor érvényes, ha az MI személyisége (AIC) nem ad meg saját értéket.
 gold_recruit_details: Ha egy MI-lord gyenge vagy fenyegetett, és nincs aranya toborozni, egy jobb helyzetű szövetséges elküldi neki a hiányzó összeget — a saját tartaléka feletti aranyból, a havi arányon belül.
@@ -58,7 +58,7 @@ goods_rebuild: Kulcsfontosságú épületek újjáépítésének segítése tám
 goods_rebuild_details: Ha egy lord elvesztette zsoldostáborát, kaszárnyáját, fegyvertárát, magtárát vagy piacát, ezek nélkül nem tud védekezni. Amíg kevesebb van neki valamelyikből, mint korábban, elsőként kap fát és követ — még akkor is, ha fenyegetik.
 goods_useful: Csak hasznos küldemények küldése
 goods_useful_details: Csak a ténylegesen kért mennyiséget küldi (a játék a dupláját kéri), és sosem többet, mint amennyit a kérő tárolni tud — a raktárkorlát feletti részt az MI veszteséggel adná el. A fegyverek és az élelem elsőbbséget élveznek; fa, kő és más építőanyag csak akkor megy, ha a kérő nincs fenyegetve.
-goods_weak: A gyenge szövetségesek legalább a felét megkapják
+goods_weak: A gyenge szövetségesek legfeljebb a felét megkapják
 goods_weak_details: Ha a kérő szövetséges gyenge állapotban van, és az adó nem tudja a teljes mennyiséget nélkülözni, a kért mennyiség feléig mégis küld, szükség esetén saját minimuma feléig lemenve.
 help_enabled: Az MI-szövetségesek csapatokkal segítik egymást
 help_enabled_details: Ha ellenség közelít egy MI-lordhoz, az MI-szövetségesei elküldik a támadó seregüket a várához, akárcsak amikor te kérsz segítséget. Egy szövetséges csak akkor jön, ha maga nincs fenyegetve, nem támad éppen, és elérte az MI-karaktere által megkövetelt seregméretet. A csapatok legalább addig maradnak, amíg a vár újra biztonságban van (lásd a következő beállítást).
@@ -69,7 +69,7 @@ help_months_tooltip: A segítők legalább ennyi játékhónapig maradnak a szö
 help_recall: Segítők korábbi hazahívása, amikor
 help_recall_army: Saját serege támadásra kész
 help_recall_strong: A szövetséges újra erősnek érzi magát
-help_recall_tooltip: Azonnal hazahívja a segítőket, akár a minimális idő letelte előtt is. Amíg távol vannak, a lordjuk nem támad senkit, így a hosszú tartózkodás késlelteti a saját támadását. A „Saját serege támadásra kész” akkor hívja őket vissza, amint a segítő lord eléri a támadáshoz szükséges seregméretet (a szövetségesnél lévő csapatok is beleszámítanak). A segítség után a lord 3 hónapot — vagy a saját támadásáig — vár, mielőtt újra segítene.
+help_recall_tooltip: Azonnal hazahívja a segítőket, akár a minimális idő letelte előtt is. A „Saját serege támadásra kész” akkor hívja őket vissza, amint a segítő lord eléri a támadáshoz szükséges seregméretet (a szövetségesnél lévő csapatok is beleszámítanak).
 improvements: Fejlesztések
 misc: Egyéb
 tags.behavior: Viselkedés
